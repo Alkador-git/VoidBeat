@@ -109,3 +109,4 @@ Objectif : Transformer le prototype en une expérience viscérale, narrative et 
 - Shaders
 
   * [ ] - Effet spaghetti
+  * [ ] - Distorsion gravitationelle
