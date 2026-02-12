@@ -4,7 +4,9 @@ SideScroller Game
 Priorités de Développement - VoidBeat
 
 Ce document suit l'évolution du projet, du prototype technique à la version finale.
+
 🟢 Phase Alpha :
+
 Objectif : Valider la boucle de gameplay fondamentale (Input + Rythme). Utilisation de placeholders géométriques simples.
 Objectif 1 : Système de Rythme & Conductor
  * [ ] T1.1 - Créer le "Conductor" : Système de tracking du temps en millisecondes (ms) indépendant du framerate.
@@ -15,7 +17,9 @@ Objectif 2 : Mouvement & Physique de base
  * [ ] T1.5 - Programmer "L'Horizon de la Mort" : Ligne de collision gauche qui déclenche le Game Over si rattrapée.
 Objectif 3 : Architecture de Niveau
  * [ ] T1.6 - Créer un système de spawning d'obstacles (cubes/sphères) synchronisé sur la timeline musicale.
+
 🟡 Phase Bêta :
+
 Objectif : Implémenter les mécaniques avancées et injecter le "Feeling" (VFX/SFX).
 Objectif 1 : Gestion du Flow & Combat
  * [ ] T2.1 - Programmer la jauge de "Boost Cinétique" alimentée par les actions réussies.
@@ -27,7 +31,9 @@ Objectif 2 : Dynamisme & Environnement
  * [ ] T2.6 - Implémenter les mécaniques de gravité changeante (inversion et étirement spatial).
 Objectif 3 : Feedback Sensoriel (Juice)
  * [ ] T2.7 - Première passe VFX/SFX : Screen shake, flashs néon synchronisés et retours sonores d'impact.
+
 🔴 Phase V1 : Finition & Narration
+
 Objectif : Transformer le prototype en une expérience viscérale, narrative et optimisée.
 Objectif 1 : Antagoniste & Boss Final
  * [ ] T3.1 - Développer l'IA de Néant-X : Patterns d'attaque rythmiques, vagues de débris et ondes de choc.
