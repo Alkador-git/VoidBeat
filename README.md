@@ -66,31 +66,55 @@ Objectif : Transformer le prototype en une expérience viscérale, narrative et 
 🖌 Assets Graphique :
 
 - Main character / K-Z0 :
-  - Spritesheet mouvements : 
-* [ ] - Course
-* [ ] - Saut
-* [ ] - Glissade
-* [ ] - Chute
-* [ ] - Dash
-* [ ] - Attaque
-* [ ] - Dégâts subi
-* [ ] - Idle
+
+  - Spritesheet mouvements :
+
+  * [ ] - Course
+  * [ ] - Saut
+  * [ ] - Glissade
+  * [ ] - Chute
+  * [ ] - Dash
+  * [ ] - Attaque
+  * [ ] - Dégâts subi
+  * [ ] - Idle
+
   - Character Diegetic UI :
-* [ ] - Noyau
-* [ ] - Echarpe
+
+  * [ ] - Noyau
+  * [ ] - Jauge 
+  * [ ] - Echarpe
+
 - Ennemies :
+
   - Drones, sentinelles, boss / néant X :
-* [ ] - Drone
-* [ ] - Sentinelle
-* [ ] - Néant X
+
+  * [ ] - Drone
+  * [ ] - Sentinelle
+  * [ ] - Néant X
+
 - Environnements :
+
   - Tilemaps :
-* [ ] - Intérieur du bunker
-* [ ] - Mégapole / Ville
-* [ ] - Horizon du trou noir
-* [ ] - Coeur du trou noir
+
+  * [ ] - Intérieur du bunker
+  * [ ] - Mégapole / Ville
+  * [ ] - Horizon du trou noir
+  * [ ] - Coeur du trou noir
+
   - Decorations :
-* [ ] - 
-* [ ] - 
-* [ ] - 
-* [ ] - 
+
+  * [ ] - 
+  * [ ] - 
+  * [ ] - 
+  * [ ] -
+
+- Particules et VFX :
+
+  * [ ] - Onde gravitationelle
+  * [ ] - Particules void
+  * [ ] - Effets glitch et aberration chromatique
+  * [ ] - Impacte attaque
+
+- Shaders
+
+  * [ ] - Effet spaghetti
