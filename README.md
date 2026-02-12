@@ -86,8 +86,6 @@ Objectif : Transformer le prototype en une expérience viscérale, narrative et 
 
 - Ennemies :
 
-  - Drones, sentinelles, boss / néant X :
-
   * [ ] - Drone
   * [ ] - Sentinelle
   * [ ] - Néant X
@@ -100,13 +98,6 @@ Objectif : Transformer le prototype en une expérience viscérale, narrative et 
   * [ ] - Mégapole / Ville
   * [ ] - Horizon du trou noir
   * [ ] - Coeur du trou noir
-
-  - Decorations :
-
-  * [ ] - 
-  * [ ] - 
-  * [ ] - 
-  * [ ] -
 
 - Particules et VFX :
 
