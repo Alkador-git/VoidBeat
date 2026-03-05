@@ -1,4 +1,5 @@
 # VoidBeat
+
 SideScroller Game
 
 Priorités de Développement - VoidBeat
@@ -7,22 +8,47 @@ Ce document suit l'évolution du projet, du prototype technique à la version fi
 
 🟢 Phase Alpha :
 
-Objectif : Valider la boucle de gameplay fondamentale (Input + Rythme). Utilisation de placeholders géométriques.
+Objectif : L'Alpha 1.0 a pour but de valider le prototype minimaliste, en prouvant que la boucle de gameplay fondamentale (Rythm-Runner et gestion du flow face à la menace) est opérationnelle.
 
-- Objectif 1 : Système de Rythme & Conductor
+* Objectif 1 : Déplacements de Base et Parkour
+* [ ] Implémenter la mécanique de course automatique du personnage vers la droite.
 
- * [ ] T1.1 - Créer le "Conductor" : Système de tracking du temps en millisecondes (ms) indépendant du framerate.
- * [ ] T1.2 - Implémenter le système de détection de "Hit Windows" (Perfect, Good, Miss) basé sur le BPM.
- * [ ] T1.3 - Mettre en place le système de synchronisation audio/visuel pour les notes.
+* [ ] Programmer la gestion de la verticalité, incluant la fonctionnalité de saut.
 
-- Objectif 2 : Mouvement & Physique de base
+* [ ] Intégrer la mécanique de glissade.
 
- * [ ] T1.4 - Développer le moteur de mouvement : Course automatique stable et physique du saut/glissade.
- * [ ] T1.5 - Programmer "L'Horizon de la Mort" : Ligne de collision gauche qui déclenche le Game Over si rattrapée.
+* [ ] Développer le système de "Dash Multidirectionnel" pour permettre des trajectoires non linéaires à haute vitesse.
 
-- Objectif 3 : Architecture de Niveau
 
- * [ ] T1.6 - Créer un système de spawning d'obstacles (cubes/sphères) synchronisé sur la timeline musicale.
+* Objectif 2 : Implémentation du Rythme et du Flow
+* [ ] Intégrer un système de tempo basique lié à une piste musicale de test.
+
+* [ ] Créer l'interface de la barre de "Boost Cinétique".
+
+* [ ] Programmer le système où chaque action réussie en rythme (saut, attaque) alimente cette barre de boost.
+
+* Objectif 3 : La Menace du Trou Noir (Condition de Défaite)
+* [ ] Représenter visuellement la menace du trou noir sur le bord gauche de l'écran.
+
+* [ ] Programmer la mécanique d'approche du trou noir si le rythme du joueur chute.
+
+* [ ] Implémenter la condition de défaite : le joueur est aspiré si le trou noir se rapproche trop.
+
+* Objectif 4 : Interactions, Obstacles et Combat
+* [ ] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
+
+* [ ] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
+
+* [ ] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
+
+* Objectif 5 : Critères de Validation du Niveau Test
+* [ ] Configurer une fin de niveau pour valider la condition de victoire : survivre jusqu'au bout du parcours.
+
+* [ ] S'assurer que l'exécution rythmique d'une attaque offre bien un retour visuel, sonore, et un boost de vitesse.
+
+* [ ] Valider que le joueur ressent la pression temporelle constante induite par le bord gauche de l'écran.
+
+---
 
 🟡 Phase Bêta :
 
@@ -44,7 +70,7 @@ Objectif : Implémenter les mécaniques avancées et injecter le "Feeling" (VFX/
 
  * [ ] T2.7 - Première passe VFX/SFX : Screen shake, flashs néon synchronisés et retours sonores d'impact.
 
-🔴 Phase V1 : Finition & Narration
+🔴 Phase Release : Finition & Narration
 
 Objectif : Transformer le prototype en une expérience viscérale, narrative et optimisée.
 
