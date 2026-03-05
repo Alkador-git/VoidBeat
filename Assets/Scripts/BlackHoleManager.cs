@@ -1,0 +1,40 @@
+using UnityEngine;
+
+public class BlackHoleManager : MonoBehaviour
+{
+    [Header("Paramètres de Proximité")]
+    public Transform player;
+    public float safeDistance = 15f; // Distance max quand le boost est plein
+    public float deathDistance = 2f; // Distance fatale
+
+    [Header("Visuels (Néant-X)")]
+    public SpriteRenderer blackHoleOverlay;
+    public Color voidColor = new Color(0.12f, 0f, 0.12f, 0.8f); // Violet profond
+
+    private float targetX;
+
+    void Update()
+    {
+        // Calculer la position cible basée sur le Boost Cinétique 
+        float boostFactor = BoostManager.Instance.currentBoost / BoostManager.Instance.maxBoost;
+        float currentDistance = Mathf.Lerp(deathDistance, safeDistance, boostFactor);
+
+        // Positionner le trou noir par rapport au joueur 
+        targetX = player.position.x - currentDistance;
+
+        // Interpolation fluide pour un effet de "souffle" organique
+        transform.position = new Vector3(Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * 2f), player.position.y, 0);
+
+        // Vérifier la condition de défaite
+        if (player.position.x - transform.position.x <= deathDistance + 0.5f)
+        {
+            TriggerSpaghettification();
+        }
+    }
+
+    void TriggerSpaghettification()
+    {
+        Debug.Log("K-Z0 est absorbé par le Néant-X...");
+        // déclencher l'écran de Game Over ou une distorsion extrême 
+    }
+}
