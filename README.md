@@ -8,7 +8,7 @@ Ce document suit l'évolution du projet, du prototype technique à la version fi
 
 🟢 Phase Alpha :
 
-Objectif : L'Alpha 1.0 a pour but de valider le prototype minimaliste, en prouvant que la boucle de gameplay fondamentale (Rythm-Runner et gestion du flow face à la menace) est opérationnelle.
+Objectif : Prototype minimaliste opérationnel.
 
 * Objectif 1 : Déplacements de Base et Parkour
 * [ ] Implémenter la mécanique de course automatique du personnage vers la droite.
@@ -52,7 +52,7 @@ Objectif : L'Alpha 1.0 a pour but de valider le prototype minimaliste, en prouva
 
 🟡 Phase Bêta :
 
-Objectif : Implémenter les mécaniques avancées et injecter le "Feeling" (VFX/SFX).
+Objectif : Implémenter les mécaniques avancées et ajouter les feedback (VFX/SFX).
 
 - Objectif 1 : Gestion du Flow & Combat
 
@@ -72,7 +72,7 @@ Objectif : Implémenter les mécaniques avancées et injecter le "Feeling" (VFX/
 
 🔴 Phase Release : Finition & Narration
 
-Objectif : Transformer le prototype en une expérience viscérale, narrative et optimisée.
+Objectif : Pauffiner afin de passer d'un prototype à un jeu complet.
 
 - Objectif 1 : Antagoniste & Boss Final
 
