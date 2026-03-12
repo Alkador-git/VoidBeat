@@ -47,7 +47,7 @@ Material:
     m_Floats:
     - _AberrationIntensity: 0.25
     - _BlackHoleRadius: 0.575
-    - _CenterY: 0
+    - _CenterY: 0.315
     - _DesatIntensity: 1
     - _EnableExternalAlpha: 0
     - _FlareIntensity: 0.5
