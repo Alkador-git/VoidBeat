@@ -11,6 +11,10 @@ public class BlackHoleManager : MonoBehaviour
     public SpriteRenderer blackHoleOverlay;
     public Color voidColor = new Color(0.12f, 0f, 0.12f, 0.8f); // Violet profond
 
+    [Header("Colliders de défaite")]
+    public Collider2D playerCollider;
+    public Collider2D blackHoleCollider;
+
     private float targetX;
 
     void Update()
@@ -24,9 +28,13 @@ public class BlackHoleManager : MonoBehaviour
 
         // Interpolation fluide pour un effet de "souffle" organique
         transform.position = new Vector3(Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * 2f), player.position.y, 0);
+    }
 
-        // Vérifier la condition de défaite
-        if (player.position.x - transform.position.x <= deathDistance + 0.5f)
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Collision entre les deux colliders assignés
+        if ((collision == playerCollider && blackHoleCollider != null && collision.IsTouching(blackHoleCollider)) ||
+            (collision == blackHoleCollider && playerCollider != null && collision.IsTouching(playerCollider)))
         {
             TriggerSpaghettification();
         }

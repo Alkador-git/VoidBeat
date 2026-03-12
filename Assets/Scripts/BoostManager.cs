@@ -30,12 +30,6 @@ public class BoostManager : MonoBehaviour
 
         // Changement de couleur selon l'urgence
         if (fillImage) fillImage.color = Color.Lerp(lowColor, normalColor, currentBoost / maxBoost);
-
-        if (currentBoost <= 0)
-        {
-            // Logique de défaite : aspiré par le trou noir 
-            Debug.Log("K-Z0 a été aspiré par le Néant-X !");
-        }
     }
 
     public void AddBoost()
