@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,10 +32,22 @@ public class BoostManager : MonoBehaviour
         // Changement de couleur selon l'urgence
         if (fillImage) fillImage.color = Color.Lerp(lowColor, normalColor, currentBoost / maxBoost);
     }
-
     public void AddBoost()
     {
-        currentBoost += boostGain;
-        // Effets visuels ici (particules, tremblement d'écran)
+        AddBoost(boostGain);
     }
+
+    public void AddBoost(float boostReward)
+    {
+        currentBoost += boostGain;
+        currentBoost = Mathf.Clamp(currentBoost, 0, maxBoost);
+    }
+
+    public void RemoveBoost(float amount)
+    {
+        currentBoost -= amount;
+
+        currentBoost = Mathf.Clamp(currentBoost, 0, maxBoost);
+    }
+
 }

@@ -4,8 +4,8 @@ public class BlackHoleManager : MonoBehaviour
 {
     [Header("Paramètres de Proximité")]
     public Transform player;
-    public float safeDistance = 15f; // Distance max quand le boost est plein
-    public float deathDistance = 2f; // Distance fatale
+    public float safeDistance = 15f;
+    public float deathDistance = 2f;
 
     [Header("Visuels (Néant-X)")]
     public SpriteRenderer blackHoleOverlay;
@@ -27,7 +27,7 @@ public class BlackHoleManager : MonoBehaviour
         targetX = player.position.x - currentDistance;
 
         // Interpolation fluide pour un effet de "souffle" organique
-        transform.position = new Vector3(Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * 2f), player.position.y, 0);
+        transform.position = new Vector2(Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * 2f), 1.5f);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
