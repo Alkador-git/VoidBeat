@@ -35,18 +35,18 @@ Objectif : Prototype minimaliste opérationnel.
 * [x] Implémenter la condition de défaite : le joueur est aspiré si le trou noir se rapproche trop.
 
 * Objectif 4 : Interactions, Obstacles et Combat
-* [0] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
+* [ ] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
 
-* [0] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
+* [ ] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
 
-* [0] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
+* [ ] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
 
 * Objectif 5 : Critères de Validation du Niveau Test
-* [0] Configurer une fin de niveau pour valider la condition de victoire : survivre jusqu'au bout du parcours.
+* [ ] Configurer une fin de niveau pour valider la condition de victoire : survivre jusqu'au bout du parcours.
 
-* [0] S'assurer que l'exécution rythmique d'une attaque offre bien un retour visuel, sonore, et un boost de vitesse.
+* [ ] S'assurer que l'exécution rythmique d'une attaque offre bien un retour visuel, sonore, et un boost de vitesse.
 
-* [0] Valider que le joueur ressent la pression temporelle constante induite par le bord gauche de l'écran.
+* [ ] Valider que le joueur ressent la pression temporelle constante induite par le bord gauche de l'écran.
 
 ---
 
