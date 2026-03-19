@@ -35,9 +35,9 @@ Objectif : Prototype minimaliste opérationnel.
 * [x] Implémenter la condition de défaite : le joueur est aspiré si le trou noir se rapproche trop.
 
 * Objectif 4 : Interactions, Obstacles et Combat
-* [ ] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
+* [x] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
 
-* [ ] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
+* [x] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
 
 * [ ] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
 
