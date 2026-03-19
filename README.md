@@ -11,42 +11,42 @@ Ce document suit l'évolution du projet, du prototype technique à la version fi
 Objectif : Prototype minimaliste opérationnel.
 
 * Objectif 1 : Déplacements de Base et Parkour
-* [ ] Implémenter la mécanique de course automatique du personnage vers la droite.
+* [x] Implémenter la mécanique de course automatique du personnage vers la droite.
 
-* [ ] Programmer la gestion de la verticalité, incluant la fonctionnalité de saut.
+* [x] Programmer la gestion de la verticalité, incluant la fonctionnalité de saut.
 
-* [ ] Intégrer la mécanique de glissade.
+* [x] Intégrer la mécanique de glissade.
 
-* [ ] Développer le système de "Dash Multidirectionnel" pour permettre des trajectoires non linéaires à haute vitesse.
+* [x] Développer le système de "Dash Multidirectionnel" pour permettre des trajectoires non linéaires à haute vitesse.
 
 
 * Objectif 2 : Implémentation du Rythme et du Flow
-* [ ] Intégrer un système de tempo basique lié à une piste musicale de test.
+* [0] Intégrer un système de tempo basique lié à une piste musicale de test.
 
-* [ ] Créer l'interface de la barre de "Boost Cinétique".
+* [x] Créer l'interface de la barre de "Boost Cinétique".
 
-* [ ] Programmer le système où chaque action réussie en rythme (saut, attaque) alimente cette barre de boost.
+* [x] Programmer le système où chaque action réussie en rythme (saut, attaque) alimente cette barre de boost.
 
 * Objectif 3 : La Menace du Trou Noir (Condition de Défaite)
-* [ ] Représenter visuellement la menace du trou noir sur le bord gauche de l'écran.
+* [x] Représenter visuellement la menace du trou noir sur le bord gauche de l'écran.
 
-* [ ] Programmer la mécanique d'approche du trou noir si le rythme du joueur chute.
+* [x] Programmer la mécanique d'approche du trou noir si le rythme du joueur chute.
 
-* [ ] Implémenter la condition de défaite : le joueur est aspiré si le trou noir se rapproche trop.
+* [x] Implémenter la condition de défaite : le joueur est aspiré si le trou noir se rapproche trop.
 
 * Objectif 4 : Interactions, Obstacles et Combat
-* [ ] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
+* [0] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
 
-* [ ] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
+* [0] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
 
-* [ ] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
+* [0] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
 
 * Objectif 5 : Critères de Validation du Niveau Test
-* [ ] Configurer une fin de niveau pour valider la condition de victoire : survivre jusqu'au bout du parcours.
+* [0] Configurer une fin de niveau pour valider la condition de victoire : survivre jusqu'au bout du parcours.
 
-* [ ] S'assurer que l'exécution rythmique d'une attaque offre bien un retour visuel, sonore, et un boost de vitesse.
+* [0] S'assurer que l'exécution rythmique d'une attaque offre bien un retour visuel, sonore, et un boost de vitesse.
 
-* [ ] Valider que le joueur ressent la pression temporelle constante induite par le bord gauche de l'écran.
+* [0] Valider que le joueur ressent la pression temporelle constante induite par le bord gauche de l'écran.
 
 ---
 
