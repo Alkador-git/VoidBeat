@@ -45,13 +45,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AberrationIntensity: 0.1
-    - _BlackHoleRadius: 0.25
+    - _AberrationIntensity: 0.3
+    - _BlackHoleRadius: 0.58
     - _CenterY: 0.315
-    - _DesatIntensity: 0.35
+    - _DesatIntensity: 1
     - _EnableExternalAlpha: 0
-    - _FlareIntensity: 0.2
-    - _Intensity: 0.44005919
+    - _FlareIntensity: 0.6
+    - _Intensity: 1
     - _Shininess: 0.078125
     - _StretchCurvature: 5
     - _StretchIntensity: 0
