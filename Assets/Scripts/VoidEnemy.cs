@@ -21,20 +21,32 @@ public class VoidEnemy : MonoBehaviour
         Die();
     }
 
+    [Header("Effets de Collision")]
+    public float shakeMagnitude = 0.2f;
+    public float shakeDuration = 0.15f;
+    public Vector2 knockbackForce = new Vector2(-1.5f, 0.5f);
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // On vérifie si c'est le joueur
         if (other.CompareTag("Player"))
         {
+            // Perte de Boost
             if (BoostManager.Instance != null)
-            {
                 BoostManager.Instance.RemoveBoost(boostPenalty);
-                Debug.Log("<color=red>Collision ! Perte de Boost.</color>");
-            }
 
+            // Knockback
+            if (other.TryGetComponent<KZ0Controller>(out KZ0Controller controller))
+                controller.ApplyKnockback(knockbackForce);
+
+            // Screen Shake
+            if (CameraShake.Instance != null)
+                StartCoroutine(CameraShake.Instance.Shake(shakeDuration, shakeMagnitude));
+
+            Debug.Log("<color=red>IMPACT ! K-Z0 perd l'équilibre.</color>");
             Die();
         }
     }
+
 
     private void Die()
     {

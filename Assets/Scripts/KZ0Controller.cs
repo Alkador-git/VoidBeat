@@ -29,6 +29,10 @@ public class KZ0Controller : MonoBehaviour
     private bool isDashing = false;
     private Vector2 currentDashVector = Vector2.zero;
 
+    [Header("Effets d'Impact (Knockback)")]
+    public float knockbackDuration = 0.2f;
+    private bool isKnockedBack = false;
+
     private Rigidbody2D rb;
 
     void Start()
@@ -40,6 +44,9 @@ public class KZ0Controller : MonoBehaviour
 
     void Update()
     {
+        // Empêcher les inputs si on est projeté en arrière
+        if (isKnockedBack) return;
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         // --- ENTRÉES ---
@@ -61,7 +68,7 @@ public class KZ0Controller : MonoBehaviour
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 0f, Time.deltaTime / slideEaseDuration);
         }
 
-        // Dash avec filtrage directionnel
+        // Dash
         if (GetDashInput() && canDash)
         {
             HandleRhythmicAction();
@@ -83,20 +90,32 @@ public class KZ0Controller : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 baseVel = GetBaseRunVelocity();
+        if (isDashing || isKnockedBack) return;
 
-        if (isDashing)
-        {
-            // Addition de la force de dash calculée à la vitesse de base
-            rb.linearVelocity = new Vector2(baseVel.x + currentDashVector.x, baseVel.y + currentDashVector.y);
-        }
-        else
-        {
-            rb.linearVelocity = baseVel;
-        }
+        Vector2 baseVel = GetBaseRunVelocity();
+        rb.linearVelocity = baseVel;
     }
 
     // --- LOGIQUE DE MOUVEMENT ---
+
+    public void ApplyKnockback(Vector2 force)
+    {
+        if (!isKnockedBack)
+        {
+            StartCoroutine(KnockbackRoutine(force));
+        }
+    }
+
+    private IEnumerator KnockbackRoutine(Vector2 force)
+    {
+        isKnockedBack = true;
+
+        rb.linearVelocity = force;
+
+        yield return new WaitForSeconds(knockbackDuration);
+
+        isKnockedBack = false;
+    }
 
     void Jump() => rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 
@@ -122,19 +141,20 @@ public class KZ0Controller : MonoBehaviour
         while (elapsed < dashDuration)
         {
             float curveValue = dashEase.Evaluate(elapsed / dashDuration);
-
-            // On applique séparément les forces sur X et Y
             float fX = dir.x * dashForceX * curveValue;
             float fY = dir.y * dashForceY * curveValue;
 
             currentDashVector = new Vector2(fX, fY);
+
+            // Ajout du vecteur de dash à la course auto
+            rb.linearVelocity = new Vector2(GetBaseRunVelocity().x + currentDashVector.x, GetBaseRunVelocity().y + currentDashVector.y);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         currentDashVector = Vector2.zero;
-        rb.gravityScale = 1.35f; // Gravité un peu plus lourde
+        rb.gravityScale = 1.35f;
         isDashing = false;
 
         yield return new WaitForSeconds(0.75f);

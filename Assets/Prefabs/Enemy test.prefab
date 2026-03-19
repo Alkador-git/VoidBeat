@@ -154,3 +154,6 @@ MonoBehaviour:
   boostReward: 10
   boostPenalty: 10
   deathEffect: {fileID: 0}
+  shakeMagnitude: 5
+  shakeDuration: 1
+  knockbackForce: {x: -1.25, y: 0.4}
