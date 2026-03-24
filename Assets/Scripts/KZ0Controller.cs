@@ -12,6 +12,11 @@ public class KZ0Controller : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    [Header("Velocité Maximale")]
+    public float maxHorizontalVelocity = 30f;
+    public float maxVerticalVelocity = 50f;
+    public float minVerticalVelocityUp = 10f;
+
     [Header("Glissade (Smooth)")]
     public float slideSpeedMultiplier = 1.2f;
     public float slideEaseDuration = 0.2f;
@@ -35,6 +40,7 @@ public class KZ0Controller : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    // Initialise les composants du joueur au démarrage
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,21 +48,19 @@ public class KZ0Controller : MonoBehaviour
         originalColliderSize = playerCollider.size;
     }
 
+    // Gère les entrées et actions du joueur chaque frame
     void Update()
     {
-        // Empêcher les inputs si on est projeté en arrière
         if (isKnockedBack) return;
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-        // --- ENTRÉES ---
         if (GetJumpInput() && isGrounded && !isSliding)
         {
             HandleRhythmicAction();
             Jump();
         }
 
-        // Glissade
         if (GetSlideInput() && isGrounded)
         {
             if (!isSliding) StartSlide();
@@ -68,7 +72,6 @@ public class KZ0Controller : MonoBehaviour
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 0f, Time.deltaTime / slideEaseDuration);
         }
 
-        // Dash
         if (GetDashInput() && canDash)
         {
             HandleRhythmicAction();
@@ -82,22 +85,46 @@ public class KZ0Controller : MonoBehaviour
         }
     }
 
+    // Limite la vélocité aux valeurs maximales définies
+    private Vector2 ClampVelocity(Vector2 velocity)
+    {
+        velocity.x = Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity);
+        velocity.y = Mathf.Clamp(velocity.y, -maxVerticalVelocity, maxVerticalVelocity);
+        return velocity;
+    }
+
+    // Limite la vélocité avec contrainte minimale verticale (pour dash/boost)
+    private Vector2 ClampVelocityWithMinimum(Vector2 velocity)
+    {
+        velocity.x = Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity);
+
+        if (velocity.y > 0)
+        {
+            velocity.y = Mathf.Max(velocity.y, minVerticalVelocityUp);
+        }
+
+        velocity.y = Mathf.Clamp(velocity.y, -maxVerticalVelocity, maxVerticalVelocity);
+        return velocity;
+    }
+
+    // Retourne la vélocité de base avec le modificateur de glissade appliqué
     private Vector2 GetBaseRunVelocity()
     {
         float targetMultiplier = Mathf.Lerp(1f, slideSpeedMultiplier, currentSlideLerp);
         return new Vector2(moveSpeed * targetMultiplier, rb.linearVelocity.y);
     }
 
+    // Met à jour la vélocité du joueur dans la boucle physique
     void FixedUpdate()
     {
         if (isDashing || isKnockedBack) return;
 
         Vector2 baseVel = GetBaseRunVelocity();
-        rb.linearVelocity = baseVel;
+        rb.linearVelocity = ClampVelocity(baseVel);
     }
 
-    // --- LOGIQUE DE MOUVEMENT ---
 
+    // Applique un knockback au joueur
     public void ApplyKnockback(Vector2 force)
     {
         if (!isKnockedBack)
@@ -106,31 +133,36 @@ public class KZ0Controller : MonoBehaviour
         }
     }
 
+    // Coroutine qui gère la durée et l'effet du knockback
     private IEnumerator KnockbackRoutine(Vector2 force)
     {
         isKnockedBack = true;
 
-        rb.linearVelocity = force;
+        rb.linearVelocity = ClampVelocity(force);
 
         yield return new WaitForSeconds(knockbackDuration);
 
         isKnockedBack = false;
     }
 
-    void Jump() => rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+    // Fait sauter le joueur en modifiant sa vélocité verticale
+    void Jump() => rb.linearVelocity = ClampVelocity(new Vector2(rb.linearVelocity.x, jumpForce));
 
+    // Commence une glissade et réduit la taille du collider
     void StartSlide()
     {
         isSliding = true;
         playerCollider.size = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
     }
 
+    // Arrête une glissade et restaure la taille du collider
     void StopSlide()
     {
         isSliding = false;
         playerCollider.size = originalColliderSize;
     }
 
+    // Coroutine qui effectue le dash avec transition en courbe d'accélération
     IEnumerator PerformDash(Vector2 dir)
     {
         canDash = false;
@@ -146,8 +178,17 @@ public class KZ0Controller : MonoBehaviour
 
             currentDashVector = new Vector2(fX, fY);
 
-            // Ajout du vecteur de dash à la course auto
-            rb.linearVelocity = new Vector2(GetBaseRunVelocity().x + currentDashVector.x, GetBaseRunVelocity().y + currentDashVector.y);
+            Vector2 targetVelocity = new Vector2(GetBaseRunVelocity().x + currentDashVector.x, GetBaseRunVelocity().y + currentDashVector.y);
+
+            // Appliquer minVerticalVelocityUp seulement si le personnage monte ou le dash est dirigé vers le haut
+            if (dir.y > 0)
+            {
+                rb.linearVelocity = ClampVelocityWithMinimum(targetVelocity);
+            }
+            else
+            {
+                rb.linearVelocity = ClampVelocity(targetVelocity);
+            }
 
             elapsed += Time.deltaTime;
             yield return null;
@@ -161,11 +202,16 @@ public class KZ0Controller : MonoBehaviour
         canDash = true;
     }
 
-    // --- HELPERS INPUTS ---
+    // Vérifie si le joueur appuie sur une touche de saut
     private bool GetJumpInput() => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow);
+
+    // Vérifie si le joueur appuie sur une touche de glissade
     private bool GetSlideInput() => Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
+
+    // Vérifie si le joueur appuie sur une touche de dash
     private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetMouseButtonDown(1);
 
+    // Gère les actions qui se déclenchent au rythme de la musique
     private void HandleRhythmicAction()
     {
         if (BeatManager.Instance != null && BeatManager.Instance.IsActionOnBeat())

@@ -18,6 +18,7 @@ public class VoidLensingController : MonoBehaviour
     [Header("Seuils de Danger")]
     [Range(0f, 1f)] public float activationThreshold = 0.6f;
 
+    // Met à jour les effets de lentille en fonction du niveau de danger
     void Update()
     {
         if (BoostManager.Instance == null) return;
@@ -34,7 +35,6 @@ public class VoidLensingController : MonoBehaviour
             intensity = (dangerLevel - dangerThreshold) / (1.0f - dangerThreshold);
         }
 
-        // Activer/Désactiver les features pour économiser les performances
         if (featureManager != null)
         {
             featureManager.SetFeatureActive(lensingFeatureName, isDangerous);
@@ -49,6 +49,7 @@ public class VoidLensingController : MonoBehaviour
         }
     }
 
+    // Met à jour les paramètres du shader
     void UpdateShader(Material mat, float intensity)
     {
         if (mat == null) return;

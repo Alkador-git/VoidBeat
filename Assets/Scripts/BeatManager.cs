@@ -5,9 +5,9 @@ public class BeatManager : MonoBehaviour
     public static BeatManager Instance;
 
     [Header("Configuration Rythme")]
-    public float bpm = 120f; // Tempo de la Zone 1
+    public float bpm = 120f;
     public AudioSource musicSource;
-    public float beatWindow = 0.25f; // Marge d'erreur pour le joueur
+    public float beatWindow = 0.25f;
 
     private float beatInterval;
     private float nextBeatTime;

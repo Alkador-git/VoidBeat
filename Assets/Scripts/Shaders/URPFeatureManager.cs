@@ -7,6 +7,7 @@ public class URPFeatureManager : MonoBehaviour
     [Header("Référence")]
     public UniversalRendererData rendererData;
 
+    // Controle les renderer features
     public void SetFeatureActive(string featureName, bool active)
     {
         if (rendererData == null) return;
@@ -20,6 +21,7 @@ public class URPFeatureManager : MonoBehaviour
         }
     }
 
+    // Désactive les features lors de l'activation en mode édition
     void OnEnable()
     {
 #if UNITY_EDITOR
@@ -28,6 +30,7 @@ public class URPFeatureManager : MonoBehaviour
 #endif
     }
 
+    // Désactive les features lors de la validation en mode édition
     void OnValidate()
     {
 #if UNITY_EDITOR
@@ -36,6 +39,7 @@ public class URPFeatureManager : MonoBehaviour
 #endif
     }
 
+    // Désactive toutes les renderer features
     private void DisableAllFeatures()
     {
         if (rendererData == null) return;

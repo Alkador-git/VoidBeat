@@ -9,7 +9,6 @@ public class KZ0Combat : MonoBehaviour
 
     void Update()
     {
-        // Clic gauche, ou Touche E pour attaquer
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))
         {
             Slash();

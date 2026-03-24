@@ -15,8 +15,9 @@ public class VoidDistortionController : MonoBehaviour
     [Range(0f, 1f)] public float maxAberration = 0.4f;
     [Range(0f, 1f)] public float maxDesaturation = 1.0f;
     [Range(0f, 2f)] public float maxFlare = 1.5f;
-    public Color flareColor = new Color(0.7f, 0f, 1f); // Magenta Néant-X
+    public Color flareColor = new Color(0.7f, 0f, 1f);
 
+    // Met à jour les effets de distorsion en fonction du boost
     void Update()
     {
         if (distortionMaterial == null || BoostManager.Instance == null) return;
@@ -31,7 +32,6 @@ public class VoidDistortionController : MonoBehaviour
             effectIntensity = (dangerLevel - dangerThreshold) / (1.0f - dangerThreshold);
         }
 
-        // Envoi des paramètres configurables à l'Inspector
         distortionMaterial.SetFloat("_StretchIntensity", effectIntensity * maxStretch);
         distortionMaterial.SetFloat("_StretchCurvature", stretchCurvature);
         distortionMaterial.SetFloat("_AberrationIntensity", effectIntensity * maxAberration);

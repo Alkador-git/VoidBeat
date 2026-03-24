@@ -9,7 +9,7 @@ public class BlackHoleManager : MonoBehaviour
 
     [Header("Visuels (Néant-X)")]
     public SpriteRenderer blackHoleOverlay;
-    public Color voidColor = new Color(0.12f, 0f, 0.12f, 0.8f); // Violet profond
+    public Color voidColor = new Color(0.12f, 0f, 0.12f, 0.8f);
 
     [Header("Colliders de défaite")]
     public Collider2D playerCollider;
@@ -17,6 +17,7 @@ public class BlackHoleManager : MonoBehaviour
 
     private float targetX;
 
+    // Met à jour la position du trou noir en fonction du boost
     void Update()
     {
         // Calculer la position cible basée sur le Boost Cinétique 
@@ -30,6 +31,7 @@ public class BlackHoleManager : MonoBehaviour
         transform.position = new Vector2(Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * 2f), 1.5f);
     }
 
+    // Gère la collision du trou noir avec le joueur
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Collision entre les deux colliders assignés
@@ -40,9 +42,9 @@ public class BlackHoleManager : MonoBehaviour
         }
     }
 
+    // Déclenche l'absorption du joueur par le trou noir
     void TriggerSpaghettification()
     {
         Debug.Log("K-Z0 est absorbé par le Néant-X...");
-        // déclencher l'écran de Game Over ou une distorsion extrême 
     }
 }

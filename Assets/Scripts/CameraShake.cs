@@ -5,8 +5,10 @@ public class CameraShake : MonoBehaviour
 {
     public static CameraShake Instance;
 
+    // Initialise l'instance singleton au démarrage
     void Awake() => Instance = this;
 
+    // Crée un effet de tremblement de caméra pendant une durée donnée avec une intensité variable
     public IEnumerator Shake(float duration, float magnitude)
     {
         Vector3 originalPos = transform.localPosition;
