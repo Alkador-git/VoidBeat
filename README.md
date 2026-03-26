@@ -6,6 +6,8 @@ Priorités de Développement - VoidBeat
 
 Ce document suit l'évolution du projet, du prototype technique à la version finale.
 
+<img width="945" height="592" alt="image" src="https://github.com/user-attachments/assets/a37b94b7-bce8-43e2-8723-dc58bd2cf1fb" />
+
 🟢 Phase Alpha :
 
 Objectif : Prototype minimaliste opérationnel.
