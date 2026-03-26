@@ -55,15 +55,13 @@ Objectif : Implémenter les mécaniques avancées et ajouter les feedback (VFX/S
 
 - Objectif 1 : Gestion du Flow & Combat
 
- * [ ] T2.1 - Programmer la jauge de "Boost Cinétique" alimentée par les actions réussies.
- * [ ] T2.2 - Lier dynamiquement la distance entre le joueur et le trou noir au niveau de la jauge.
+ * [x] T2.1 - Programmer la jauge de "Boost Cinétique" alimentée par les actions réussies.
+ * [x] T2.2 - Lier dynamiquement la distance entre le joueur et le trou noir au niveau de la jauge.
  * [ ] T2.3 - Implémenter le Dash Multidirectionnel avec système de Target Lock sur les ennemis aériens.
- * [ ] T2.4 - Créer les "Ennemis-Notes" : Obstacles destructibles servant de déclencheurs rythmiques.
 
 - Objectif 2 : Dynamisme & Environnement
 
  * [ ] T2.5 - Développer le système de BPM dynamique (accélération fluide de la piste audio et de la vitesse de jeu).
- * [ ] T2.6 - Implémenter les mécaniques de gravité changeante (inversion et étirement spatial).
 
 - Objectif 3 : Feedback Sensoriel (Juice)
 
@@ -79,7 +77,7 @@ Objectif : Pauffiner afin de passer d'un prototype à un jeu complet.
 
 - Objectif 2 : Intégration Narrative & UI
 
- * [ ] T3.2 - Mettre en place le système de déclenchement des journaux audio et des cinématiques in-game.
+ * [ ] T3.2 - Mettre en place le système de déclenchement des cinématiques in-game.
  * [ ] T3.3 - Créer l'interface utilisateur (HUD) diégétique, les menus et le système de sauvegarde.
  * [ ] T3.4 - Implémenter le tableau des scores et les multiplicateurs.
 
