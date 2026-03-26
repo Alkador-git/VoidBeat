@@ -6,6 +6,8 @@ Priorités de Développement - VoidBeat
 
 Ce document suit l'évolution du projet, du prototype technique à la version finale.
 
+<img width="945" height="592" alt="image" src="https://github.com/user-attachments/assets/a37b94b7-bce8-43e2-8723-dc58bd2cf1fb" />
+
 🟢 Phase Alpha :
 
 Objectif : Prototype minimaliste opérationnel.
@@ -21,7 +23,7 @@ Objectif : Prototype minimaliste opérationnel.
 
 
 * Objectif 2 : Implémentation du Rythme et du Flow
-* [0] Intégrer un système de tempo basique lié à une piste musicale de test.
+* [x] Intégrer un système de tempo basique.
 
 * [x] Créer l'interface de la barre de "Boost Cinétique".
 
@@ -39,14 +41,11 @@ Objectif : Prototype minimaliste opérationnel.
 
 * [x] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
 
-* [ ] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
+* [x] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
 
 * Objectif 5 : Critères de Validation du Niveau Test
-* [ ] Configurer une fin de niveau pour valider la condition de victoire : survivre jusqu'au bout du parcours.
-
-* [ ] S'assurer que l'exécution rythmique d'une attaque offre bien un retour visuel, sonore, et un boost de vitesse.
-
-* [ ] Valider que le joueur ressent la pression temporelle constante induite par le bord gauche de l'écran.
+* [x] Ajout de checkpoints.
+* [x] Configurer une fin de niveau pour valider la condition de victoire.
 
 ---
 
@@ -56,15 +55,13 @@ Objectif : Implémenter les mécaniques avancées et ajouter les feedback (VFX/S
 
 - Objectif 1 : Gestion du Flow & Combat
 
- * [ ] T2.1 - Programmer la jauge de "Boost Cinétique" alimentée par les actions réussies.
- * [ ] T2.2 - Lier dynamiquement la distance entre le joueur et le trou noir au niveau de la jauge.
+ * [x] T2.1 - Programmer la jauge de "Boost Cinétique" alimentée par les actions réussies.
+ * [x] T2.2 - Lier dynamiquement la distance entre le joueur et le trou noir au niveau de la jauge.
  * [ ] T2.3 - Implémenter le Dash Multidirectionnel avec système de Target Lock sur les ennemis aériens.
- * [ ] T2.4 - Créer les "Ennemis-Notes" : Obstacles destructibles servant de déclencheurs rythmiques.
 
 - Objectif 2 : Dynamisme & Environnement
 
  * [ ] T2.5 - Développer le système de BPM dynamique (accélération fluide de la piste audio et de la vitesse de jeu).
- * [ ] T2.6 - Implémenter les mécaniques de gravité changeante (inversion et étirement spatial).
 
 - Objectif 3 : Feedback Sensoriel (Juice)
 
@@ -80,7 +77,7 @@ Objectif : Pauffiner afin de passer d'un prototype à un jeu complet.
 
 - Objectif 2 : Intégration Narrative & UI
 
- * [ ] T3.2 - Mettre en place le système de déclenchement des journaux audio et des cinématiques in-game.
+ * [ ] T3.2 - Mettre en place le système de déclenchement des cinématiques in-game.
  * [ ] T3.3 - Créer l'interface utilisateur (HUD) diégétique, les menus et le système de sauvegarde.
  * [ ] T3.4 - Implémenter le tableau des scores et les multiplicateurs.
 
