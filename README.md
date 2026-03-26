@@ -41,7 +41,7 @@ Objectif : Prototype minimaliste opérationnel.
 
 * [x] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
 
-* [ ] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
+* [x] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
 
 * Objectif 5 : Critères de Validation du Niveau Test
 * [x] Configurer une fin de niveau pour valider la condition de victoire.
