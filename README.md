@@ -44,6 +44,7 @@ Objectif : Prototype minimaliste opérationnel.
 * [x] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
 
 * Objectif 5 : Critères de Validation du Niveau Test
+* [x] Ajout de checkpoints.
 * [x] Configurer une fin de niveau pour valider la condition de victoire.
 
 ---
