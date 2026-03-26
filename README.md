@@ -23,7 +23,7 @@ Objectif : Prototype minimaliste opérationnel.
 
 
 * Objectif 2 : Implémentation du Rythme et du Flow
-* [0] Intégrer un système de tempo basique lié à une piste musicale de test.
+* [x] Intégrer un système de tempo basique.
 
 * [x] Créer l'interface de la barre de "Boost Cinétique".
 
@@ -46,7 +46,7 @@ Objectif : Prototype minimaliste opérationnel.
 * Objectif 5 : Critères de Validation du Niveau Test
 * [ ] Configurer une fin de niveau pour valider la condition de victoire : survivre jusqu'au bout du parcours.
 
-* [ ] S'assurer que l'exécution rythmique d'une attaque offre bien un retour visuel, sonore, et un boost de vitesse.
+* [ ] S'assurer que l'exécution rythmique d'une attaque offre bien un retour visuel, et un boost de vitesse.
 
 * [ ] Valider que le joueur ressent la pression temporelle constante induite par le bord gauche de l'écran.
 
