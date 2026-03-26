@@ -39,6 +39,8 @@ public class BlackHoleManager : MonoBehaviour
             (collision == blackHoleCollider && playerCollider != null && collision.IsTouching(playerCollider)))
         {
             TriggerSpaghettification();
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            CheckpointManager.Instance.RespawnPlayer(player);
         }
     }
 

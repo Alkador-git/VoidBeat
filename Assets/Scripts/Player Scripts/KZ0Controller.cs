@@ -165,9 +165,9 @@ public class KZ0Controller : MonoBehaviour
     // Coroutine qui effectue le dash avec transition en courbe d'accélération
     IEnumerator PerformDash(Vector2 dir)
     {
+        rb.gravityScale = 0f;
         canDash = false;
         isDashing = true;
-        rb.gravityScale = 0;
 
         float elapsed = 0f;
         while (elapsed < dashDuration)
@@ -195,21 +195,21 @@ public class KZ0Controller : MonoBehaviour
         }
 
         currentDashVector = Vector2.zero;
-        rb.gravityScale = 1.35f;
         isDashing = false;
+        rb.gravityScale = 1f;
 
         yield return new WaitForSeconds(0.75f);
         canDash = true;
     }
 
     // Vérifie si le joueur appuie sur une touche de saut
-    private bool GetJumpInput() => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow);
+    private bool GetJumpInput() => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Mouse ScrollWheel") > 0;
 
     // Vérifie si le joueur appuie sur une touche de glissade
-    private bool GetSlideInput() => Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
+    private bool GetSlideInput() => Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || Input.GetAxis("Mouse ScrollWheel") < 0;
 
     // Vérifie si le joueur appuie sur une touche de dash
-    private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetMouseButtonDown(1);
+    private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.LeftShift);
 
     // Gère les actions qui se déclenchent au rythme de la musique
     private void HandleRhythmicAction()

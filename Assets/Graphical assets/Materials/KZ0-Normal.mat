@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VoidDistortion_Mat
-  m_Shader: {fileID: 4800000, guid: a963b73cc4bf73541acc723201ac8b34, type: 3}
+  m_Name: KZ0-Normal
+  m_Shader: {fileID: 4800000, guid: e260cfa7296ee7642b167f1eb5be5023, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -27,38 +27,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b84ee19ecc79a0d4e8a130d5f40f1a22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -8328923581568760697, guid: 951f093100c31d7438dccaafc5ee719a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AberrationIntensity: 0.1234417
-    - _BlackHoleRadius: 0.31622422
-    - _CenterY: 0.315
-    - _DesatIntensity: 0.41147232
     - _EnableExternalAlpha: 0
-    - _FlareIntensity: 0.2468834
-    - _Intensity: 0.52704036
-    - _Shininess: 0.078125
-    - _StretchCurvature: 5
-    - _StretchIntensity: 0
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FlareColor: {r: 0.62274784, g: 0.4305358, b: 0.7075472, a: 0.2509804}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
