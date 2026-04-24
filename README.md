@@ -1,135 +1,177 @@
 # VoidBeat
-
 SideScroller Game
 
 Priorités de Développement - VoidBeat
-
 Ce document suit l'évolution du projet, du prototype technique à la version finale.
 
-<img width="945" height="592" alt="image" src="https://github.com/user-attachments/assets/a37b94b7-bce8-43e2-8723-dc58bd2cf1fb" />
-
 🟢 Phase Alpha :
-
 Objectif : Prototype minimaliste opérationnel.
 
-* Objectif 1 : Déplacements de Base et Parkour
-* [x] Implémenter la mécanique de course automatique du personnage vers la droite.
+Objectif 1 : Déplacements de Base et Parkour
 
-* [x] Programmer la gestion de la verticalité, incluant la fonctionnalité de saut.
+[x] Implémenter la mécanique de course automatique du personnage vers la droite.
 
-* [x] Intégrer la mécanique de glissade.
+[x] Programmer la gestion de la verticalité, incluant la fonctionnalité de saut.
 
-* [x] Développer le système de "Dash Multidirectionnel" pour permettre des trajectoires non linéaires à haute vitesse.
+[x] Intégrer la mécanique de glissade.
 
+[x] Développer le système de "Dash Multidirectionnel" pour permettre des trajectoires non linéaires à haute vitesse.
 
-* Objectif 2 : Implémentation du Rythme et du Flow
-* [x] Intégrer un système de tempo basique.
+[x] Programmer le "Coyote Time" (marge d'erreur pour les actions).
 
-* [x] Créer l'interface de la barre de "Boost Cinétique".
+Objectif 2 : Implémentation du Rythme et du Flow
 
-* [x] Programmer le système où chaque action réussie en rythme (saut, attaque) alimente cette barre de boost.
+[x] Intégrer un système de tempo basique.
 
-* Objectif 3 : La Menace du Trou Noir (Condition de Défaite)
-* [x] Représenter visuellement la menace du trou noir sur le bord gauche de l'écran.
+[x] Créer l'interface de la barre de "Boost Cinétique".
 
-* [x] Programmer la mécanique d'approche du trou noir si le rythme du joueur chute.
+[x] Programmer le système où chaque action réussie en rythme (saut, attaque) alimente cette barre de boost.
 
-* [x] Implémenter la condition de défaite : le joueur est aspiré si le trou noir se rapproche trop.
+Objectif 3 : La Menace du Trou Noir (Condition de Défaite)
 
-* Objectif 4 : Interactions, Obstacles et Combat
-* [x] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
+[x] Représenter visuellement la menace du trou noir sur le bord gauche de l'écran.
 
-* [x] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
+[x] Programmer la mécanique d'approche du trou noir si le rythme du joueur chute.
 
-* [x] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
+[x] Implémenter la condition de défaite : le joueur est aspiré si le trou noir se rapproche trop.
 
-* Objectif 5 : Critères de Validation du Niveau Test
-* [x] Ajout de checkpoints.
-* [x] Configurer une fin de niveau pour valider la condition de victoire.
+Objectif 4 : Interactions, Obstacles et Combat
 
----
+[x] Placer des ennemis de test, servant de "piles d'endurance", sur le parcours.
+
+[x] Implémenter le système de combat rythmique : réaliser une action au bon moment redonne instantanément du dash et de l'endurance.
+
+[x] Ajouter des débris ou obstacles basiques nécessitant le maintien d'une glissade pour être franchis.
+
+Objectif 5 : Critères de Validation du Niveau Test
+
+[x] Ajout de checkpoints.
+
+[x] Configurer une fin de niveau pour valider la condition de victoire.
 
 🟡 Phase Bêta :
+Objectif : Implémenter les mécaniques avancées, le pacing et ajouter les feedback (VFX/SFX).
 
-Objectif : Implémenter les mécaniques avancées et ajouter les feedback (VFX/SFX).
+Objectif 1 : Gestion du Flow & Combat
 
-- Objectif 1 : Gestion du Flow & Combat
+[x] T2.1 - Programmer la jauge de "Boost Cinétique" alimentée par les actions réussies.
 
- * [x] T2.1 - Programmer la jauge de "Boost Cinétique" alimentée par les actions réussies.
- * [x] T2.2 - Lier dynamiquement la distance entre le joueur et le trou noir au niveau de la jauge.
- * [ ] T2.3 - Implémenter le Dash Multidirectionnel avec système de Target Lock sur les ennemis aériens.
+[x] T2.2 - Lier dynamiquement la distance entre le joueur et le trou noir au niveau de la jauge.
 
-- Objectif 2 : Dynamisme & Environnement
+[x] T2.3 - Implémenter le Dash Multidirectionnel.
 
- * [ ] T2.5 - Développer le système de BPM dynamique (accélération fluide de la piste audio et de la vitesse de jeu).
+[ ] T2.4 - Implémenter le système de pénalité de désynchronisation (perte d'endurance si action "hors-tempo").
 
-- Objectif 3 : Feedback Sensoriel (Juice)
+Objectif 2 : Dynamisme, Environnement & Pacing
 
- * [ ] T2.7 - Première passe VFX/SFX : Screen shake, flashs néon synchronisés et retours sonores d'impact.
+[x] T2.5 - Développer le système de BPM dynamique (accélération fluide de la piste audio et de la vitesse de jeu).
+
+[x] T2.6 - Implémenter le modèle de difficulté en "Dents de scie" (Chute de BPM post-checkpoint et transitions ralenties).
+
+[x] T2.7 - Programmer les "Couloirs Narratifs" (zones sans ennemis, caméra surélevée, filtre audio low-pass).
+
+Objectif 3 : Feedback Sensoriel (Juice)
+
+[ ] T2.8 - Première passe VFX/SFX : Screen shake, flashs néon synchronisés et retours sonores d'impact.
+
+[ ] T2.9 - Amélioration visuelle du noyau K-Z0 (clignotement orange/rouge selon le seuil critique d'endurance).
+
+[ ] T2.10 - Ajouter le feedback visuel (écharpe énergétique/traînée) pour souligner les trajectoires de saut et de dash.
 
 🔴 Phase Release : Finition & Narration
+Objectif : Peaufiner afin de passer d'un prototype à un jeu complet.
 
-Objectif : Pauffiner afin de passer d'un prototype à un jeu complet.
+Objectif 1 : Antagoniste & Boss Final (Le Cœur)
 
-- Objectif 1 : Antagoniste & Boss Final
+[ ] T3.1 - Développer l'IA de Néant-X (Phase 1) : Saut/Glissade esquivant les ondes de choc et piliers de code.
 
- * [ ] T3.1 - Développer l'IA de Néant-X : Patterns d'attaque rythmiques, vagues de débris et ondes de choc.
+[ ] T3.2 - Développer l'IA de Néant-X (Phase 2) : Parkour aérien (Dash) entre les débris et vides gravitationnels.
 
-- Objectif 2 : Intégration Narrative & UI
+[ ] T3.3 - Développer l'IA de Néant-X (Phase 3) : Attaques synchronisées sur le boss à 150+ BPM.
 
- * [ ] T3.2 - Mettre en place le système de déclenchement des cinématiques in-game.
- * [ ] T3.3 - Créer l'interface utilisateur (HUD) diégétique, les menus et le système de sauvegarde.
- * [ ] T3.4 - Implémenter le tableau des scores et les multiplicateurs.
+[ ] T3.4 - Programmer la phase de transition narrative (dialogue de l'IA) précédant le combat final.
 
-- Objectif 3 : Optimisation & Équilibrage
+Objectif 2 : Intégration Narrative & UI UX
 
- * [ ] T3.5 - Optimisation technique : Shaders de distorsion gravitationnelle et scripts pour garantir un framerate constant.
- * [ ] T3.6 - Équilibrage final : Ajustement précis des fenêtres de tolérance (ms) et de la courbe de difficulté.
+[ ] T3.5 - Créer les Menus Principaux (Accueil, Crédits, Options : Vidéo/Audio/Commandes/Calibration de latence).
+
+[ ] T3.6 - Implémenter l'écran de "Sélection des Niveaux" (Global Map) et le Menu Pause in-game (Sidebar).
+
+[ ] T3.7 - Mettre en place le système de déclenchement des cinématiques in-game (Début, Fin de jeu).
+
+[ ] T3.8 - Créer l'interface utilisateur (HUD) diégétique (Score dynamique glitché affiché in-world).
+
+[ ] T3.9 - Implémenter le système de progression (déblocage de zones, gestion des fragments collectés, sauvegarde).
+
+Objectif 3 : Optimisation & Équilibrage
+
+[ ] T3.10 - Optimisation technique : Shaders de distorsion gravitationnelle, effet de spaghettification pour garantir un framerate constant.
+
+[ ] T3.11 - Équilibrage final : Ajustement précis des fenêtres de tolérance rythmique (ms) et lissage de la courbe de difficulté.
 
 🖌 Assets Graphique :
+Main character / K-Z0 :
 
-- Main character / K-Z0 :
+Spritesheet mouvements :
 
-  - Spritesheet mouvements :
+[ ] - Course
 
-  * [ ] - Course
-  * [ ] - Saut
-  * [ ] - Glissade
-  * [ ] - Chute
-  * [ ] - Dash
-  * [ ] - Attaque
-  * [ ] - Dégâts subi
-  * [ ] - Idle
+[ ] - Saut
 
-  - Character Diegetic UI :
+[ ] - Glissade
 
-  * [ ] - Noyau
-  * [ ] - Jauge 
-  * [ ] - Echarpe
+[ ] - Chute
 
-- Ennemies :
+[ ] - Dash
 
-  * [ ] - Drone
-  * [ ] - Sentinelle
-  * [ ] - Néant X
+[ ] - Attaque
 
-- Environnements :
+[ ] - Dégâts subi
 
-  - Tilemaps :
+[ ] - Idle
 
-  * [ ] - Intérieur du bunker
-  * [ ] - Mégapole / Ville
-  * [ ] - Horizon du trou noir
-  * [ ] - Coeur du trou noir
+Character Diegetic UI :
 
-- Particules et VFX :
+[ ] - Noyau (avec états colorimétriques)
 
-  * [ ] - Onde gravitationelle
-  * [ ] - Particules void
-  * [ ] - Effets glitch et aberration chromatique
-  * [ ] - Impacte attaque
+[ ] - Jauge
 
-- Shaders
+[ ] - Écharpe énergétique (particules)
 
-  * [ ] - Effet spaghetti
-  * [ ] - Distorsion gravitationelle
+Ennemies :
+
+[ ] - Drone (Pile d'endurance)
+
+[ ] - Sentinelle (Bouclier magenta synchronisé)
+
+[ ] - Néant X (Œil cyclopéen/Noyau géométrique)
+
+Environnements (Tilemaps) :
+
+[ ] - Intérieur du bunker (Béton, industriel)
+
+[ ] - Mégalopole / Ville (Néons, gratte-ciels)
+
+[ ] - Horizon du trou noir (Violet/Noir, distorsion)
+
+[ ] - Coeur du trou noir (Espace blanc, numérique, fractales)
+
+[ ] - Écran de sélection des niveaux (Carte fragmentée)
+
+Particules et VFX :
+
+[ ] - Onde gravitationnelle
+
+[ ] - Particules void
+
+[ ] - Effets glitch et aberration chromatique
+
+[ ] - Impact attaque (Cyan électrique)
+
+[ ] - Feedbacks d'interaction (Néon vert pour la validation)
+
+Shaders :
+
+[ ] - Effet spaghetti (étirement des pixels bord gauche)
+
+[ ] - Distorsion gravitationnelle (effet lentille)
