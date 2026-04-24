@@ -17,7 +17,7 @@ Objectif 1 : Déplacements de Base et Parkour
 
 [x] Développer le système de "Dash Multidirectionnel" pour permettre des trajectoires non linéaires à haute vitesse.
 
-[ ] Programmer le "Coyote Time" (marge d'erreur pour les sauts en bout de plateforme).
+[x] Programmer le "Coyote Time" (marge d'erreur pour les actions).
 
 Objectif 2 : Implémentation du Rythme et du Flow
 
@@ -66,9 +66,9 @@ Objectif 2 : Dynamisme, Environnement & Pacing
 
 [x] T2.5 - Développer le système de BPM dynamique (accélération fluide de la piste audio et de la vitesse de jeu).
 
-[ ] T2.6 - Implémenter le modèle de difficulté en "Dents de scie" (Chute de BPM post-checkpoint et transitions ralenties).
+[x] T2.6 - Implémenter le modèle de difficulté en "Dents de scie" (Chute de BPM post-checkpoint et transitions ralenties).
 
-[ ] T2.7 - Programmer les "Couloirs Narratifs" (zones sans ennemis, caméra surélevée, filtre audio low-pass).
+[x] T2.7 - Programmer les "Couloirs Narratifs" (zones sans ennemis, caméra surélevée, filtre audio low-pass).
 
 Objectif 3 : Feedback Sensoriel (Juice)
 
@@ -89,7 +89,7 @@ Objectif 1 : Antagoniste & Boss Final (Le Cœur)
 
 [ ] T3.3 - Développer l'IA de Néant-X (Phase 3) : Attaques synchronisées sur le boss à 150+ BPM.
 
-[ ] T3.4 - Programmer la phase de transition narrative (chute à 80 BPM, dialogue de l'IA) précédant le combat final.
+[ ] T3.4 - Programmer la phase de transition narrative (dialogue de l'IA) précédant le combat final.
 
 Objectif 2 : Intégration Narrative & UI UX
 
