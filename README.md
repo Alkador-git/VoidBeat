@@ -61,7 +61,7 @@ Objectif : Implémenter les mécaniques avancées et ajouter les feedback (VFX/S
 
 - Objectif 2 : Dynamisme & Environnement
 
- * [ ] T2.5 - Développer le système de BPM dynamique (accélération fluide de la piste audio et de la vitesse de jeu).
+ * [x] T2.5 - Développer le système de BPM dynamique (accélération fluide de la piste audio et de la vitesse de jeu).
 
 - Objectif 3 : Feedback Sensoriel (Juice)
 
