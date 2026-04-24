@@ -57,7 +57,7 @@ Objectif : Implémenter les mécaniques avancées et ajouter les feedback (VFX/S
 
  * [x] T2.1 - Programmer la jauge de "Boost Cinétique" alimentée par les actions réussies.
  * [x] T2.2 - Lier dynamiquement la distance entre le joueur et le trou noir au niveau de la jauge.
- * [ ] T2.3 - Implémenter le Dash Multidirectionnel avec système de Target Lock sur les ennemis aériens.
+ * [x] T2.3 - Implémenter le Dash Multidirectionnel.
 
 - Objectif 2 : Dynamisme & Environnement
 
