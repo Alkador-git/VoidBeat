@@ -1,27 +1,33 @@
 using System.Collections;
 using UnityEngine;
-using static Unity.Cinemachine.CinemachineFreeLookModifier;
 
 public class KZ0Controller : MonoBehaviour
 {
+    // --- MOUVEMENT ---
     [Header("Mouvement & Auto-Run")]
     public float moveSpeed = 10f;
 
+    // --- SAUT & COYOTE TIME ---
     [Header("Parkour & Saut")]
     public float jumpForce = 15f;
+    public float coyoteTimeDuration = 0.1f;
+    private float coyoteTimeCounter;
     private bool isGrounded;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    // --- VÉLOCITÉ ---
     [Header("Velocité Maximale")]
-    public float maxHorizontalVelocity = 10f;
-    public float maxVerticalVelocityUp = 5f;
-    public float maxVerticalVelocityDown = 8f;
+    public float maxHorizontalVelocity = 30f;
+    public float maxVerticalVelocityUp = 20f;
+    public float maxVerticalVelocityDown = 25f;
     public float minVerticalVelocityUp = 5f;
 
+    // --- GRAVITÉ ---
     [Header("Gravité en Chute")]
-    public float fallGravityMultiplier = 2f;
+    public float fallGravityMultiplier = 3f;
 
+    // --- GLISSADE ---
     [Header("Glissade (Smooth)")]
     public float slideSpeedMultiplier = 1.2f;
     public float slideEaseDuration = 0.2f;
@@ -30,9 +36,10 @@ public class KZ0Controller : MonoBehaviour
     private BoxCollider2D playerCollider;
     private Vector2 originalColliderSize;
 
+    // --- DASH ---
     [Header("Dash (Forces Séparées)")]
-    public float dashForceX = 5f;
-    public float dashForceY = 2.5f;
+    public float dashForceX = 20f;
+    public float dashForceY = 12f;
     public float dashDuration = 0.3f;
     public AnimationCurve dashEase = AnimationCurve.Linear(0, 1, 1, 1);
     public float dashCooldown = 0.75f;
@@ -40,6 +47,11 @@ public class KZ0Controller : MonoBehaviour
     private bool isDashing = false;
     private bool hasTouchedGroundSinceDash = true;
     private Vector2 currentDashVector = Vector2.zero;
+
+    // --- COMBAT & GRACE PERIOD ---
+    [Header("Combat Coyote (Grace Period)")]
+    public float collisionGraceDuration = 0.1f;
+    private float gracePeriodCounter;
 
     [Header("Effets d'Impact (Knockback)")]
     public float knockbackDuration = 0.2f;
@@ -58,28 +70,34 @@ public class KZ0Controller : MonoBehaviour
     {
         if (isKnockedBack) return;
 
+        // GESTION DU GROUNDED & JUMP COYOTE TIME
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         if (isGrounded)
         {
+            coyoteTimeCounter = coyoteTimeDuration;
             hasTouchedGroundSinceDash = true;
         }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
 
-        if (GetJumpInput() && isGrounded && !isSliding)
+        if (gracePeriodCounter > 0)
+        {
+            gracePeriodCounter -= Time.deltaTime;
+        }
+
+        if (GetJumpInput() && coyoteTimeCounter > 0f && !isSliding)
         {
             HandleRhythmicAction();
             Jump();
         }
 
         if (isDashing || isKnockedBack) return;
-        if (rb.linearVelocity.y < 0)
-        {
-            rb.gravityScale = fallGravityMultiplier;
-        }
-        else
-        {
-            rb.gravityScale = 1.15f;
-        }
+
+        if (rb.linearVelocity.y < 0) rb.gravityScale = fallGravityMultiplier;
+        else rb.gravityScale = 1.15f;
 
         Vector2 baseVel = GetBaseRunVelocity();
         rb.linearVelocity = ClampVelocity(baseVel);
@@ -100,13 +118,36 @@ public class KZ0Controller : MonoBehaviour
             HandleRhythmicAction();
             float inputX = Mathf.Max(0f, Input.GetAxisRaw("Horizontal"));
             float inputY = Mathf.Max(0f, Input.GetAxisRaw("Vertical"));
-
             Vector2 dashDir = new Vector2(inputX, inputY).normalized;
             if (dashDir == Vector2.zero) dashDir = Vector2.right;
-
             StartCoroutine(PerformDash(dashDir));
         }
     }
+
+    void FixedUpdate()
+    {
+        if (isDashing || isKnockedBack) return;
+
+        float bpmFactor = BeatManager.Instance.currentBPM / BeatManager.Instance.originalMusicBPM;
+        float dynamicSpeed = moveSpeed * bpmFactor;
+        float targetMultiplier = Mathf.Lerp(1f, slideSpeedMultiplier, currentSlideLerp);
+
+        rb.linearVelocity = new Vector2(dynamicSpeed * targetMultiplier, rb.linearVelocity.y);
+    }
+
+    // --- SYSTÈME DE GRACE PERIOD POUR L'ENNEMI ---
+
+    public void NotifyEnemyCollision()
+    {
+        gracePeriodCounter = collisionGraceDuration;
+    }
+
+    public bool IsInCollisionGracePeriod()
+    {
+        return gracePeriodCounter > 0;
+    }
+
+    // --- UTILITAIRES ---
 
     private Vector2 ClampVelocity(Vector2 velocity)
     {
@@ -142,7 +183,11 @@ public class KZ0Controller : MonoBehaviour
         isKnockedBack = false;
     }
 
-    void Jump() => rb.linearVelocity = ClampVelocity(new Vector2(rb.linearVelocity.x, jumpForce));
+    void Jump()
+    {
+        rb.linearVelocity = ClampVelocity(new Vector2(rb.linearVelocity.x, jumpForce));
+        coyoteTimeCounter = 0;
+    }
 
     void StartSlide()
     {

@@ -1,0 +1,8 @@
+{
+  "solution": {
+    "path": "VoidBeat.slnx",
+    "projects": [
+      "Assembly-CSharp.csproj"
+    ]
+  }
+}

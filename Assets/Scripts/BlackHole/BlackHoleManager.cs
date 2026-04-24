@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class BlackHoleManager : MonoBehaviour
 {
+    // --- PROXIMITÉ ---
+
     [Header("Paramètres de Proximité")]
     public Transform player;
     public float safeDistance = 15f;
     public float deathDistance = 2f;
 
+    // --- VISUELS ---
+
     [Header("Visuels (Néant-X)")]
     public SpriteRenderer blackHoleOverlay;
     public Color voidColor = new Color(0.12f, 0f, 0.12f, 0.8f);
+
+    // --- COLLISIONS ---
 
     [Header("Colliders de défaite")]
     public Collider2D playerCollider;
@@ -17,7 +23,9 @@ public class BlackHoleManager : MonoBehaviour
 
     private float targetX;
 
-    // Met à jour la position du trou noir en fonction du boost
+    // --- MISE À JOUR ---
+
+    /// Met à jour la position du trou noir selon le boost du joueur
     void Update()
     {
         // Calculer la position cible basée sur le Boost Cinétique 
@@ -31,7 +39,9 @@ public class BlackHoleManager : MonoBehaviour
         transform.position = new Vector2(Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * 2f), 1.5f);
     }
 
-    // Gère la collision du trou noir avec le joueur
+    // --- DÉTECTION ---
+
+    /// Gère la collision du trou noir avec le joueur
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Collision entre les deux colliders assignés
@@ -44,7 +54,9 @@ public class BlackHoleManager : MonoBehaviour
         }
     }
 
-    // Déclenche l'absorption du joueur par le trou noir
+    // --- EFFETS ---
+
+    /// Déclenche l'absorption du joueur par le trou noir
     void TriggerSpaghettification()
     {
         Debug.Log("K-Z0 est absorbé par le Néant-X...");
