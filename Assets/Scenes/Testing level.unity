@@ -1094,7 +1094,7 @@ MonoBehaviour:
   currentBPM: 90
   musicSource: {fileID: 971797162}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
-  originalMusicBPM: 100
+  originalMusicBPM: 97
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
   normalVol: -8
@@ -2929,7 +2929,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6314420253139273196, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 15191d525ddee2d40ac39b286ca9f1de, type: 3}
+  m_Resource: {fileID: 8300000, guid: 617774beae23d9b4091d89310118e07a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
