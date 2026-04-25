@@ -43,7 +43,9 @@ public class KZ0Combat : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null) return;
-        Gizmos.color = Color.cyan;
+        Gizmos.
+            
+            = Color.cyan;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
