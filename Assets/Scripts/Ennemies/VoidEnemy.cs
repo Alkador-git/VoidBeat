@@ -11,7 +11,7 @@ public class VoidEnemy : MonoBehaviour
 
     // --- EFFETS DE COLLISION ---
     [Header("Effets de Collision")]
-    public float shakeMagnitude = 0.2f;
+    public float shakeMagnitude = 0.1f;
     public float shakeDuration = 0.15f;
     public Vector2 knockbackForce = new Vector2(-1.5f, 0.5f);
 
@@ -50,7 +50,7 @@ public class VoidEnemy : MonoBehaviour
         }
     }
 
-    /// Fenêtre de tolérance : on attend un peu avant de punir
+    /// Fenêtre de tolérance
     private IEnumerator GracePeriodCoroutine(KZ0Controller controller)
     {
         controller.NotifyEnemyCollision();
@@ -70,8 +70,8 @@ public class VoidEnemy : MonoBehaviour
 
         controller.ApplyKnockback(knockbackForce);
 
-        if (CameraShake.Instance != null)
-            StartCoroutine(CameraShake.Instance.Shake(shakeDuration, shakeMagnitude));
+        if (CinemachineShake.Instance != null)
+            StartCoroutine(CinemachineShake.Instance.Shake(shakeDuration, 0.5f  , 10.0f));
 
         Debug.Log("<color=red>Punition : Fenêtre de grâce expirée.</color>");
 
