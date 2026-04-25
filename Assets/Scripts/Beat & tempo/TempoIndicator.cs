@@ -50,10 +50,7 @@ public class TempoIndicator : MonoBehaviour
         if (BeatManager.Instance.IsActionOnBeat())
         {
             indicatorUI.localScale = originalScale * pulseScale;
-            if (img != null) img.
-                    
-                    
-                    = beatColor;
+            if (img != null) img.color = beatColor;
         }
         else
         {

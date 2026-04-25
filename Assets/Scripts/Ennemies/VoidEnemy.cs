@@ -27,11 +27,11 @@ public class VoidEnemy : MonoBehaviour
         if (BeatManager.Instance != null && BeatManager.Instance.IsActionOnBeat())
         {
             BoostManager.Instance.AddBoost(boostReward);
-            Debug.Log("Extraction réussie !);
+            Debug.Log("<color=cyan>Extraction réussie !</color>");
         }
         else
         {
-            Debug.Log("Coup hors-tempo);
+            Debug.Log("<color=orange>Coup hors-tempo</color>");
         }
 
         Die();
@@ -73,7 +73,7 @@ public class VoidEnemy : MonoBehaviour
         if (CinemachineShake.Instance != null)
             StartCoroutine(CinemachineShake.Instance.Shake(shakeDuration, 0.5f  , 10.0f));
 
-        Debug.Log("Punition : Fenêtre de grâce expirée.");
+        Debug.Log("<color=red>Punition : Fenêtre de grâce expirée.</color>");
 
         Die();
     }
