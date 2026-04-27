@@ -60,6 +60,8 @@ Objectif 1 : Gestion du Flow & Combat
 
 [x] T2.3 - Implémenter le Dash Multidirectionnel.
 
+[ ] T2.5 - Création menu principal, crédits, popup quitter, options vidéo audio calibration et commandes, menu pause et écran de victoire, menu sélection niveaux
+
 [ ] T2.4 - Implémenter le système de pénalité de désynchronisation (perte d'endurance si action "hors-tempo").
 
 Objectif 2 : Dynamisme, Environnement & Pacing
@@ -69,6 +71,7 @@ Objectif 2 : Dynamisme, Environnement & Pacing
 [x] T2.6 - Implémenter le modèle de difficulté en "Dents de scie" (Chute de BPM post-checkpoint et transitions ralenties).
 
 [x] T2.7 - Programmer les "Couloirs Narratifs" (zones sans ennemis, caméra surélevée, filtre audio low-pass).
+
 
 Objectif 3 : Feedback Sensoriel (Juice)
 
