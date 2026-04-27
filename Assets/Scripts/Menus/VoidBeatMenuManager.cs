@@ -145,7 +145,7 @@ public class VoidBeatMenuManager : MonoBehaviour
 
 
 
-    public void NewGame() => SceneManager.LoadScene("Level1_Bunker");
+    public void NewGame() => SceneManager.LoadScene("Whiteroom test level");
 
 
 
