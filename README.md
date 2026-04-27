@@ -60,6 +60,8 @@ Objectif 1 : Gestion du Flow & Combat
 
 [x] T2.3 - Implémenter le Dash Multidirectionnel.
 
+[ ] T2.5 - Création splash screen, menu écran titre, menu principal, crédits, popup quitter, options vidéo audio calibration et commandes, menu pause et écran de victoire, menu sélection niveaux
+
 [ ] T2.4 - Implémenter le système de pénalité de désynchronisation (perte d'endurance si action "hors-tempo").
 
 Objectif 2 : Dynamisme, Environnement & Pacing
@@ -70,6 +72,7 @@ Objectif 2 : Dynamisme, Environnement & Pacing
 
 [x] T2.7 - Programmer les "Couloirs Narratifs" (zones sans ennemis, caméra surélevée, filtre audio low-pass).
 
+
 Objectif 3 : Feedback Sensoriel (Juice)
 
 [ ] T2.8 - Première passe VFX/SFX : Screen shake, flashs néon synchronisés et retours sonores d'impact.
@@ -77,6 +80,10 @@ Objectif 3 : Feedback Sensoriel (Juice)
 [ ] T2.9 - Amélioration visuelle du noyau K-Z0 (clignotement orange/rouge selon le seuil critique d'endurance).
 
 [ ] T2.10 - Ajouter le feedback visuel (écharpe énergétique/traînée) pour souligner les trajectoires de saut et de dash.
+
+Objectif 4 : Admin debug
+
+[ ] - Touches de debug admin, téléportation entre les checkpoints / niveaux, invicibilité.
 
 🔴 Phase Release : Finition & Narration
 Objectif : Peaufiner afin de passer d'un prototype à un jeu complet.
