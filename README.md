@@ -78,6 +78,10 @@ Objectif 3 : Feedback Sensoriel (Juice)
 
 [ ] T2.10 - Ajouter le feedback visuel (écharpe énergétique/traînée) pour souligner les trajectoires de saut et de dash.
 
+Objectif 4 : Admin debug
+
+[ ] - Touches de debug admin, téléportation entre les checkpoints / niveaux, invicibilité.
+
 🔴 Phase Release : Finition & Narration
 Objectif : Peaufiner afin de passer d'un prototype à un jeu complet.
 
