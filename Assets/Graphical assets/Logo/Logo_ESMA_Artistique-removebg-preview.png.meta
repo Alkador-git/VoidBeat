@@ -1,0 +1,1287 @@
+fileFormatVersion: 2
+guid: d20acef0a591181458306535f10baf26
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4295844452583483000
+    second: Logo_ESMA_Artistique-removebg-preview_0
+  - first:
+      213: 1814358077001087024
+    second: Logo_ESMA_Artistique-removebg-preview_1
+  - first:
+      213: -5765357576515616078
+    second: Logo_ESMA_Artistique-removebg-preview_2
+  - first:
+      213: 6954689688887618798
+    second: Logo_ESMA_Artistique-removebg-preview_3
+  - first:
+      213: -7614037689251811351
+    second: Logo_ESMA_Artistique-removebg-preview_4
+  - first:
+      213: -7098251014269571778
+    second: Logo_ESMA_Artistique-removebg-preview_5
+  - first:
+      213: -5045747746608101948
+    second: Logo_ESMA_Artistique-removebg-preview_6
+  - first:
+      213: -5239309605502002136
+    second: Logo_ESMA_Artistique-removebg-preview_7
+  - first:
+      213: -3454945623988833674
+    second: Logo_ESMA_Artistique-removebg-preview_8
+  - first:
+      213: -1991625577865755192
+    second: Logo_ESMA_Artistique-removebg-preview_9
+  - first:
+      213: -994430889438346821
+    second: Logo_ESMA_Artistique-removebg-preview_10
+  - first:
+      213: -4741293174755467232
+    second: Logo_ESMA_Artistique-removebg-preview_11
+  - first:
+      213: 8822155099722219702
+    second: Logo_ESMA_Artistique-removebg-preview_12
+  - first:
+      213: -6734885175922631622
+    second: Logo_ESMA_Artistique-removebg-preview_13
+  - first:
+      213: 2883776580263829665
+    second: Logo_ESMA_Artistique-removebg-preview_14
+  - first:
+      213: -5729156564469282529
+    second: Logo_ESMA_Artistique-removebg-preview_15
+  - first:
+      213: -5692210500248210517
+    second: Logo_ESMA_Artistique-removebg-preview_16
+  - first:
+      213: 8683868052482004041
+    second: Logo_ESMA_Artistique-removebg-preview_17
+  - first:
+      213: 2668403382900904184
+    second: Logo_ESMA_Artistique-removebg-preview_18
+  - first:
+      213: -7795167395467505738
+    second: Logo_ESMA_Artistique-removebg-preview_19
+  - first:
+      213: -1298781374854465277
+    second: Logo_ESMA_Artistique-removebg-preview_20
+  - first:
+      213: -3361775387644554088
+    second: Logo_ESMA_Artistique-removebg-preview_21
+  - first:
+      213: 373544174236170990
+    second: Logo_ESMA_Artistique-removebg-preview_22
+  - first:
+      213: 3056404897848376376
+    second: Logo_ESMA_Artistique-removebg-preview_23
+  - first:
+      213: 8632889668308364468
+    second: Logo_ESMA_Artistique-removebg-preview_24
+  - first:
+      213: -1225206838106655816
+    second: Logo_ESMA_Artistique-removebg-preview_25
+  - first:
+      213: -9038889446380555084
+    second: Logo_ESMA_Artistique-removebg-preview_26
+  - first:
+      213: 4548922223024573075
+    second: Logo_ESMA_Artistique-removebg-preview_27
+  - first:
+      213: 91220910788978857
+    second: Logo_ESMA_Artistique-removebg-preview_28
+  - first:
+      213: -5210003956124296355
+    second: Logo_ESMA_Artistique-removebg-preview_29
+  - first:
+      213: 2406907250556570664
+    second: Logo_ESMA_Artistique-removebg-preview_30
+  - first:
+      213: 8950235486854183431
+    second: Logo_ESMA_Artistique-removebg-preview_31
+  - first:
+      213: -2822628311005697417
+    second: Logo_ESMA_Artistique-removebg-preview_32
+  - first:
+      213: -4133446543349850538
+    second: Logo_ESMA_Artistique-removebg-preview_33
+  - first:
+      213: 7671101464709970478
+    second: Logo_ESMA_Artistique-removebg-preview_34
+  - first:
+      213: -7466780845350776587
+    second: Logo_ESMA_Artistique-removebg-preview_35
+  - first:
+      213: 5075673197728869173
+    second: Logo_ESMA_Artistique-removebg-preview_36
+  - first:
+      213: -7432208530779350328
+    second: Logo_ESMA_Artistique-removebg-preview_37
+  - first:
+      213: 497855578985320811
+    second: Logo_ESMA_Artistique-removebg-preview_38
+  - first:
+      213: -9038323929477307416
+    second: Logo_ESMA_Artistique-removebg-preview_39
+  - first:
+      213: -4487230251234256036
+    second: Logo_ESMA_Artistique-removebg-preview_40
+  - first:
+      213: 5576864230770125849
+    second: Logo_ESMA_Artistique-removebg-preview_41
+  - first:
+      213: 5247237524923714053
+    second: Logo_ESMA_Artistique-removebg-preview_42
+  - first:
+      213: 4670717223422080479
+    second: Logo_ESMA_Artistique-removebg-preview_43
+  - first:
+      213: -2955560200244945419
+    second: Logo_ESMA_Artistique-removebg-preview_44
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_0
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 427
+        width: 67
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 876229ee4c7ed9b30800000000000000
+      internalID: 4295844452583483000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_1
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 427
+        width: 67
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 038b203ee05ed2910800000000000000
+      internalID: 1814358077001087024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_2
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 426
+        width: 67
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b20ea094d55dffa0800000000000000
+      internalID: -5765357576515616078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_3
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 341
+        width: 67
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eece73dac65048060800000000000000
+      internalID: 6954689688887618798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_4
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 341
+        width: 67
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9efa5b10011855690800000000000000
+      internalID: -7614037689251811351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_5
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 341
+        width: 67
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3de7e78f42fd7d90800000000000000
+      internalID: -7098251014269571778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_6
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 260
+        width: 67
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c542317827e9f9b0800000000000000
+      internalID: -5045747746608101948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_7
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 260
+        width: 67
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82cd2cf3cab3a47b0800000000000000
+      internalID: -5239309605502002136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_8
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 260
+        width: 67
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 672fad392419d00d0800000000000000
+      internalID: -3454945623988833674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_9
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 131
+        width: 76
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c5cab9c6135c54e0800000000000000
+      internalID: -1991625577865755192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_10
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 131
+        width: 64
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb10a51ff521332f0800000000000000
+      internalID: -994430889438346821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_11
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 133
+        width: 145
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02067be5afa833eb0800000000000000
+      internalID: -4741293174755467232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_12
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 131
+        width: 81
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b0085842579e6a70800000000000000
+      internalID: 8822155099722219702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 89
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3c561e8d91e882a0800000000000000
+      internalID: -6734885175922631622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_14
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 64
+        width: 15
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a06736558b350820800000000000000
+      internalID: 2883776580263829665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_15
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 89
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1906308572fd70b0800000000000000
+      internalID: -5729156564469282529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_16
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 92
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba3f4f965b43101b0800000000000000
+      internalID: -5692210500248210517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_17
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 64
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9449d801cfb438870800000000000000
+      internalID: 8683868052482004041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_18
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 64
+        width: 65
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f0524b2db2180520800000000000000
+      internalID: 2668403382900904184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_19
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 64
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bfc37ced8002d390800000000000000
+      internalID: -7795167395467505738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_20
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 64
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 309f7e6883dc9fde0800000000000000
+      internalID: -1298781374854465277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_21
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 64
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8949bcca8139851d0800000000000000
+      internalID: -3361775387644554088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_22
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 55
+        width: 26
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eea734582781f2500800000000000000
+      internalID: 373544174236170990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_23
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 64
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83c3402af088a6a20800000000000000
+      internalID: 3056404897848376376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_24
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 64
+        width: 32
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bce8a01a6f2ec770800000000000000
+      internalID: 8632889668308364468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_25
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 64
+        width: 23
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b3f5464fd03ffee0800000000000000
+      internalID: -1225206838106655816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_26
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 64
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b4b57840f96f8280800000000000000
+      internalID: -9038889446380555084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_27
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 64
+        width: 40
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39a824e19a4012f30800000000000000
+      internalID: 4548922223024573075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_28
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 64
+        width: 40
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a82aaf5fe4144100800000000000000
+      internalID: 91220910788978857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_29
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 41
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5bd4d4710952b7b0800000000000000
+      internalID: -5210003956124296355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_30
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 14
+        width: 31
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82c8cbc546d076120800000000000000
+      internalID: 2406907250556570664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_31
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 44
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70af90241cf953c70800000000000000
+      internalID: 8950235486854183431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_32
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 14
+        width: 73
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77a6b8d818204d8d0800000000000000
+      internalID: -2822628311005697417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_33
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 44
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65ed09dc44c03a6c0800000000000000
+      internalID: -4133446543349850538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_34
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 14
+        width: 33
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2a3400932a357a60800000000000000
+      internalID: 7671101464709970478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_35
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 44
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f01d21c16aa06890800000000000000
+      internalID: -7466780845350776587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_36
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 15
+        width: 44
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ba99a91e9607640800000000000000
+      internalID: 5075673197728869173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_37
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 14
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cad44208bd7bd890800000000000000
+      internalID: -7432208530779350328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_38
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 14
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b61ddd6e20db8e600800000000000000
+      internalID: 497855578985320811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_39
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 14
+        width: 40
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e3a792f54c619280800000000000000
+      internalID: -9038323929477307416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_40
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 14
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5b9bc16cd72ab1c0800000000000000
+      internalID: -4487230251234256036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_41
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 4
+        width: 29
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ca2ab6870056d40800000000000000
+      internalID: 5576864230770125849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_42
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 14
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50a8d255abee1d840800000000000000
+      internalID: 5247237524923714053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_43
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 14
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd53f547198b1d040800000000000000
+      internalID: 4670717223422080479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_ESMA_Artistique-removebg-preview_44
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 14
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fd1e1838adbbf6d0800000000000000
+      internalID: -2955560200244945419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Logo_ESMA_Artistique-removebg-preview_0: 4295844452583483000
+      Logo_ESMA_Artistique-removebg-preview_1: 1814358077001087024
+      Logo_ESMA_Artistique-removebg-preview_10: -994430889438346821
+      Logo_ESMA_Artistique-removebg-preview_11: -4741293174755467232
+      Logo_ESMA_Artistique-removebg-preview_12: 8822155099722219702
+      Logo_ESMA_Artistique-removebg-preview_13: -6734885175922631622
+      Logo_ESMA_Artistique-removebg-preview_14: 2883776580263829665
+      Logo_ESMA_Artistique-removebg-preview_15: -5729156564469282529
+      Logo_ESMA_Artistique-removebg-preview_16: -5692210500248210517
+      Logo_ESMA_Artistique-removebg-preview_17: 8683868052482004041
+      Logo_ESMA_Artistique-removebg-preview_18: 2668403382900904184
+      Logo_ESMA_Artistique-removebg-preview_19: -7795167395467505738
+      Logo_ESMA_Artistique-removebg-preview_2: -5765357576515616078
+      Logo_ESMA_Artistique-removebg-preview_20: -1298781374854465277
+      Logo_ESMA_Artistique-removebg-preview_21: -3361775387644554088
+      Logo_ESMA_Artistique-removebg-preview_22: 373544174236170990
+      Logo_ESMA_Artistique-removebg-preview_23: 3056404897848376376
+      Logo_ESMA_Artistique-removebg-preview_24: 8632889668308364468
+      Logo_ESMA_Artistique-removebg-preview_25: -1225206838106655816
+      Logo_ESMA_Artistique-removebg-preview_26: -9038889446380555084
+      Logo_ESMA_Artistique-removebg-preview_27: 4548922223024573075
+      Logo_ESMA_Artistique-removebg-preview_28: 91220910788978857
+      Logo_ESMA_Artistique-removebg-preview_29: -5210003956124296355
+      Logo_ESMA_Artistique-removebg-preview_3: 6954689688887618798
+      Logo_ESMA_Artistique-removebg-preview_30: 2406907250556570664
+      Logo_ESMA_Artistique-removebg-preview_31: 8950235486854183431
+      Logo_ESMA_Artistique-removebg-preview_32: -2822628311005697417
+      Logo_ESMA_Artistique-removebg-preview_33: -4133446543349850538
+      Logo_ESMA_Artistique-removebg-preview_34: 7671101464709970478
+      Logo_ESMA_Artistique-removebg-preview_35: -7466780845350776587
+      Logo_ESMA_Artistique-removebg-preview_36: 5075673197728869173
+      Logo_ESMA_Artistique-removebg-preview_37: -7432208530779350328
+      Logo_ESMA_Artistique-removebg-preview_38: 497855578985320811
+      Logo_ESMA_Artistique-removebg-preview_39: -9038323929477307416
+      Logo_ESMA_Artistique-removebg-preview_4: -7614037689251811351
+      Logo_ESMA_Artistique-removebg-preview_40: -4487230251234256036
+      Logo_ESMA_Artistique-removebg-preview_41: 5576864230770125849
+      Logo_ESMA_Artistique-removebg-preview_42: 5247237524923714053
+      Logo_ESMA_Artistique-removebg-preview_43: 4670717223422080479
+      Logo_ESMA_Artistique-removebg-preview_44: -2955560200244945419
+      Logo_ESMA_Artistique-removebg-preview_5: -7098251014269571778
+      Logo_ESMA_Artistique-removebg-preview_6: -5045747746608101948
+      Logo_ESMA_Artistique-removebg-preview_7: -5239309605502002136
+      Logo_ESMA_Artistique-removebg-preview_8: -3454945623988833674
+      Logo_ESMA_Artistique-removebg-preview_9: -1991625577865755192
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
