@@ -290,7 +290,7 @@ MonoBehaviour:
   creditsGroup: {fileID: 461996296}
   quitPopupGroup: {fileID: 1065859507}
   pressAnyKeyText: {fileID: 1546742635}
-  fadeDuration: 0.5
+  fadeDuration: 0.25
 --- !u!4 &11958872
 Transform:
   m_ObjectHideFlags: 0
