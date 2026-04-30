@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class KZ0Controller : MonoBehaviour
 {
+    // --- COMPOSANTS ---
+    private Rigidbody2D rb;
+    public Animator anim;
+    private BoxCollider2D playerCollider;
+
     // --- MOUVEMENT ---
     [Header("Mouvement & Auto-Run")]
     public float moveSpeed = 10f;
@@ -33,7 +38,6 @@ public class KZ0Controller : MonoBehaviour
     public float slideEaseDuration = 0.2f;
     private bool isSliding = false;
     private float currentSlideLerp = 0f;
-    private BoxCollider2D playerCollider;
     private Vector2 originalColliderSize;
 
     // --- DASH ---
@@ -57,8 +61,6 @@ public class KZ0Controller : MonoBehaviour
     public float knockbackDuration = 0.2f;
     private bool isKnockedBack = false;
 
-    private Rigidbody2D rb;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -68,9 +70,12 @@ public class KZ0Controller : MonoBehaviour
 
     void Update()
     {
-        if (isKnockedBack) return;
+        if (isKnockedBack)
+        {
+            return;
+        }
 
-        // GESTION DU GROUNDED & JUMP COYOTE TIME
+        // GESTION DU GROUNDED
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         if (isGrounded)
@@ -88,20 +93,27 @@ public class KZ0Controller : MonoBehaviour
             gracePeriodCounter -= Time.deltaTime;
         }
 
+        // SAUT
         if (GetJumpInput() && coyoteTimeCounter > 0f && !isSliding)
         {
             HandleRhythmicAction();
             Jump();
         }
 
-        if (isDashing || isKnockedBack) return;
+        if (isDashing)
+        {
+            return;
+        }
 
+        // GRAVITÉ DYNAMIQUE
         if (rb.linearVelocity.y < 0) rb.gravityScale = fallGravityMultiplier;
         else rb.gravityScale = 1.15f;
 
+        // DÉPLACEMENT
         Vector2 baseVel = GetBaseRunVelocity();
         rb.linearVelocity = ClampVelocity(baseVel);
 
+        // GLISSADE
         if (GetSlideInput() && isGrounded)
         {
             if (!isSliding) StartSlide();
@@ -113,15 +125,27 @@ public class KZ0Controller : MonoBehaviour
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 0f, Time.deltaTime / slideEaseDuration);
         }
 
+        // DASH
         if (GetDashInput() && canDash && hasTouchedGroundSinceDash)
         {
             HandleRhythmicAction();
-            float inputX = Mathf.Max(0f, Input.GetAxisRaw("Horizontal"));
-            float inputY = Mathf.Max(0f, Input.GetAxisRaw("Vertical"));
-            Vector2 dashDir = new Vector2(inputX, inputY).normalized;
+            Vector2 dashDir = new Vector2(Mathf.Max(0f, Input.GetAxisRaw("Horizontal")), Mathf.Max(0f, Input.GetAxisRaw("Vertical"))).normalized;
             if (dashDir == Vector2.zero) dashDir = Vector2.right;
             StartCoroutine(PerformDash(dashDir));
         }
+
+        UpdateAnimations();
+    }
+
+    // --- SYSTÈME D'ANIMATION ---
+    private void UpdateAnimations()
+    {
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("yVelocity", rb.linearVelocity.y);
+        anim.SetBool("isSliding", isSliding);
+        anim.SetBool("isAttacking", isDashing);
+        anim.SetBool("isDamaged", isKnockedBack);
+        print($"Animation States - Grounded: {isGrounded}, Y Velocity: {rb.linearVelocity.y}, Sliding: {isSliding}, Dashing: {isDashing}, Damaged: {isKnockedBack}");
     }
 
     void FixedUpdate()
@@ -135,31 +159,13 @@ public class KZ0Controller : MonoBehaviour
         rb.linearVelocity = new Vector2(dynamicSpeed * targetMultiplier, rb.linearVelocity.y);
     }
 
-    // --- SYSTÈME DE GRACE PERIOD POUR L'ENNEMI ---
-
-    public void NotifyEnemyCollision()
-    {
-        gracePeriodCounter = collisionGraceDuration;
-    }
-
-    public bool IsInCollisionGracePeriod()
-    {
-        return gracePeriodCounter > 0;
-    }
-
-    // --- UTILITAIRES ---
+    // --- UTILITAIRES & ACTIONS ---
+    public void NotifyEnemyCollision() => gracePeriodCounter = collisionGraceDuration;
+    public bool IsInCollisionGracePeriod() => gracePeriodCounter > 0;
 
     private Vector2 ClampVelocity(Vector2 velocity)
     {
         velocity.x = Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity);
-        velocity.y = Mathf.Clamp(velocity.y, -maxVerticalVelocityDown, maxVerticalVelocityUp);
-        return velocity;
-    }
-
-    private Vector2 ClampVelocityWithMinimum(Vector2 velocity)
-    {
-        velocity.x = Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity);
-        if (velocity.y > 0) velocity.y = Mathf.Max(velocity.y, minVerticalVelocityUp);
         velocity.y = Mathf.Clamp(velocity.y, -maxVerticalVelocityDown, maxVerticalVelocityUp);
         return velocity;
     }
@@ -212,28 +218,21 @@ public class KZ0Controller : MonoBehaviour
         while (elapsed < dashDuration)
         {
             float curveValue = dashEase.Evaluate(elapsed / dashDuration);
-            float fX = dir.x * dashForceX * curveValue;
-            float fY = dir.y * dashForceY * curveValue;
-            currentDashVector = new Vector2(fX, fY);
-
-            Vector2 targetVelocity = new Vector2(GetBaseRunVelocity().x + currentDashVector.x, GetBaseRunVelocity().y + currentDashVector.y);
-
-            if (dir.y > 0) rb.linearVelocity = ClampVelocityWithMinimum(targetVelocity);
-            else rb.linearVelocity = ClampVelocity(targetVelocity);
-
+            Vector2 targetVelocity = (GetBaseRunVelocity() + (dir * new Vector2(dashForceX, dashForceY))) * curveValue;
+            rb.linearVelocity = targetVelocity;
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        currentDashVector = Vector2.zero;
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
 
-    private bool GetJumpInput() => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Mouse ScrollWheel") > 0;
-    private bool GetSlideInput() => Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || Input.GetAxis("Mouse ScrollWheel") < 0;
-    private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.LeftShift);
+    // ENTRÉES
+    private bool GetJumpInput() => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow);
+    private bool GetSlideInput() => Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.S);
+    private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse1);
 
     private void HandleRhythmicAction()
     {

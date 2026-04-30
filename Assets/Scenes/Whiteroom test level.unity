@@ -728,8 +728,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afae3a3e667032849ba17e4fffe79820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KZ0Controller
-  moveSpeed: 3.5
   anim: {fileID: 1547518143}
+  moveSpeed: 3.5
   jumpForce: 5.5
   coyoteTimeDuration: 0.12
   groundCheck: {fileID: 985297134}
