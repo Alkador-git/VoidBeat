@@ -39,6 +39,23 @@ public class BlackHoleManager : MonoBehaviour
         transform.position = new Vector2(Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * 2f), 1.5f);
     }
 
+    /// Met à jour la position instantanément la position du trou ooir
+    public void SnapToPosition()
+    {
+        if (player == null) return;
+
+        // On recalcule immédiatement la distance voulue selon le boost actuel
+        float boostFactor = BoostManager.Instance.currentBoost / BoostManager.Instance.maxBoost;
+        float currentDistance = Mathf.Lerp(deathDistance, safeDistance, boostFactor);
+
+        // On force la position X sans Lerp
+        float instantX = player.position.x - currentDistance;
+        transform.position = new Vector2(instantX, transform.position.y);
+
+        // On met à jour targetX pour éviter que le Lerp ne reprenne de l'ancienne valeur
+        targetX = instantX;
+    }
+
     // --- DÉTECTION ---
 
     /// Gère la collision du trou noir avec le joueur

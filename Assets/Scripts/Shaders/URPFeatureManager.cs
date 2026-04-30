@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class URPFeatureManager : MonoBehaviour
 {
     [Header("Référence")]
-    public UniversalRendererData rendererData;
+    public Renderer2DData rendererData;
 
     // Controle les renderer features
     public void SetFeatureActive(string featureName, bool active)
