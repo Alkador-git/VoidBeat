@@ -115,13 +115,13 @@ Objectif 3 : Optimisation & Équilibrage
 🖌 Assets Graphique :
 Main character / K-Z0 :
 
-Spritesheet mouvements :
+Animations mouvements :
 
 [ ] - Course
 
 [ ] - Saut
 
-[ ] - Glissade
+[x] - Glissade
 
 [ ] - Chute
 
@@ -131,35 +131,31 @@ Spritesheet mouvements :
 
 [ ] - Dégâts subi
 
-[ ] - Idle
+[x] - Idle
 
 Character Diegetic UI :
 
-[ ] - Noyau (avec états colorimétriques)
-
-[ ] - Jauge
+[ ] - Noyau
 
 [ ] - Écharpe énergétique (particules)
 
 Ennemies :
 
-[ ] - Drone (Pile d'endurance)
+[ ] - Drone
 
-[ ] - Sentinelle (Bouclier magenta synchronisé)
+[ ] - Sentinelle
 
-[ ] - Néant X (Œil cyclopéen/Noyau géométrique)
+[ ] - Néant X 
 
 Environnements (Tilemaps) :
 
-[ ] - Intérieur du bunker (Béton, industriel)
+[ ] - Intérieur du bunker
 
-[ ] - Mégalopole / Ville (Néons, gratte-ciels)
+[ ] - Mégalopole / Ville
 
-[ ] - Horizon du trou noir (Violet/Noir, distorsion)
+[ ] - Horizon du trou noir
 
-[ ] - Coeur du trou noir (Espace blanc, numérique, fractales)
-
-[ ] - Écran de sélection des niveaux (Carte fragmentée)
+[ ] - Coeur du trou noir
 
 Particules et VFX :
 
