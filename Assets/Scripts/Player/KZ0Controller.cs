@@ -26,7 +26,6 @@ public class KZ0Controller : MonoBehaviour
     public float maxHorizontalVelocity = 30f;
     public float maxVerticalVelocityUp = 20f;
     public float maxVerticalVelocityDown = 25f;
-    public float minVerticalVelocityUp = 5f;
 
     // --- GRAVITÉ ---
     [Header("Gravité en Chute")]
@@ -41,7 +40,7 @@ public class KZ0Controller : MonoBehaviour
     private Vector2 originalColliderSize;
 
     // --- DASH ---
-    [Header("Dash (Forces Séparées)")]
+    [Header("Dash")]
     public float dashForceX = 20f;
     public float dashForceY = 12f;
     public float dashDuration = 0.3f;
@@ -50,14 +49,13 @@ public class KZ0Controller : MonoBehaviour
     private bool canDash = true;
     private bool isDashing = false;
     private bool hasTouchedGroundSinceDash = true;
-    private Vector2 currentDashVector = Vector2.zero;
 
-    // --- COMBAT & GRACE PERIOD ---
-    [Header("Combat Coyote (Grace Period)")]
+    // --- COMBAT ---
+    [Header("Combat")]
     public float collisionGraceDuration = 0.1f;
     private float gracePeriodCounter;
 
-    [Header("Effets d'Impact (Knockback)")]
+    [Header("Effets d'Impact")]
     public float knockbackDuration = 0.2f;
     private bool isKnockedBack = false;
 
@@ -70,12 +68,11 @@ public class KZ0Controller : MonoBehaviour
 
     void Update()
     {
-        if (isKnockedBack)
-        {
-            return;
-        }
+        UpdateAnimations();
 
-        // GESTION DU GROUNDED
+        if (isKnockedBack) return;
+
+        // GESTION DU SOL
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         if (isGrounded)
@@ -88,32 +85,25 @@ public class KZ0Controller : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        if (gracePeriodCounter > 0)
-        {
-            gracePeriodCounter -= Time.deltaTime;
-        }
+        if (gracePeriodCounter > 0) gracePeriodCounter -= Time.deltaTime;
 
-        // SAUT
+        // INPUT SAUT
         if (GetJumpInput() && coyoteTimeCounter > 0f && !isSliding)
         {
             HandleRhythmicAction();
             Jump();
         }
 
-        if (isDashing)
-        {
-            return;
-        }
+        if (isDashing) return;
 
-        // GRAVITÉ DYNAMIQUE
-        if (rb.linearVelocity.y < 0) rb.gravityScale = fallGravityMultiplier;
-        else rb.gravityScale = 1.15f;
+        // GRAVITÉ
+        rb.gravityScale = (rb.linearVelocity.y < 0) ? fallGravityMultiplier : 1.15f;
 
-        // DÉPLACEMENT
+        // MVT AUTO
         Vector2 baseVel = GetBaseRunVelocity();
         rb.linearVelocity = ClampVelocity(baseVel);
 
-        // GLISSADE
+        // SLIDE
         if (GetSlideInput() && isGrounded)
         {
             if (!isSliding) StartSlide();
@@ -133,81 +123,31 @@ public class KZ0Controller : MonoBehaviour
             if (dashDir == Vector2.zero) dashDir = Vector2.right;
             StartCoroutine(PerformDash(dashDir));
         }
-
-        UpdateAnimations();
     }
 
-    // --- SYSTÈME D'ANIMATION ---
     private void UpdateAnimations()
     {
+        if (anim == null) return;
+
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("yVelocity", rb.linearVelocity.y);
         anim.SetBool("isSliding", isSliding);
-        anim.SetBool("isAttacking", isDashing);
+        anim.SetBool("isDashing", isDashing);
         anim.SetBool("isDamaged", isKnockedBack);
-        print($"Animation States - Grounded: {isGrounded}, Y Velocity: {rb.linearVelocity.y}, Sliding: {isSliding}, Dashing: {isDashing}, Damaged: {isKnockedBack}");
     }
 
-    void FixedUpdate()
-    {
-        if (isDashing || isKnockedBack) return;
-
-        float bpmFactor = BeatManager.Instance.currentBPM / BeatManager.Instance.originalMusicBPM;
-        float dynamicSpeed = moveSpeed * bpmFactor;
-        float targetMultiplier = Mathf.Lerp(1f, slideSpeedMultiplier, currentSlideLerp);
-
-        rb.linearVelocity = new Vector2(dynamicSpeed * targetMultiplier, rb.linearVelocity.y);
-    }
-
-    // --- UTILITAIRES & ACTIONS ---
-    public void NotifyEnemyCollision() => gracePeriodCounter = collisionGraceDuration;
-    public bool IsInCollisionGracePeriod() => gracePeriodCounter > 0;
-
-    private Vector2 ClampVelocity(Vector2 velocity)
-    {
-        velocity.x = Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity);
-        velocity.y = Mathf.Clamp(velocity.y, -maxVerticalVelocityDown, maxVerticalVelocityUp);
-        return velocity;
-    }
-
-    private Vector2 GetBaseRunVelocity()
-    {
-        float targetMultiplier = Mathf.Lerp(1f, slideSpeedMultiplier, currentSlideLerp);
-        return new Vector2(moveSpeed * targetMultiplier, rb.linearVelocity.y);
-    }
-
-    public void ApplyKnockback(Vector2 force)
-    {
-        if (!isKnockedBack) StartCoroutine(KnockbackRoutine(force));
-    }
+    // --- COROUTINES & ACTIONS ---
 
     private IEnumerator KnockbackRoutine(Vector2 force)
     {
         isKnockedBack = true;
+        isDashing = false; // Le dégât annule le dash
         rb.linearVelocity = ClampVelocity(force);
         yield return new WaitForSeconds(knockbackDuration);
         isKnockedBack = false;
     }
 
-    void Jump()
-    {
-        rb.linearVelocity = ClampVelocity(new Vector2(rb.linearVelocity.x, jumpForce));
-        coyoteTimeCounter = 0;
-    }
-
-    void StartSlide()
-    {
-        isSliding = true;
-        playerCollider.size = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
-    }
-
-    void StopSlide()
-    {
-        isSliding = false;
-        playerCollider.size = originalColliderSize;
-    }
-
-    IEnumerator PerformDash(Vector2 dir)
+    private IEnumerator PerformDash(Vector2 dir)
     {
         rb.gravityScale = 0f;
         canDash = false;
@@ -217,9 +157,10 @@ public class KZ0Controller : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < dashDuration)
         {
+            if (isKnockedBack) break; // Sortir du dash si on prend un coup
+
             float curveValue = dashEase.Evaluate(elapsed / dashDuration);
-            Vector2 targetVelocity = (GetBaseRunVelocity() + (dir * new Vector2(dashForceX, dashForceY))) * curveValue;
-            rb.linearVelocity = targetVelocity;
+            rb.linearVelocity = (GetBaseRunVelocity() + (dir * new Vector2(dashForceX, dashForceY))) * curveValue;
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -229,14 +170,19 @@ public class KZ0Controller : MonoBehaviour
         canDash = true;
     }
 
-    // ENTRÉES
+    public void ApplyKnockback(Vector2 force) => StartCoroutine(KnockbackRoutine(force));
+    public void NotifyEnemyCollision() => gracePeriodCounter = collisionGraceDuration;
+    public bool IsInCollisionGracePeriod() => gracePeriodCounter > 0;
+
+    private void Jump() { rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); coyoteTimeCounter = 0; }
+    private void StartSlide() { isSliding = true; playerCollider.size = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f); }
+    private void StopSlide() { isSliding = false; playerCollider.size = originalColliderSize; }
+    private Vector2 GetBaseRunVelocity() => new Vector2(moveSpeed * Mathf.Lerp(1f, slideSpeedMultiplier, currentSlideLerp), rb.linearVelocity.y);
+    private Vector2 ClampVelocity(Vector2 velocity) => new Vector2(Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity), Mathf.Clamp(velocity.y, -maxVerticalVelocityDown, maxVerticalVelocityUp));
+
     private bool GetJumpInput() => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow);
     private bool GetSlideInput() => Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.S);
     private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse1);
 
-    private void HandleRhythmicAction()
-    {
-        if (BeatManager.Instance != null && BeatManager.Instance.IsActionOnBeat())
-            BoostManager.Instance.AddBoost();
-    }
+    private void HandleRhythmicAction() { if (BeatManager.Instance != null && BeatManager.Instance.IsActionOnBeat()) BoostManager.Instance.AddBoost(); }
 }
