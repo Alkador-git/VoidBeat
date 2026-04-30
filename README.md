@@ -100,21 +100,17 @@ Objectif 1 : Antagoniste & Boss Final (Le Cœur)
 
 Objectif 2 : Intégration Narrative & UI UX
 
-[ ] T3.5 - Créer les Menus Principaux (Accueil, Crédits, Options : Vidéo/Audio/Commandes/Calibration de latence).
+[ ] T3.5 - Mettre en place le système de déclenchement des cinématiques in-game (Début, Fin de jeu).
 
-[ ] T3.6 - Implémenter l'écran de "Sélection des Niveaux" (Global Map) et le Menu Pause in-game (Sidebar).
+[ ] T3.6 - Créer l'interface utilisateur (HUD) diégétique (Score dynamique glitché affiché in-world).
 
-[ ] T3.7 - Mettre en place le système de déclenchement des cinématiques in-game (Début, Fin de jeu).
-
-[ ] T3.8 - Créer l'interface utilisateur (HUD) diégétique (Score dynamique glitché affiché in-world).
-
-[ ] T3.9 - Implémenter le système de progression (déblocage de zones, gestion des fragments collectés, sauvegarde).
+[ ] T3.7 - Implémenter le système de progression (déblocage de zones, gestion des fragments collectés, sauvegarde).
 
 Objectif 3 : Optimisation & Équilibrage
 
-[ ] T3.10 - Optimisation technique : Shaders de distorsion gravitationnelle, effet de spaghettification pour garantir un framerate constant.
+[ ] T3.8 - Optimisation technique : Shaders de distorsion gravitationnelle, effet de spaghettification pour garantir un framerate constant.
 
-[ ] T3.11 - Équilibrage final : Ajustement précis des fenêtres de tolérance rythmique (ms) et lissage de la courbe de difficulté.
+[ ] T3.9 - Équilibrage final : Ajustement précis des fenêtres de tolérance rythmique (ms) et lissage de la courbe de difficulté.
 
 🖌 Assets Graphique :
 Main character / K-Z0 :
