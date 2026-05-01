@@ -1035,11 +1035,11 @@ MonoBehaviour:
   currentBPM: 90
   musicSource: {fileID: 971797162}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
-  originalMusicBPM: 97
+  originalMusicBPM: 100
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
   normalVol: -8
-  narrativeVol: -13
+  narrativeVol: -14
   normalCutoff: 22000
   narrativeCutoff: 1500
   fadeSpeed: 2
@@ -2916,7 +2916,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6314420253139273196, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 617774beae23d9b4091d89310118e07a, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3d50c783539b9cb45b913c6044b5b589, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3042,8 +3042,8 @@ Transform:
   m_GameObject: {fileID: 985297133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 190706020}
@@ -4708,6 +4708,14 @@ PrefabInstance:
     - target: {fileID: -965430647836527448, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.1538808
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269741942497009890, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.02137263
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269741942497009890, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.001644737
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

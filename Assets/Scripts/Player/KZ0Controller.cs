@@ -72,7 +72,6 @@ public class KZ0Controller : MonoBehaviour
 
         if (isKnockedBack) return;
 
-        // GESTION DU SOL
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         if (isGrounded)
@@ -87,7 +86,6 @@ public class KZ0Controller : MonoBehaviour
 
         if (gracePeriodCounter > 0) gracePeriodCounter -= Time.deltaTime;
 
-        // INPUT SAUT
         if (GetJumpInput() && coyoteTimeCounter > 0f && !isSliding)
         {
             HandleRhythmicAction();
@@ -96,14 +94,10 @@ public class KZ0Controller : MonoBehaviour
 
         if (isDashing) return;
 
-        // GRAVITÉ
         rb.gravityScale = (rb.linearVelocity.y < 0) ? fallGravityMultiplier : 1.15f;
-
-        // MVT AUTO
         Vector2 baseVel = GetBaseRunVelocity();
         rb.linearVelocity = ClampVelocity(baseVel);
 
-        // SLIDE
         if (GetSlideInput() && isGrounded)
         {
             if (!isSliding) StartSlide();
@@ -115,7 +109,6 @@ public class KZ0Controller : MonoBehaviour
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 0f, Time.deltaTime / slideEaseDuration);
         }
 
-        // DASH
         if (GetDashInput() && canDash && hasTouchedGroundSinceDash)
         {
             HandleRhythmicAction();
@@ -129,11 +122,11 @@ public class KZ0Controller : MonoBehaviour
     {
         if (anim == null) return;
 
+        anim.SetBool("isDamaged", isKnockedBack);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("yVelocity", rb.linearVelocity.y);
         anim.SetBool("isSliding", isSliding);
         anim.SetBool("isDashing", isDashing);
-        anim.SetBool("isDamaged", isKnockedBack);
     }
 
     // --- COROUTINES & ACTIONS ---
