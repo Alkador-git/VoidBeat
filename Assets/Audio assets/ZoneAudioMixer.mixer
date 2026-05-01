@@ -31,6 +31,7 @@ AudioMixerGroupController:
   - {fileID: 6987947776109900600}
   - {fileID: -7560643260960328251}
   - {fileID: -2503829731144900990}
+  - {fileID: 8715327250514819090}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -71,6 +72,8 @@ AudioMixerController:
     name: MusicVol
   - guid: b85b34f6939141c4c90e88184acd5278
     name: LowPassFreq
+  - guid: 491d12820592b2946b0e4175eb23e440
+    name: PitchComp
   m_AudioMixerGroupViews:
   - guids:
     - a1fb28c83d36929438b0441a69b7d218
@@ -128,6 +131,7 @@ AudioMixerSnapshotController:
     c7aa96f0e0e946e4e9a0fa06ca74e67f: 10
     d4d50151e61f655449cd4e2007d2486c: 1
     e19bd3c311a849c4ca0ff202ea93d79a: 2000
+    27166de495708dc4c8fc72665fdee28a: 1024
     9ff75805db123434ab6b2e09fc89d2ae: -80
     9c04128649229ac478db1c19c7deb17f: 0
     b85b34f6939141c4c90e88184acd5278: 1500
@@ -135,6 +139,7 @@ AudioMixerSnapshotController:
     32b8a4293a7dec847a38d2374cc85def: 1
     e5396a297ee939f4c9aa28383e5d0188: 1000
     0a0ec2eb222a43f459ec4bb45ae7a368: -13
+    e5c72bfb790ba8844b46236686e59a58: 32
     a992dffb65759d141b54e396d9794bd0: 0.98
     419bdf1db707e7a4490eb6ea3638bc1c: 2
     f234ff6d75c738d42b38903e0a907207: 1
@@ -163,6 +168,28 @@ AudioMixerEffectController:
   m_EffectName: Attenuation
   m_MixLevel: 4bd8b6e620f7ebe4d9274aef674bbda9
   m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &8715327250514819090
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 43e1a3c6187715049a88771caff787bd
+  m_EffectName: Pitch Shifter
+  m_MixLevel: 76ed95ee713c8a146b38d641f3d79297
+  m_Parameters:
+  - m_ParameterName: Pitch
+    m_GUID: 491d12820592b2946b0e4175eb23e440
+  - m_ParameterName: FFT size
+    m_GUID: 27166de495708dc4c8fc72665fdee28a
+  - m_ParameterName: Overlap
+    m_GUID: e5c72bfb790ba8844b46236686e59a58
+  - m_ParameterName: Max channels
+    m_GUID: d826e5a492354c74d9646df9224c7a1b
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0

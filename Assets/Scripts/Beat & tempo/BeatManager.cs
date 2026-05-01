@@ -19,6 +19,11 @@ public class BeatManager : MonoBehaviour
     public float originalMusicBPM = 90f;
     public string lowPassParam = "LowPassFreq";
     public string musicVolParam = "MusicVol";
+    public string pitchCompParam = "PitchComp";
+
+    [Header("Dosing de la Compensation (0 à 1)")]
+    [Range(0f, 1f)]
+    public float speedUpCompFactor = 1.0f;
 
     [Header("Réglages des Transitions")]
     public float normalVol = 0f;
@@ -144,9 +149,29 @@ public class BeatManager : MonoBehaviour
     private void UpdateTempoCalculations()
     {
         beatInterval = 60f / currentBPM;
+
         if (musicSource != null)
         {
-            musicSource.pitch = currentBPM / originalMusicBPM;
+            float targetPitch = currentBPM / originalMusicBPM;
+            musicSource.pitch = targetPitch;
+
+            if (mixer != null && targetPitch > 0)
+            {
+                float compensatedPitch = 1f;
+
+                if (targetPitch >= 1f)
+                {
+                    float fullCompensation = 1f / targetPitch;
+                    compensatedPitch = Mathf.Lerp(1f, fullCompensation, speedUpCompFactor);
+                }
+                else
+                {
+                    compensatedPitch = 1f;
+                }
+
+                compensatedPitch = Mathf.Clamp(compensatedPitch, 0.5f, 2.0f);
+                mixer.SetFloat(pitchCompParam, compensatedPitch);
+            }
         }
     }
 
