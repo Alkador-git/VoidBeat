@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class BeatVisualizerTool : MonoBehaviour
@@ -7,9 +8,10 @@ public class BeatVisualizerTool : MonoBehaviour
     public struct ZoneTimelineEntry
     {
         public string label;
-        public ZoneSettings settings;
         public float startTime;
         public float endTime;
+        public float bpmStart;
+        public float bpmEnd;
 
         [HideInInspector] public float calculatedStartX;
         [HideInInspector] public float calculatedEndX;
@@ -17,10 +19,9 @@ public class BeatVisualizerTool : MonoBehaviour
 
     [Header("Paramètres du Joueur")]
     public float moveSpeed = 10f;
-    public float originalMusicBPM = 90f;
 
     [Header("Timeline du Niveau")]
-    public float totalLevelDuration = 60f;
+    public float totalLevelDuration = 122.5f;
     public ZoneTimelineEntry[] timelineZones;
 
     [Header("Paramètres Visuels (Gizmos)")]
@@ -33,61 +34,71 @@ public class BeatVisualizerTool : MonoBehaviour
     public Color zoneBoundaryColor = Color.yellow;
     public float zoneHeight = 8f;
 
+    private List<ZoneTimelineEntry> sortedZones = new List<ZoneTimelineEntry>();
+
     private void OnValidate()
     {
-        CalculateSpatialTimeline();
+        SortAndCalculateSpatialTimeline();
     }
 
     private void OnDrawGizmos()
     {
-        if (moveSpeed <= 0 || originalMusicBPM <= 0) return;
+        if (moveSpeed <= 0) return;
 
         Vector3 basePos = transform.position;
 
         Gizmos.color = Color.white;
         Gizmos.DrawLine(basePos + new Vector3(0, -lineLength / 2, 0), basePos + new Vector3(0, lineLength / 2, 0));
 
-        CalculateSpatialTimeline();
+        SortAndCalculateSpatialTimeline();
 
         DrawZoneGizmos(basePos);
 
         DrawBeatGizmos(basePos);
     }
 
-    private void CalculateSpatialTimeline()
+    private void SortAndCalculateSpatialTimeline()
     {
         if (timelineZones == null || timelineZones.Length == 0) return;
+
+        sortedZones.Clear();
+        sortedZones.AddRange(timelineZones);
+        sortedZones.Sort((a, b) => a.startTime.CompareTo(b.startTime));
 
         float currentX = 0f;
         float currentTime = 0f;
         float timeStep = 0.01f;
 
-        for (int i = 0; i < timelineZones.Length; i++)
+        for (int i = 0; i < sortedZones.Count; i++)
         {
-            while (currentTime < timelineZones[i].startTime)
+            ZoneTimelineEntry entry = sortedZones[i];
+
+            while (currentTime < entry.startTime)
             {
-                float bpm = originalMusicBPM;
-                float speed = moveSpeed * (bpm / originalMusicBPM);
-                currentX += speed * timeStep;
+                currentX += moveSpeed * timeStep;
                 currentTime += timeStep;
             }
 
-            timelineZones[i].calculatedStartX = currentX;
+            entry.calculatedStartX = currentX;
 
-            while (currentTime < timelineZones[i].endTime)
+            while (currentTime < entry.endTime)
             {
-                float progress = Mathf.InverseLerp(timelineZones[i].startTime, timelineZones[i].endTime, currentTime);
-
-                float bpm = (timelineZones[i].settings != null)
-                    ? Mathf.Lerp(timelineZones[i].settings.bpmStart, timelineZones[i].settings.bpmEnd, progress)
-                    : originalMusicBPM;
-
-                float speed = moveSpeed * (bpm / originalMusicBPM);
-                currentX += speed * timeStep;
+                currentX += moveSpeed * timeStep;
                 currentTime += timeStep;
             }
 
-            timelineZones[i].calculatedEndX = currentX;
+            entry.calculatedEndX = currentX;
+
+            for (int j = 0; j < timelineZones.Length; j++)
+            {
+                if (timelineZones[j].label == entry.label && timelineZones[j].startTime == entry.startTime)
+                {
+                    timelineZones[j].calculatedStartX = entry.calculatedStartX;
+                    timelineZones[j].calculatedEndX = entry.calculatedEndX;
+                }
+            }
+
+            sortedZones[i] = entry;
         }
     }
 
@@ -97,8 +108,6 @@ public class BeatVisualizerTool : MonoBehaviour
 
         foreach (var zone in timelineZones)
         {
-            if (zone.settings == null) continue;
-
             Gizmos.color = zoneBoundaryColor;
 
             Vector3 startTop = basePos + new Vector3(zone.calculatedStartX, zoneHeight / 2, 0);
@@ -114,7 +123,7 @@ public class BeatVisualizerTool : MonoBehaviour
 
 #if UNITY_EDITOR
             Vector3 textPos = basePos + new Vector3((zone.calculatedStartX + zone.calculatedEndX) / 2, zoneHeight / 2 + 1f, 0);
-            UnityEditor.Handles.Label(textPos, $"ZONE: {zone.settings.name}\n[{zone.startTime}s - {zone.endTime}s]");
+            UnityEditor.Handles.Label(textPos, $"ZONE: {zone.label}\n[{zone.startTime}s - {zone.endTime}s]\nBPM: {zone.bpmStart} -> {zone.bpmEnd}");
 #endif
         }
     }
@@ -123,55 +132,52 @@ public class BeatVisualizerTool : MonoBehaviour
     {
         float currentX = 0f;
         float currentTime = 0f;
-        float timeStep = 0.01f;
-        float beatIntervalCounter = 0f;
         int beatCount = 0;
 
         while (currentTime < totalLevelDuration)
         {
             float currentBPM = GetBPMAtTime(currentTime);
-            float speed = moveSpeed * (currentBPM / originalMusicBPM);
+            if (currentBPM <= 0) break;
 
-            currentX += speed * timeStep;
-            currentTime += timeStep;
-            beatIntervalCounter += timeStep;
+            float beatDuration = 60f / currentBPM;
+            currentTime += beatDuration;
+            currentX += moveSpeed * beatDuration;
 
-            float beatInterval = 60f / currentBPM;
+            if (currentTime > totalLevelDuration) break;
 
-            if (beatIntervalCounter >= beatInterval)
-            {
-                beatIntervalCounter -= beatInterval;
-                beatCount++;
+            beatCount++;
 
-                bool isNewBar = (beatCount % beatsPerBar == 1);
-                Gizmos.color = isNewBar ? barColor : beatColor;
+            bool isNewBar = (beatCount % beatsPerBar == 1);
+            Gizmos.color = isNewBar ? barColor : beatColor;
 
-                Vector3 bottom = basePos + new Vector3(currentX, -lineLength / 2, 0);
-                Vector3 top = basePos + new Vector3(currentX, lineLength / 2, 0);
-                Gizmos.DrawLine(bottom, top);
+            Vector3 bottom = basePos + new Vector3(currentX, -lineLength / 2, 0);
+            Vector3 top = basePos + new Vector3(currentX, lineLength / 2, 0);
+            Gizmos.DrawLine(bottom, top);
 
 #if UNITY_EDITOR
-                UnityEditor.Handles.Label(top + Vector3.up * 0.5f, $"B:{beatCount}");
+            UnityEditor.Handles.Label(top + Vector3.up * 0.5f, $"B:{beatCount}");
 #endif
-            }
         }
     }
 
     private float GetBPMAtTime(float time)
     {
-        if (timelineZones == null || timelineZones.Length == 0) return originalMusicBPM;
+        if (sortedZones == null || sortedZones.Count == 0) return 120f;
 
-        foreach (var zone in timelineZones)
+        foreach (var zone in sortedZones)
         {
             if (time >= zone.startTime && time <= zone.endTime)
             {
-                if (zone.settings == null) return originalMusicBPM;
-
                 float progress = Mathf.InverseLerp(zone.startTime, zone.endTime, time);
-                return Mathf.Lerp(zone.settings.bpmStart, zone.settings.bpmEnd, progress);
+                return Mathf.Lerp(zone.bpmStart, zone.bpmEnd, progress);
             }
         }
 
-        return originalMusicBPM;
+        if (time > sortedZones[sortedZones.Count - 1].endTime)
+        {
+            return sortedZones[sortedZones.Count - 1].bpmEnd;
+        }
+
+        return sortedZones[0].bpmStart;
     }
 }

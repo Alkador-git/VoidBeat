@@ -161,11 +161,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalScale.x
-      value: 40
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 150
+      value: 167
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1672,45 +1672,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
   moveSpeed: 3.5
-  originalMusicBPM: 102.5
   totalLevelDuration: 122.5
   timelineZones:
   - label: Bunker Demo
-    settings: {fileID: 11400000, guid: 80419003f784b2a48812aae93e83f60a, type: 2}
     startTime: 0
     endTime: 28.5
+    bpmStart: 90
+    bpmEnd: 90
     calculatedStartX: 0
-    calculatedEndX: 87.5843
+    calculatedEndX: 99.75349
   - label: Bunker Action 1
-    settings: {fileID: 11400000, guid: 1a22d1dc4fba2ce4b98a92ed4ea535ad, type: 2}
     startTime: 28.5
     endTime: 47
-    calculatedStartX: 87.5843
-    calculatedEndX: 149.20883
+    bpmStart: 90
+    bpmEnd: 105
+    calculatedStartX: 99.75349
+    calculatedEndX: 164.54526
   - label: Bunker Lore
-    settings: {fileID: 11400000, guid: aca7162c5c8055c46a3fd25e48bf3e4e, type: 2}
     startTime: 47
     endTime: 54
-    calculatedStartX: 149.20883
-    calculatedEndX: 173.11041
+    bpmStart: 105
+    bpmEnd: 95
+    calculatedStartX: 164.54526
+    calculatedEndX: 189.04782
   - label: Bunker Checkpoint
-    settings: {fileID: 11400000, guid: 1a683d3dad6b3b640a20890ad8538818, type: 2}
     startTime: 54
     endTime: 66
-    calculatedStartX: 173.11041
-    calculatedEndX: 212.03864
+    bpmStart: 95
+    bpmEnd: 95
+    calculatedStartX: 189.04782
+    calculatedEndX: 231.05222
   - label: Bunker Action 2
-    settings: {fileID: 11400000, guid: 119d24d8426d89a4f816f52601aaede2, type: 2}
     startTime: 66
     endTime: 105
-    calculatedStartX: 212.03864
-    calculatedEndX: 351.83197
+    bpmStart: 95
+    bpmEnd: 115
+    calculatedStartX: 231.05222
+    calculatedEndX: 367.5315
   - label: Bunker Transition
-    settings: {fileID: 11400000, guid: 15950b4868cd2524ab9876dfa6d210a0, type: 2}
     startTime: 105
     endTime: 122.5
-    calculatedStartX: 351.83197
-    calculatedEndX: 417.56335
+    bpmStart: 115
+    bpmEnd: 105
+    calculatedStartX: 367.5315
+    calculatedEndX: 428.7879
   lineLength: 15
   beatColor: {r: 0, g: 1, b: 0, a: 1}
   barColor: {r: 0, g: 1, b: 1, a: 1}
@@ -1887,11 +1892,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 140
+      value: 137
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 239.0465
+      value: 256.5465
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1952,11 +1957,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalScale.x
-      value: 88
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2018,11 +2023,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalScale.x
-      value: 66
+      value: 61.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 342.0465
+      value: 355.5465
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2322,11 +2327,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalScale.x
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 118
+      value: 134
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2938,11 +2943,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 62
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 75.5
+      value: 89
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.y
