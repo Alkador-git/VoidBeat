@@ -32,6 +32,7 @@ public class BeatManager : MonoBehaviour
 
     private float beatInterval;
     private float lastBeatTime;
+    private float musicTimer = 0f;
     private Coroutine audioTransitionCoroutine;
     private bool isMusicStarted = false;
 
@@ -54,15 +55,17 @@ public class BeatManager : MonoBehaviour
     {
         if (musicSource != null && musicSource.isPlaying)
         {
-            float songTime = musicSource.time;
-            if (songTime >= lastBeatTime + beatInterval)
+            musicTimer += Time.deltaTime;
+
+            beatInterval = 60f / currentBPM;
+
+            if (musicTimer >= lastBeatTime + beatInterval)
             {
                 lastBeatTime += beatInterval;
             }
         }
     }
 
-    // --- DÉCLENCHEMENT PAR COLLIDER ---
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isMusicStarted)
@@ -71,7 +74,6 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Force le démarrage de la musique et initialise le rythme.
     public void StartMusic()
     {
         if (isMusicStarted) return;
@@ -82,14 +84,11 @@ public class BeatManager : MonoBehaviour
             musicSource.Play();
             isMusicStarted = true;
 
-            lastBeatTime = musicSource.time;
+            musicTimer = 0f;
+            lastBeatTime = 0f;
             UpdateTempoCalculations();
 
-            Debug.Log("Musique de niveau démarrée par trigger");
-        }
-        else
-        {
-            Debug.LogWarning("BeatManager : Impossible de démarrer. AudioSource ou AudioClip manquant.");
+            Debug.Log("<color=cyan>Musique de niveau démarrée !</color>");
         }
     }
 
@@ -135,7 +134,6 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    // --- Tempo & Détection ---
     public void UpdateZoneProgress(float progress)
     {
         if (currentZone == null) return;
@@ -155,9 +153,10 @@ public class BeatManager : MonoBehaviour
     public bool IsActionOnBeat()
     {
         if (musicSource == null || !musicSource.isPlaying) return false;
-        float currentSongTime = musicSource.time;
-        float timeSinceLastBeat = currentSongTime - lastBeatTime;
+
+        float timeSinceLastBeat = musicTimer - lastBeatTime;
         float timeToNextBeat = beatInterval - timeSinceLastBeat;
+
         return (timeSinceLastBeat <= beatWindow || timeToNextBeat <= beatWindow);
     }
 }
