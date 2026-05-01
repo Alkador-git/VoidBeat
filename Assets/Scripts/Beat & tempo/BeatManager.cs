@@ -14,6 +14,7 @@ public class BeatManager : MonoBehaviour
 
     [Header("Configuration Audio")]
     public AudioSource musicSource;
+    public AudioClip musicClip;
     public AudioMixer mixer;
     public float originalMusicBPM = 90f;
     public string lowPassParam = "LowPassFreq";
@@ -25,13 +26,14 @@ public class BeatManager : MonoBehaviour
     public float normalCutoff = 22000f;
     public float narrativeCutoff = 2000f;
     public float fadeSpeed = 2f;
-    
+
     [Header("Détection de Rythme")]
     public float beatWindow = 0.15f;
 
     private float beatInterval;
     private float lastBeatTime;
     private Coroutine audioTransitionCoroutine;
+    private bool isMusicStarted = false;
 
     void Awake()
     {
@@ -41,22 +43,53 @@ public class BeatManager : MonoBehaviour
 
     void Start()
     {
-        if (musicSource) musicSource.Play();
-        UpdateTempoCalculations();
-
         mixer.SetFloat(lowPassParam, normalCutoff);
         mixer.SetFloat(musicVolParam, normalVol);
+
+        currentBPM = originalMusicBPM;
+        UpdateTempoCalculations();
     }
 
     void Update()
     {
-        if (musicSource.isPlaying)
+        if (musicSource != null && musicSource.isPlaying)
         {
             float songTime = musicSource.time;
             if (songTime >= lastBeatTime + beatInterval)
             {
                 lastBeatTime += beatInterval;
             }
+        }
+    }
+
+    // --- DÉCLENCHEMENT PAR COLLIDER ---
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !isMusicStarted)
+        {
+            StartMusic();
+        }
+    }
+
+    /// Force le démarrage de la musique et initialise le rythme.
+    public void StartMusic()
+    {
+        if (isMusicStarted) return;
+
+        if (musicSource != null && musicClip != null)
+        {
+            musicSource.clip = musicClip;
+            musicSource.Play();
+            isMusicStarted = true;
+
+            lastBeatTime = musicSource.time;
+            UpdateTempoCalculations();
+
+            Debug.Log("Musique de niveau démarrée par trigger");
+        }
+        else
+        {
+            Debug.LogWarning("BeatManager : Impossible de démarrer. AudioSource ou AudioClip manquant.");
         }
     }
 
@@ -102,7 +135,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    // --- Tempo & Détection  ---
+    // --- Tempo & Détection ---
     public void UpdateZoneProgress(float progress)
     {
         if (currentZone == null) return;
@@ -113,12 +146,15 @@ public class BeatManager : MonoBehaviour
     private void UpdateTempoCalculations()
     {
         beatInterval = 60f / currentBPM;
-        if (musicSource != null) musicSource.pitch = currentBPM / originalMusicBPM;
+        if (musicSource != null)
+        {
+            musicSource.pitch = currentBPM / originalMusicBPM;
+        }
     }
 
     public bool IsActionOnBeat()
     {
-        if (!musicSource.isPlaying) return false;
+        if (musicSource == null || !musicSource.isPlaying) return false;
         float currentSongTime = musicSource.time;
         float timeSinceLastBeat = currentSongTime - lastBeatTime;
         float timeToNextBeat = beatInterval - timeSinceLastBeat;

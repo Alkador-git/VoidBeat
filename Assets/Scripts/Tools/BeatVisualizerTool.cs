@@ -67,7 +67,7 @@ public class BeatVisualizerTool : MonoBehaviour
 
         float currentX = 0f;
         float currentTime = 0f;
-        float timeStep = 0.01f;
+        float timeStep = 0.005f;
 
         for (int i = 0; i < sortedZones.Count; i++)
         {
@@ -132,6 +132,9 @@ public class BeatVisualizerTool : MonoBehaviour
     {
         float currentX = 0f;
         float currentTime = 0f;
+        float timeStep = 0.005f;
+
+        float lastBeatTime = 0f;
         int beatCount = 0;
 
         while (currentTime < totalLevelDuration)
@@ -139,24 +142,27 @@ public class BeatVisualizerTool : MonoBehaviour
             float currentBPM = GetBPMAtTime(currentTime);
             if (currentBPM <= 0) break;
 
-            float beatDuration = 60f / currentBPM;
-            currentTime += beatDuration;
-            currentX += moveSpeed * beatDuration;
+            float beatInterval = 60f / currentBPM;
 
-            if (currentTime > totalLevelDuration) break;
+            currentX += moveSpeed * timeStep;
+            currentTime += timeStep;
 
-            beatCount++;
+            if (currentTime >= lastBeatTime + beatInterval)
+            {
+                lastBeatTime += beatInterval;
+                beatCount++;
 
-            bool isNewBar = (beatCount % beatsPerBar == 1);
-            Gizmos.color = isNewBar ? barColor : beatColor;
+                bool isNewBar = (beatCount % beatsPerBar == 1);
+                Gizmos.color = isNewBar ? barColor : beatColor;
 
-            Vector3 bottom = basePos + new Vector3(currentX, -lineLength / 2, 0);
-            Vector3 top = basePos + new Vector3(currentX, lineLength / 2, 0);
-            Gizmos.DrawLine(bottom, top);
+                Vector3 bottom = basePos + new Vector3(currentX, -lineLength / 2, 0);
+                Vector3 top = basePos + new Vector3(currentX, lineLength / 2, 0);
+                Gizmos.DrawLine(bottom, top);
 
 #if UNITY_EDITOR
-            UnityEditor.Handles.Label(top + Vector3.up * 0.5f, $"B:{beatCount}");
+                UnityEditor.Handles.Label(top + Vector3.up * 0.5f, $"B:{beatCount}");
 #endif
+            }
         }
     }
 
