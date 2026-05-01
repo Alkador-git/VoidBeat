@@ -92,8 +92,6 @@ public class BeatManager : MonoBehaviour
             musicTimer = 0f;
             lastBeatTime = 0f;
             UpdateTempoCalculations();
-
-            Debug.Log("<color=cyan>Musique de niveau démarrée !</color>");
         }
     }
 

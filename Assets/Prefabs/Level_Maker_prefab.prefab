@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2281313362767653179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 564653411449515058}
+  - component: {fileID: 7137038310858055724}
+  - component: {fileID: 326387011491261279}
+  m_Layer: 0
+  m_Name: BeatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &564653411449515058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281313362767653179}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6045888901121181900}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7137038310858055724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281313362767653179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c6d25877ad2784f94f2c79d3faa6f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BeatManager
+  currentZone: {fileID: 0}
+  currentBPM: 90
+  musicSource: {fileID: 0}
+  musicClip: {fileID: 8300000, guid: 3d50c783539b9cb45b913c6044b5b589, type: 3}
+  mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
+  originalMusicBPM: 101
+  lowPassParam: LowPassFreq
+  musicVolParam: MusicVol
+  pitchCompParam: PitchComp
+  speedUpCompFactor: 0.25
+  normalVol: -8
+  narrativeVol: -14
+  normalCutoff: 22000
+  narrativeCutoff: 1500
+  fadeSpeed: 2
+  beatWindow: 0.15
+--- !u!61 &326387011491261279
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281313362767653179}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.6666667, y: 2.6666667}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 10}
+  m_EdgeRadius: 0
+--- !u!1 &5827005446814729691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6045888901121181900}
+  - component: {fileID: 8348167994389128050}
+  m_Layer: 0
+  m_Name: Level_Maker_prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6045888901121181900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5827005446814729691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 564653411449515058}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8348167994389128050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5827005446814729691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6e1f612ad71bd4ea419eb4f06d29f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
+  moveSpeed: 3.5
+  totalLevelDuration: 127.5
+  timelineZones:
+  - label: Bunker Demo
+    startTime: 0
+    endTime: 32
+    bpmStart: 90
+    bpmEnd: 90
+    calculatedStartX: 0
+    calculatedEndX: 112.02574
+  - label: Bunker Action 1
+    startTime: 32
+    endTime: 52
+    bpmStart: 90
+    bpmEnd: 105
+    calculatedStartX: 112.02574
+    calculatedEndX: 182.01556
+  - label: Bunker Lore
+    startTime: 52
+    endTime: 60
+    bpmStart: 105
+    bpmEnd: 95
+    calculatedStartX: 182.01556
+    calculatedEndX: 210.0185
+  - label: Bunker Checkpoint
+    startTime: 60
+    endTime: 72
+    bpmStart: 95
+    bpmEnd: 95
+    calculatedStartX: 210.0185
+    calculatedEndX: 252.02289
+  - label: Bunker Action 2
+    startTime: 72
+    endTime: 111
+    bpmStart: 95
+    bpmEnd: 115
+    calculatedStartX: 252.02289
+    calculatedEndX: 388.50906
+  - label: Bunker Transition
+    startTime: 111
+    endTime: 127.5
+    bpmStart: 115
+    bpmEnd: 105
+    calculatedStartX: 388.50906
+    calculatedEndX: 446.24973
+  lineLength: 15
+  beatColor: {r: 0, g: 1, b: 0, a: 1}
+  barColor: {r: 0, g: 1, b: 1, a: 1}
+  beatsPerBar: 2
+  zoneBoundaryColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  zoneHeight: 20

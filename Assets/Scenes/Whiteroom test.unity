@@ -1034,10 +1034,13 @@ MonoBehaviour:
   currentZone: {fileID: 0}
   currentBPM: 90
   musicSource: {fileID: 971797162}
+  musicClip: {fileID: 0}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
   originalMusicBPM: 102
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
+  pitchCompParam: PitchComp
+  speedUpCompFactor: 1
   normalVol: -8
   narrativeVol: -14
   normalCutoff: 22000
@@ -2826,156 +2829,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6482919832589030925, guid: a4f67853f4e82e14a9a0011aaef2a312, type: 3}
   m_PrefabInstance: {fileID: 376230523}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &822726093
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 822726095}
-  - component: {fileID: 822726094}
-  - component: {fileID: 822726096}
-  m_Layer: 0
-  m_Name: BeatVisualizerTool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &822726094
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 822726093}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 10
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 648898257000741392, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.28947368, y: 0.31578946}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
---- !u!4 &822726095
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 822726093}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &822726096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 822726093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6e1f612ad71bd4ea419eb4f06d29f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
-  moveSpeed: 3.5
-  originalMusicBPM: 102
-  totalLevelDuration: 122.5
-  timelineZones:
-  - label: Bunker Demo
-    settings: {fileID: 11400000, guid: 80419003f784b2a48812aae93e83f60a, type: 2}
-    startTime: 0
-    endTime: 28.5
-    calculatedStartX: 0
-    calculatedEndX: 88.016945
-  - label: Bunker Action 1
-    settings: {fileID: 11400000, guid: 1a22d1dc4fba2ce4b98a92ed4ea535ad, type: 2}
-    startTime: 28.5
-    endTime: 47
-    calculatedStartX: 88.016945
-    calculatedEndX: 149.94359
-  - label: Bunker Lore
-    settings: {fileID: 11400000, guid: aca7162c5c8055c46a3fd25e48bf3e4e, type: 2}
-    startTime: 47
-    endTime: 54
-    calculatedStartX: 149.94359
-    calculatedEndX: 173.96233
-  - label: Bunker Checkpoint
-    settings: {fileID: 11400000, guid: 1a683d3dad6b3b640a20890ad8538818, type: 2}
-    startTime: 54
-    endTime: 66
-    calculatedStartX: 173.96233
-    calculatedEndX: 213.07365
-  - label: Bunker Action 2
-    settings: {fileID: 11400000, guid: 119d24d8426d89a4f816f52601aaede2, type: 2}
-    startTime: 66
-    endTime: 105
-    calculatedStartX: 213.07365
-    calculatedEndX: 353.5523
-  - label: Bunker Transition
-    settings: {fileID: 11400000, guid: 15950b4868cd2524ab9876dfa6d210a0, type: 2}
-    startTime: 105
-    endTime: 122.5
-    calculatedStartX: 353.5523
-    calculatedEndX: 419.60596
-  lineLength: 15
-  beatColor: {r: 0, g: 1, b: 0, a: 1}
-  barColor: {r: 0, g: 1, b: 1, a: 1}
-  beatsPerBar: 4
-  zoneBoundaryColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  zoneHeight: 20
 --- !u!1001 &907023265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6618,4 +6471,3 @@ SceneRoots:
   - {fileID: 1555631090}
   - {fileID: 1760726957}
   - {fileID: 575682033}
-  - {fileID: 822726095}

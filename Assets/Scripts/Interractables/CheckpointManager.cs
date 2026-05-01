@@ -32,7 +32,6 @@ public class CheckpointManager : MonoBehaviour
     public void SetCheckpoint(Vector3 newPos)
     {
         lastCheckpointPosition = newPos;
-        Debug.Log("Checkpoint");
     }
 
     /// Réapparaît le joueur au dernier checkpoint avec boost restauré
@@ -47,7 +46,5 @@ public class CheckpointManager : MonoBehaviour
         {
             BoostManager.Instance.currentBoost = boostOnRespawn;
         }
-
-        Debug.Log("Récupération de K-Z0 effectuée.");
     }
 }

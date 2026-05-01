@@ -28,12 +28,10 @@ public class BeatSyncChecker : MonoBehaviour
         if (player != null)
         {
             recordedXPositions.Add(player.position.x);
-            Debug.Log($"<color=red>[Sync Debug] Beat enregistré à X : {player.position.x}</color>");
         }
         else
         {
             recordedXPositions.Add(transform.position.x);
-            Debug.Log($"<color=red>[Sync Debug] Beat enregistré à X : {transform.position.x}</color>");
         }
     }
 
@@ -58,6 +56,5 @@ public class BeatSyncChecker : MonoBehaviour
     public void ClearRecordedBeats()
     {
         recordedXPositions.Clear();
-        Debug.Log("<color=orange>[Sync Debug] Toutes les lignes de debug ont été effacées.</color>");
     }
 }
