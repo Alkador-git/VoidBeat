@@ -134,7 +134,7 @@ public class KZ0Controller : MonoBehaviour
     private IEnumerator KnockbackRoutine(Vector2 force)
     {
         isKnockedBack = true;
-        isDashing = false; // Le dégât annule le dash
+        isDashing = false;
         rb.linearVelocity = ClampVelocity(force);
         yield return new WaitForSeconds(knockbackDuration);
         isKnockedBack = false;
@@ -150,7 +150,7 @@ public class KZ0Controller : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < dashDuration)
         {
-            if (isKnockedBack) break; // Sortir du dash si on prend un coup
+            if (isKnockedBack) break;
 
             float curveValue = dashEase.Evaluate(elapsed / dashDuration);
             rb.linearVelocity = (GetBaseRunVelocity() + (dir * new Vector2(dashForceX, dashForceY))) * curveValue;

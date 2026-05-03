@@ -83,7 +83,7 @@ ScriptedImporter:
     generateModelPrefab: 1
     generateAnimationClips: 1
     addSortingGroup: 1
-    addShadowCasters: 0
+    addShadowCasters: 1
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   asepriteImporterSettings:
@@ -98,11 +98,11 @@ ScriptedImporter:
     generateModelPrefab: 1
     generateAnimationClips: 1
     addSortingGroup: 1
-    addShadowCasters: 0
+    addShadowCasters: 1
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639131552533245354
+  platformSettingsDirtyTick: 639134283593586415
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -181,7 +181,7 @@ ScriptedImporter:
   - name: DefaultTexturePlatform
     overridden: 0
     ignorePlatformSupport: 0
-    maxTextureSize: 1024
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
