@@ -71,6 +71,48 @@ public class BeatManager : MonoBehaviour
         }
     }
 
+    // --- GETTERS POUR LE CHECKPOINT ---
+    public float GetMusicTimer() => musicTimer;
+    public float GetAudioTime()
+    {
+        if (musicSource != null && musicSource.clip != null && isMusicStarted)
+        {
+            return musicSource.time;
+        }
+        return 0f;
+    }
+
+    public float GetLastBeatTime() => lastBeatTime;
+
+    // --- RESTAURATION DE LA MUSIQUE ---
+    public void RestorePlayback(float timer, float audioTime, float lastBeat, float bpm)
+    {
+        // Sécurité : Ne rien faire si la musique n'a pas encore démarré
+        if (!isMusicStarted) return;
+
+        if (musicSource != null && musicClip != null)
+        {
+            // 1. On restaure les variables de rythme internes
+            musicTimer = timer;
+            lastBeatTime = lastBeat;
+            currentBPM = bpm;
+
+            // 2. On recalcule le pitch et le beat interval
+            UpdateTempoCalculations();
+
+            // 3. On repositionne la tête de lecture exacte de la musique
+            musicSource.time = Mathf.Clamp(audioTime, 0f, musicClip.length - 0.001f);
+
+            // 4. On force la lecture si elle s'était arrêtée
+            if (!musicSource.isPlaying)
+            {
+                musicSource.Play();
+            }
+
+            Debug.Log($"[Respawn Audio] Musique recalée à : {audioTime}s");
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isMusicStarted)
@@ -92,6 +134,8 @@ public class BeatManager : MonoBehaviour
             musicTimer = 0f;
             lastBeatTime = 0f;
             UpdateTempoCalculations();
+
+            Debug.Log("Musique de niveau démarrée");
         }
     }
 

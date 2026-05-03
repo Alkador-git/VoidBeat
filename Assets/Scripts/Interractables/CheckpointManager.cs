@@ -4,37 +4,55 @@ public class CheckpointManager : MonoBehaviour
 {
     public static CheckpointManager Instance;
 
-    // --- ÉTAT ---
-
     [Header("État du Checkpoint")]
     public Vector3 lastCheckpointPosition;
     public float boostOnRespawn = 60f;
 
-    // --- INITIALISATION ---
+    // --- SAUVEGARDE DE LA MUSIQUE ---
+    private float savedMusicTimer;
+    private float savedAudioTime;
+    private float savedLastBeatTime;
+    private float savedBPM;
 
-    /// Initialise l'instance singleton
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
-    /// Enregistre la position initiale du joueur comme checkpoint
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) lastCheckpointPosition = player.transform.position;
+
+        // Initialisation par défaut au début du niveau
+        savedMusicTimer = 0f;
+        savedAudioTime = 0f;
+        savedLastBeatTime = 0f;
+        if (BeatManager.Instance != null)
+        {
+            savedBPM = BeatManager.Instance.originalMusicBPM;
+        }
     }
 
-    // --- GESTION ---
-
-    /// Définit la position du dernier checkpoint
+    /// Définit la position du dernier checkpoint et capture l'état de la musique
     public void SetCheckpoint(Vector3 newPos)
     {
         lastCheckpointPosition = newPos;
+
+        // Enregistrement des données de la musique au moment du Checkpoint
+        if (BeatManager.Instance != null)
+        {
+            savedMusicTimer = BeatManager.Instance.GetMusicTimer();
+            savedAudioTime = BeatManager.Instance.GetAudioTime();
+            savedLastBeatTime = BeatManager.Instance.GetLastBeatTime();
+            savedBPM = BeatManager.Instance.currentBPM;
+
+            Debug.Log($"[Checkpoint] Musique enregistrée : Timer={savedMusicTimer}s, Audio={savedAudioTime}s");
+        }
     }
 
-    /// Réapparaît le joueur au dernier checkpoint avec boost restauré
+    /// Réapparaît le joueur au dernier checkpoint avec boost et musique restaurés
     public void RespawnPlayer(GameObject player)
     {
         player.transform.position = lastCheckpointPosition;
@@ -45,6 +63,12 @@ public class CheckpointManager : MonoBehaviour
         if (BoostManager.Instance != null)
         {
             BoostManager.Instance.currentBoost = boostOnRespawn;
+        }
+
+        // --- RESTAURATION DE LA MUSIQUE ---
+        if (BeatManager.Instance != null)
+        {
+            BeatManager.Instance.RestorePlayback(savedMusicTimer, savedAudioTime, savedLastBeatTime, savedBPM);
         }
     }
 }
