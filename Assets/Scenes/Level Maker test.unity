@@ -2213,11 +2213,23 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.1538808
       objectReference: {fileID: 0}
+    - target: {fileID: 2598494588030734821, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.003289474
+      objectReference: {fileID: 0}
     - target: {fileID: 5269741942497009890, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.02137263
       objectReference: {fileID: 0}
     - target: {fileID: 5269741942497009890, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.001644737
+      objectReference: {fileID: 0}
+    - target: {fileID: 8658223624360054581, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2279569
+      objectReference: {fileID: 0}
+    - target: {fileID: 8658223624360054581, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.001644737
       objectReference: {fileID: 0}
@@ -2251,7 +2263,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5e9c992b5d70ddc4b9299ff7d06d9d43, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -2606,7 +2618,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803913658}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
