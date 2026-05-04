@@ -42,9 +42,7 @@ public class CheckpointManager : MonoBehaviour
         if (BeatManager.Instance != null && BeatManager.Instance.musicSource != null && BeatManager.Instance.musicSource.clip != null)
         {
             savedMusicTimer = BeatManager.Instance.GetMusicTimer();
-
             savedTimeSamples = BeatManager.Instance.musicSource.timeSamples;
-
             savedLastBeatTime = BeatManager.Instance.GetLastBeatTime();
             savedBPM = BeatManager.Instance.currentBPM;
 
@@ -65,12 +63,10 @@ public class CheckpointManager : MonoBehaviour
             BoostManager.Instance.currentBoost = boostOnRespawn;
         }
 
-        // --- RESTAURATION DE LA MUSIQUE ---
+        // --- RESTAURATION DIRECTE DES SAMPLES ---
         if (BeatManager.Instance != null && BeatManager.Instance.musicSource != null && BeatManager.Instance.musicSource.clip != null)
         {
-            float audioTimeInSeconds = (float)savedTimeSamples / BeatManager.Instance.musicSource.clip.frequency;
-
-            BeatManager.Instance.RestorePlayback(savedMusicTimer, audioTimeInSeconds, savedLastBeatTime, savedBPM);
+            BeatManager.Instance.RestorePlayback(savedMusicTimer, savedTimeSamples, savedLastBeatTime, savedBPM);
         }
     }
 }

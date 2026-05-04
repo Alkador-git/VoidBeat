@@ -19,17 +19,15 @@ public class BoostManager : MonoBehaviour
     [Header("UI")]
     public Slider boostSlider;
     public Image fillImage;
-    public Color normalColor = Color.cyan; 
+    public Color normalColor = Color.cyan;
     public Color lowColor = Color.magenta;
 
     // --- INITIALISATION ---
 
-    /// Initialise l'instance singleton
     void Awake() => Instance = this;
 
     // --- MISE À JOUR ---
 
-    /// Met à jour le boost et l'interface utilisateur chaque frame
     void Update()
     {
         currentBoost -= decayRate * Time.deltaTime;
@@ -42,24 +40,20 @@ public class BoostManager : MonoBehaviour
 
     // --- GESTION DU BOOST ---
 
-    /// Ajoute le boost par défaut
     public void AddBoost()
     {
         AddBoost(boostGain);
     }
 
-    /// Ajoute une quantité de boost spécifique
     public void AddBoost(float boostReward)
     {
-        currentBoost += boostGain;
+        currentBoost += boostReward;
         currentBoost = Mathf.Clamp(currentBoost, 0, maxBoost);
     }
 
-    /// Réduit le boost d'une quantité donnée
     public void RemoveBoost(float amount)
     {
         currentBoost -= amount;
-
         currentBoost = Mathf.Clamp(currentBoost, 0, maxBoost);
     }
 }

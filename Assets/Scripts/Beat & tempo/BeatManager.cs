@@ -41,6 +41,9 @@ public class BeatManager : MonoBehaviour
     private Coroutine audioTransitionCoroutine;
     private bool isMusicStarted = false;
 
+    // --- COMPTEUR DE RATÉS ---
+    private int consecutiveMisses = 0;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -71,7 +74,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    // --- GETTERS POUR LE CHECKPOINT ---
+    // --- GETTERS ---
     public float GetMusicTimer()
     {
         if (musicSource != null && musicSource.clip != null && isMusicStarted)
@@ -81,19 +84,10 @@ public class BeatManager : MonoBehaviour
         return musicTimer;
     }
 
-    public float GetAudioTime()
-    {
-        if (musicSource != null && musicSource.clip != null && isMusicStarted)
-        {
-            return (float)musicSource.timeSamples / musicSource.clip.frequency;
-        }
-        return 0f;
-    }
-
     public float GetLastBeatTime() => lastBeatTime;
 
     // --- RESTAURATION DE LA MUSIQUE ---
-    public void RestorePlayback(float timer, float audioTime, float lastBeat, float bpm)
+    public void RestorePlayback(float timer, int sampleTarget, float lastBeat, float bpm)
     {
         if (!isMusicStarted) return;
 
@@ -102,18 +96,18 @@ public class BeatManager : MonoBehaviour
             currentBPM = bpm;
             UpdateTempoCalculations();
 
-            int sampleTarget = Mathf.FloorToInt(audioTime * musicClip.frequency);
             musicSource.timeSamples = Mathf.Clamp(sampleTarget, 0, musicClip.samples - 1);
 
             musicTimer = (float)musicSource.timeSamples / musicClip.frequency;
             lastBeatTime = lastBeat;
+            consecutiveMisses = 0;
 
             if (!musicSource.isPlaying)
             {
                 musicSource.Play();
             }
 
-            Debug.Log($"[Respawn Audio] Musique recalée à : {audioTime}s");
+            Debug.Log($"[Respawn Audio] Musique recalée exactement à : {musicSource.timeSamples} samples");
         }
     }
 
@@ -137,6 +131,7 @@ public class BeatManager : MonoBehaviour
 
             musicTimer = 0f;
             lastBeatTime = 0f;
+            consecutiveMisses = 0;
             UpdateTempoCalculations();
 
             Debug.Log("Musique de niveau démarrée");
@@ -229,6 +224,62 @@ public class BeatManager : MonoBehaviour
 
         float timeSinceLastBeat = musicTimer - lastBeatTime;
         float timeToNextBeat = beatInterval - timeSinceLastBeat;
+
+        float closestDistance = Mathf.Min(timeSinceLastBeat, timeToNextBeat);
+        float deltaMs = closestDistance * 1000f;
+
+        string feedback = "";
+        float boostPercent = 0f;
+
+        if (deltaMs <= 35f)
+        {
+            feedback = "parfait";
+            boostPercent = 0.05f;
+            consecutiveMisses = 0;
+        }
+        else if (deltaMs <= 75f)
+        {
+            feedback = "bien";
+            boostPercent = 0.025f;
+            consecutiveMisses = 0;
+        }
+        else if (deltaMs <= 150f)
+        {
+            feedback = "juste";
+            boostPercent = 0.015f;
+            consecutiveMisses = 0;
+        }
+        else
+        {
+            feedback = "raté";
+            consecutiveMisses++;
+
+            if (consecutiveMisses >= 2)
+            {
+                boostPercent = -0.1f;
+            }
+            else
+            {
+                boostPercent = -0.05f;
+            }
+        }
+
+        if (BoostManager.Instance != null)
+        {
+            float max = BoostManager.Instance.maxBoost;
+            float rewardAmount = max * boostPercent;
+
+            if (rewardAmount >= 0f)
+            {
+                BoostManager.Instance.AddBoost(rewardAmount);
+            }
+            else
+            {
+                BoostManager.Instance.RemoveBoost(Mathf.Abs(rewardAmount));
+            }
+        }
+
+        Debug.Log($"Rhythm Input - Ecart: {deltaMs:F1} ms ({feedback}), Ratés d'affilée: {consecutiveMisses}");
 
         return (timeSinceLastBeat <= beatWindow || timeToNextBeat <= beatWindow);
     }

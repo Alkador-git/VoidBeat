@@ -73,7 +73,6 @@ public class TempoIndicator : MonoBehaviour
             if (player != null && Application.isPlaying)
             {
                 recordedBeatPositions.Add(player.position.x);
-                Debug.Log($"[Tempo Debug] Beat théorique posé à X: {player.position.x}");
             }
         }
 
@@ -131,6 +130,5 @@ public class TempoIndicator : MonoBehaviour
     public void ClearGizmos()
     {
         recordedBeatPositions.Clear();
-        Debug.Log("[TempoIndicator] Historique des Gizmos effacé");
     }
 }
