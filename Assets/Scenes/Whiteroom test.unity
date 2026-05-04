@@ -779,6 +779,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   dashCooldown: 0.75
+  ghostPrefab: {fileID: 1547518142}
+  ghostDelay: 1
+  ghostColor: {r: 0.5019608, g: 0.78431374, b: 1, a: 0.5}
+  ghostFadeSpeed: 2
   collisionGraceDuration: 0.08
   knockbackDuration: 0.1
 --- !u!114 &190706024
