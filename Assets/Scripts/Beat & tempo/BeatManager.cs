@@ -58,9 +58,9 @@ public class BeatManager : MonoBehaviour
 
     void Update()
     {
-        if (musicSource != null && musicSource.isPlaying)
+        if (musicSource != null && musicSource.isPlaying && musicSource.clip != null)
         {
-            musicTimer += Time.deltaTime;
+            musicTimer = (float)musicSource.timeSamples / musicSource.clip.frequency;
 
             beatInterval = 60f / currentBPM;
 
@@ -72,12 +72,20 @@ public class BeatManager : MonoBehaviour
     }
 
     // --- GETTERS POUR LE CHECKPOINT ---
-    public float GetMusicTimer() => musicTimer;
+    public float GetMusicTimer()
+    {
+        if (musicSource != null && musicSource.clip != null && isMusicStarted)
+        {
+            return (float)musicSource.timeSamples / musicSource.clip.frequency;
+        }
+        return musicTimer;
+    }
+
     public float GetAudioTime()
     {
         if (musicSource != null && musicSource.clip != null && isMusicStarted)
         {
-            return musicSource.time;
+            return (float)musicSource.timeSamples / musicSource.clip.frequency;
         }
         return 0f;
     }
@@ -87,23 +95,19 @@ public class BeatManager : MonoBehaviour
     // --- RESTAURATION DE LA MUSIQUE ---
     public void RestorePlayback(float timer, float audioTime, float lastBeat, float bpm)
     {
-        // Sécurité : Ne rien faire si la musique n'a pas encore démarré
         if (!isMusicStarted) return;
 
         if (musicSource != null && musicClip != null)
         {
-            // 1. On restaure les variables de rythme internes
-            musicTimer = timer;
-            lastBeatTime = lastBeat;
             currentBPM = bpm;
-
-            // 2. On recalcule le pitch et le beat interval
             UpdateTempoCalculations();
 
-            // 3. On repositionne la tête de lecture exacte de la musique
-            musicSource.time = Mathf.Clamp(audioTime, 0f, musicClip.length - 0.001f);
+            int sampleTarget = Mathf.FloorToInt(audioTime * musicClip.frequency);
+            musicSource.timeSamples = Mathf.Clamp(sampleTarget, 0, musicClip.samples - 1);
 
-            // 4. On force la lecture si elle s'était arrêtée
+            musicTimer = (float)musicSource.timeSamples / musicClip.frequency;
+            lastBeatTime = lastBeat;
+
             if (!musicSource.isPlaying)
             {
                 musicSource.Play();
@@ -219,7 +223,9 @@ public class BeatManager : MonoBehaviour
 
     public bool IsActionOnBeat()
     {
-        if (musicSource == null || !musicSource.isPlaying) return false;
+        if (musicSource == null || !musicSource.isPlaying || musicSource.clip == null) return false;
+
+        musicTimer = (float)musicSource.timeSamples / musicSource.clip.frequency;
 
         float timeSinceLastBeat = musicTimer - lastBeatTime;
         float timeToNextBeat = beatInterval - timeSinceLastBeat;

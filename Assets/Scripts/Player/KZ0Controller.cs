@@ -11,7 +11,7 @@ public class KZ0Controller : MonoBehaviour
 
     // --- MOUVEMENT ---
     [Header("Mouvement & Auto-Run")]
-    public float moveSpeed = 10f;
+    public float moveSpeed = 3.5f;
 
     // --- SAUT & COYOTE TIME ---
     [Header("Parkour & Saut")]

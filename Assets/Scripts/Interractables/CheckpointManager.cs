@@ -10,7 +10,7 @@ public class CheckpointManager : MonoBehaviour
 
     // --- SAUVEGARDE DE LA MUSIQUE ---
     private float savedMusicTimer;
-    private float savedAudioTime;
+    private int savedTimeSamples;
     private float savedLastBeatTime;
     private float savedBPM;
 
@@ -25,9 +25,8 @@ public class CheckpointManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) lastCheckpointPosition = player.transform.position;
 
-        // Initialisation par défaut au début du niveau
         savedMusicTimer = 0f;
-        savedAudioTime = 0f;
+        savedTimeSamples = 0;
         savedLastBeatTime = 0f;
         if (BeatManager.Instance != null)
         {
@@ -35,20 +34,21 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    /// Définit la position du dernier checkpoint et capture l'état de la musique
+    /// Définit la position du dernier checkpoint et capture l'état exact de la musique
     public void SetCheckpoint(Vector3 newPos)
     {
         lastCheckpointPosition = newPos;
 
-        // Enregistrement des données de la musique au moment du Checkpoint
-        if (BeatManager.Instance != null)
+        if (BeatManager.Instance != null && BeatManager.Instance.musicSource != null && BeatManager.Instance.musicSource.clip != null)
         {
             savedMusicTimer = BeatManager.Instance.GetMusicTimer();
-            savedAudioTime = BeatManager.Instance.GetAudioTime();
+
+            savedTimeSamples = BeatManager.Instance.musicSource.timeSamples;
+
             savedLastBeatTime = BeatManager.Instance.GetLastBeatTime();
             savedBPM = BeatManager.Instance.currentBPM;
 
-            Debug.Log($"[Checkpoint] Musique enregistrée : Timer={savedMusicTimer}s, Audio={savedAudioTime}s");
+            Debug.Log($"[Checkpoint] Musique enregistrée : Timer={savedMusicTimer}s, Sample={savedTimeSamples}");
         }
     }
 
@@ -66,9 +66,11 @@ public class CheckpointManager : MonoBehaviour
         }
 
         // --- RESTAURATION DE LA MUSIQUE ---
-        if (BeatManager.Instance != null)
+        if (BeatManager.Instance != null && BeatManager.Instance.musicSource != null && BeatManager.Instance.musicSource.clip != null)
         {
-            BeatManager.Instance.RestorePlayback(savedMusicTimer, savedAudioTime, savedLastBeatTime, savedBPM);
+            float audioTimeInSeconds = (float)savedTimeSamples / BeatManager.Instance.musicSource.clip.frequency;
+
+            BeatManager.Instance.RestorePlayback(savedMusicTimer, audioTimeInSeconds, savedLastBeatTime, savedBPM);
         }
     }
 }
