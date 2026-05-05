@@ -65,7 +65,7 @@ public class VoidBeatMenuManager : MonoBehaviour
 
     public void ConfirmQuit() => Application.Quit();
 
-    public void NewGame() => SceneManager.LoadScene("Whiteroom test level");
+    public void NewGame() => SceneManager.LoadScene("Whiteroom test");
 
     IEnumerator SwitchPanel(CanvasGroup from, CanvasGroup to)
     {

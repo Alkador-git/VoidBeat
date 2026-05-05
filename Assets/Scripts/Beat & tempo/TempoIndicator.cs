@@ -73,7 +73,7 @@ public class TempoIndicator : MonoBehaviour
 
             if (player == null)
             {
-                Debug.LogWarning("<color=red>[TempoIndicator]</color> Attention : Le champ 'Player' est vide dans l'inspecteur !");
+                Debug.LogWarning("[TempoIndicator] Attention : Le champ 'Player' est vide dans l'inspecteur");
                 return;
             }
 
