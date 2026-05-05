@@ -117,21 +117,21 @@ Main character / K-Z0 :
 
 Animations mouvements :
 
-[ ] - Course
+[x] - Course
 
-[ ] - Saut
+[x] - Saut
 
 [x] - Glissade
 
-[ ] - Chute
+[x] - Chute
 
-[ ] - Dash
+[x] - Dash
 
 [ ] - Attaque
 
-[ ] - Dégâts subi
+[x] - Dégâts subi
 
-[x] - Idle
+[ ] - Idle
 
 Character Diegetic UI :
 
