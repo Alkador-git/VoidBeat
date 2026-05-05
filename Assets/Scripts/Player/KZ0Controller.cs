@@ -36,6 +36,8 @@ public class KZ0Controller : MonoBehaviour
     [Header("Glissade (Smooth)")]
     public float slideSpeedMultiplier = 1.2f;
     public float slideEaseDuration = 0.2f;
+    public Transform ceilingCheck;
+    public float ceilingCheckRadius = 0.2f;
     private bool isSliding = false;
     private float currentSlideLerp = 0f;
     private Vector2 originalColliderSize;
@@ -103,15 +105,20 @@ public class KZ0Controller : MonoBehaviour
         Vector2 baseVel = GetBaseRunVelocity();
         rb.linearVelocity = ClampVelocity(baseVel);
 
-        if (GetSlideInput() && isGrounded)
+        // --- LOGIQUE DE GLISSADE ---
+        bool obstacleAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, groundLayer);
+
+        if ((GetSlideInput() || (isSliding && obstacleAbove)) && isGrounded)
         {
             if (!isSliding) StartSlide();
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 1f, Time.deltaTime / slideEaseDuration);
         }
-
         else
         {
-            if (isSliding) StopSlide();
+            if (isSliding && !obstacleAbove)
+            {
+                StopSlide();
+            }
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 0f, Time.deltaTime / slideEaseDuration);
         }
 
@@ -184,6 +191,15 @@ public class KZ0Controller : MonoBehaviour
         if (ghostObj.TryGetComponent<DashGhost>(out DashGhost ghostScript))
         {
             ghostScript.Init(playerSR.sprite, transform.position, transform.rotation, transform.localScale, ghostColor, ghostFadeSpeed);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (ceilingCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
         }
     }
 
