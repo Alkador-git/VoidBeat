@@ -60,7 +60,7 @@ Objectif 1 : Gestion du Flow & Combat
 
 [x] - Implémenter le Dash Multidirectionnel.
 
-[ ] - Création splash screen, menu écran titre, menu principal, crédits, popup quitter, options vidéo audio calibration et commandes, menu pause et écran de victoire, menu sélection niveaux
+[~] - Création splash screen, menu écran titre, menu principal, crédits, popup quitter, options vidéo audio calibration et commandes, menu pause et écran de victoire, menu sélection niveaux
 
 [x] - Implémenter le système de pénalité de désynchronisation + bonus de sync.
 
