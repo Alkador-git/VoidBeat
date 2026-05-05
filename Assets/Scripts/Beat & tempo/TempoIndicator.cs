@@ -66,13 +66,35 @@ public class TempoIndicator : MonoBehaviour
         float lastBeatTime = BeatManager.Instance.GetLastBeatTime();
 
         // --- DÉTECTION DU BEAT EXACT ---
+
         if (lastBeatTime != previousLastBeatTime)
         {
             previousLastBeatTime = lastBeatTime;
 
-            if (player != null && Application.isPlaying)
+            if (player == null)
             {
-                recordedBeatPositions.Add(player.position.x);
+                Debug.LogWarning("<color=red>[TempoIndicator]</color> Attention : Le champ 'Player' est vide dans l'inspecteur !");
+                return;
+            }
+
+            if (Application.isPlaying)
+            {
+                float realX = player.position.x;
+                recordedBeatPositions.Add(realX);
+                BeatVisualizerTool tool = FindFirstObjectByType<BeatVisualizerTool>();
+
+                if (tool != null)
+                {
+                    float theoreticalX = tool.GetXAtTime(lastBeatTime);
+                    float gap = realX - theoreticalX;
+
+                    Debug.Log("[Lag Check] Beat détecté ! Écart : " + gap.ToString("F3") + " unités.");
+                }
+
+                else
+                {
+                    Debug.Log("[TempoIndicator] Beat détecté à X : " + realX + " mais BeatVisualizerTool est introuvable dans la scène.");
+                }
             }
         }
 

@@ -12,7 +12,6 @@ public class BeatVisualizerTool : MonoBehaviour
         public float endTime;
         public float bpmStart;
         public float bpmEnd;
-
         [HideInInspector] public float calculatedStartX;
         [HideInInspector] public float calculatedEndX;
     }
@@ -20,119 +19,78 @@ public class BeatVisualizerTool : MonoBehaviour
     [Header("Paramètres du Joueur")]
     public float moveSpeed = 10f;
 
+    [Header("Correction de Dérive")]
+    public float speedMultiplier = 1.0f;
+    public float spatialOffset = 0f;
+
     [Header("Timeline du Niveau")]
     public float totalLevelDuration = 122.5f;
     public ZoneTimelineEntry[] timelineZones;
 
-    [Header("Paramètres Visuels (Gizmos)")]
+    [Header("Paramètres Visuels")]
     public float lineLength = 12f;
     public Color beatColor = Color.green;
     public Color barColor = Color.cyan;
     public int beatsPerBar = 4;
 
-    [Header("Visualisation des Zones")]
-    public Color zoneBoundaryColor = Color.yellow;
-    public float zoneHeight = 8f;
-
     private List<ZoneTimelineEntry> sortedZones = new List<ZoneTimelineEntry>();
-
-    private void OnValidate()
-    {
-        SortAndCalculateSpatialTimeline();
-    }
+    private void OnValidate() { SortAndCalculateSpatialTimeline(); }
 
     private void OnDrawGizmos()
     {
         if (moveSpeed <= 0) return;
-
         Vector3 basePos = transform.position;
-
-        Gizmos.color = Color.white;
-        Gizmos.DrawLine(basePos + new Vector3(0, -lineLength / 2, 0), basePos + new Vector3(0, lineLength / 2, 0));
 
         SortAndCalculateSpatialTimeline();
         DrawZoneGizmos(basePos);
         DrawBeatGizmos(basePos);
     }
 
+    public float GetXAtTime(float time)
+    {
+        return time * (moveSpeed * speedMultiplier) + spatialOffset;
+    }
+
     private void SortAndCalculateSpatialTimeline()
     {
         if (timelineZones == null || timelineZones.Length == 0) return;
-
         sortedZones.Clear();
         sortedZones.AddRange(timelineZones);
         sortedZones.Sort((a, b) => a.startTime.CompareTo(b.startTime));
 
-        float currentX = 0f;
-        float currentTime = 0f;
-        float timeStep = 0.005f;
-
         for (int i = 0; i < sortedZones.Count; i++)
         {
             ZoneTimelineEntry entry = sortedZones[i];
-
-            while (currentTime < entry.startTime)
-            {
-                currentX += moveSpeed * timeStep;
-                currentTime += timeStep;
-            }
-
-            entry.calculatedStartX = currentX;
-
-            while (currentTime < entry.endTime)
-            {
-                currentX += moveSpeed * timeStep;
-                currentTime += timeStep;
-            }
-
-            entry.calculatedEndX = currentX;
+            entry.calculatedStartX = GetXAtTime(entry.startTime);
+            entry.calculatedEndX = GetXAtTime(entry.endTime);
 
             for (int j = 0; j < timelineZones.Length; j++)
             {
-                if (timelineZones[j].label == entry.label && timelineZones[j].startTime == entry.startTime)
+                if (timelineZones[j].label == entry.label)
                 {
                     timelineZones[j].calculatedStartX = entry.calculatedStartX;
                     timelineZones[j].calculatedEndX = entry.calculatedEndX;
                 }
             }
-
             sortedZones[i] = entry;
         }
     }
 
     private void DrawZoneGizmos(Vector3 basePos)
     {
-        if (timelineZones == null) return;
-
         foreach (var zone in timelineZones)
         {
-            Gizmos.color = zoneBoundaryColor;
-
-            Vector3 startTop = basePos + new Vector3(zone.calculatedStartX, zoneHeight / 2, 0);
-            Vector3 startBottom = basePos + new Vector3(zone.calculatedStartX, -zoneHeight / 2, 0);
-            Gizmos.DrawLine(startBottom, startTop);
-
-            Vector3 endTop = basePos + new Vector3(zone.calculatedEndX, zoneHeight / 2, 0);
-            Vector3 endBottom = basePos + new Vector3(zone.calculatedEndX, -zoneHeight / 2, 0);
-            Gizmos.DrawLine(endBottom, endTop);
-
-            Gizmos.DrawLine(startTop, endTop);
-            Gizmos.DrawLine(startBottom, endBottom);
-
-#if UNITY_EDITOR
-            Vector3 textPos = basePos + new Vector3((zone.calculatedStartX + zone.calculatedEndX) / 2, zoneHeight / 2 + 1f, 0);
-            UnityEditor.Handles.Label(textPos, $"ZONE: {zone.label}\n[{zone.startTime}s - {zone.endTime}s]\nBPM: {zone.bpmStart} -> {zone.bpmEnd}");
-#endif
+            Gizmos.color = Color.yellow;
+            Vector3 sBot = basePos + new Vector3(zone.calculatedStartX, -4f, 0);
+            Vector3 sTop = basePos + new Vector3(zone.calculatedStartX, 4f, 0);
+            Gizmos.DrawLine(sBot, sTop);
+            Gizmos.DrawLine(basePos + new Vector3(zone.calculatedEndX, -4f, 0), basePos + new Vector3(zone.calculatedEndX, 4f, 0));
         }
     }
 
     private void DrawBeatGizmos(Vector3 basePos)
     {
-        float currentX = 0f;
         float currentTime = 0f;
-        float timeStep = 0.005f;
-
-        float lastBeatTime = 0f;
         int beatCount = 0;
 
         while (currentTime < totalLevelDuration)
@@ -141,38 +99,22 @@ public class BeatVisualizerTool : MonoBehaviour
             if (currentBPM <= 0) break;
 
             float beatDuration = 60f / currentBPM;
-            currentTime += beatDuration;
-            currentX += moveSpeed * beatDuration;
-            float beatInterval = 60f / currentBPM;
 
-            if (currentTime > totalLevelDuration) break;
-            currentX += moveSpeed * timeStep;
-            currentTime += timeStep;
+            float finalX = GetXAtTime(currentTime);
 
             beatCount++;
-            if (currentTime >= lastBeatTime + beatInterval)
-            {
-                lastBeatTime += beatInterval;
-                beatCount++;
+            bool isNewBar = (beatCount % beatsPerBar == 1);
+            Gizmos.color = isNewBar ? barColor : beatColor;
 
-                bool isNewBar = (beatCount % beatsPerBar == 1);
-                Gizmos.color = isNewBar ? barColor : beatColor;
-
-                Vector3 bottom = basePos + new Vector3(currentX, -lineLength / 2, 0);
-                Vector3 top = basePos + new Vector3(currentX, lineLength / 2, 0);
-                Gizmos.DrawLine(bottom, top);
-
-#if UNITY_EDITOR
-                UnityEditor.Handles.Label(top + Vector3.up * 0.5f, $"B:{beatCount}");
-#endif
-            }
-        }
+            Vector3 bottom = basePos + new Vector3(finalX, -lineLength / 2, 0);
+            Vector3 top = basePos + new Vector3(finalX, lineLength / 2, 0);
+            Gizmos.DrawLine(bottom, top);
+            currentTime += beatDuration;
+        }
     }
 
     private float GetBPMAtTime(float time)
     {
-        if (sortedZones == null || sortedZones.Count == 0) return 120f;
-
         foreach (var zone in sortedZones)
         {
             if (time >= zone.startTime && time <= zone.endTime)
@@ -181,12 +123,6 @@ public class BeatVisualizerTool : MonoBehaviour
                 return Mathf.Lerp(zone.bpmStart, zone.bpmEnd, progress);
             }
         }
-
-        if (time > sortedZones[sortedZones.Count - 1].endTime)
-        {
-            return sortedZones[sortedZones.Count - 1].bpmEnd;
-        }
-
-        return sortedZones[0].bpmStart;
+        return (sortedZones.Count > 0) ? sortedZones[0].bpmStart : 120f;
     }
 }
