@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class VictoryTrigger : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private bool hasWon = false;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.CompareTag("Player") && !hasWon)
+        {
+            hasWon = true;
+
+            int finalScore = 0;
+            int collected = 0;
+            int total = 50;
+
+            float finalAccuracy = 98.2f;
+
+            GameUIManager.Instance.ShowVictoryScreen(finalScore, collected, total, finalAccuracy);
+        }
     }
 }

@@ -616,7 +616,7 @@ MonoBehaviour:
   maxVerticalVelocityUp: 5
   maxVerticalVelocityDown: 8
   fallGravityMultiplier: 1.5
-  slideSpeedMultiplier: 1.25
+  slideSpeedMultiplier: 1
   slideEaseDuration: 0.2
   dashForceX: 5
   dashForceY: 0.2
