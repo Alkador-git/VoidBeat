@@ -62,7 +62,7 @@ Objectif 1 : Gestion du Flow & Combat
 
 [ ] T2.5 - Création splash screen, menu écran titre, menu principal, crédits, popup quitter, options vidéo audio calibration et commandes, menu pause et écran de victoire, menu sélection niveaux
 
-[ ] T2.4 - Implémenter le système de pénalité de désynchronisation (perte d'endurance si action "hors-tempo").
+[x] T2.4 - Implémenter le système de pénalité de désynchronisation + bonus de sync.
 
 Objectif 2 : Dynamisme, Environnement & Pacing
 
