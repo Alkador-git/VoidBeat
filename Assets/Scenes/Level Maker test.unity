@@ -618,6 +618,8 @@ MonoBehaviour:
   fallGravityMultiplier: 1.5
   slideSpeedMultiplier: 1
   slideEaseDuration: 0.2
+  ceilingCheck: {fileID: 0}
+  ceilingCheckRadius: 0.2
   dashForceX: 5
   dashForceY: 0.2
   dashDuration: 0.3
@@ -3710,18 +3712,18 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 231265584}
   - {fileID: 190706020}
+  - {fileID: 2091075366}
   - {fileID: 1645284004}
   - {fileID: 590829917}
+  - {fileID: 77317179}
+  - {fileID: 1054593142}
+  - {fileID: 1334399123}
   - {fileID: 443412866}
   - {fileID: 1388125233}
   - {fileID: 690333309}
   - {fileID: 112467683}
   - {fileID: 1555631090}
-  - {fileID: 77317179}
-  - {fileID: 2091075366}
   - {fileID: 362334435}
   - {fileID: 1499756587}
   - {fileID: 1879382871}
   - {fileID: 1450609473}
-  - {fileID: 1054593142}
-  - {fileID: 1334399123}

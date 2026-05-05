@@ -41,8 +41,8 @@ public class BeatManager : MonoBehaviour
     private Coroutine audioTransitionCoroutine;
     private bool isMusicStarted = false;
 
-    // --- COMPTEUR DE RATÉS ---
     private int consecutiveMisses = 0;
+    private float lastRewardedBeatTime = -1f;
 
     void Awake()
     {
@@ -74,7 +74,6 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    // --- GETTERS ---
     public float GetMusicTimer()
     {
         if (musicSource != null && musicSource.clip != null && isMusicStarted)
@@ -86,7 +85,6 @@ public class BeatManager : MonoBehaviour
 
     public float GetLastBeatTime() => lastBeatTime;
 
-    // --- RESTAURATION DE LA MUSIQUE ---
     public void RestorePlayback(float timer, int sampleTarget, float lastBeat, float bpm)
     {
         if (!isMusicStarted) return;
@@ -101,6 +99,7 @@ public class BeatManager : MonoBehaviour
             musicTimer = (float)musicSource.timeSamples / musicClip.frequency;
             lastBeatTime = lastBeat;
             consecutiveMisses = 0;
+            lastRewardedBeatTime = -1f;
 
             if (!musicSource.isPlaying)
             {
@@ -132,6 +131,7 @@ public class BeatManager : MonoBehaviour
             musicTimer = 0f;
             lastBeatTime = 0f;
             consecutiveMisses = 0;
+            lastRewardedBeatTime = -1f;
             UpdateTempoCalculations();
 
             Debug.Log("Musique de niveau démarrée");
@@ -228,8 +228,11 @@ public class BeatManager : MonoBehaviour
         float closestDistance = Mathf.Min(timeSinceLastBeat, timeToNextBeat);
         float deltaMs = closestDistance * 1000f;
 
+        float closestBeatTarget = (timeSinceLastBeat < timeToNextBeat) ? lastBeatTime : lastBeatTime + beatInterval;
+
         string feedback = "";
         float boostPercent = 0f;
+        bool isIgnoredSuccess = false;
 
         if (deltaMs <= 35f)
         {
@@ -253,33 +256,35 @@ public class BeatManager : MonoBehaviour
         {
             feedback = "raté";
             consecutiveMisses++;
+            boostPercent = (consecutiveMisses >= 2) ? -0.1f : -0.05f;
+        }
 
-            if (consecutiveMisses >= 2)
+        if (deltaMs <= 150f)
+        {
+            if (Mathf.Approximately(closestBeatTarget, lastRewardedBeatTime))
             {
-                boostPercent = -0.1f;
+                isIgnoredSuccess = true;
             }
             else
             {
-                boostPercent = -0.05f;
+                lastRewardedBeatTime = closestBeatTarget;
             }
         }
 
-        if (BoostManager.Instance != null)
+        if (BoostManager.Instance != null && !isIgnoredSuccess)
         {
             float max = BoostManager.Instance.maxBoost;
             float rewardAmount = max * boostPercent;
 
-            if (rewardAmount >= 0f)
-            {
-                BoostManager.Instance.AddBoost(rewardAmount);
-            }
-            else
-            {
-                BoostManager.Instance.RemoveBoost(Mathf.Abs(rewardAmount));
-            }
-        }
+            if (rewardAmount >= 0f) BoostManager.Instance.AddBoost(rewardAmount);
+            else BoostManager.Instance.RemoveBoost(Mathf.Abs(rewardAmount));
 
-        Debug.Log($"Rhythm Input - Ecart: {deltaMs:F1} ms ({feedback}), Ratés d'affilée: {consecutiveMisses}");
+            Debug.Log($"Rhythm Input - Ecart: {deltaMs:F1} ms ({feedback}), Ratés d'affilée: {consecutiveMisses}");
+        }
+        else if (isIgnoredSuccess)
+        {
+            Debug.Log($"Rhythm Input ignoré (Déjà validé pour ce beat).");
+        }
 
         return (timeSinceLastBeat <= beatWindow || timeToNextBeat <= beatWindow);
     }
