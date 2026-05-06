@@ -32,6 +32,12 @@ public class BeatManager : MonoBehaviour
     public float narrativeCutoff = 2000f;
     public float fadeSpeed = 2f;
 
+
+    [Header("Enregistrement Beats")]
+    public BeatData dataContainer;
+    public Transform playerTransform;
+    public bool isRecordingMode = false;
+
     [Header("Détection de Rythme")]
     public float beatWindow = 0.15f;
 
@@ -64,12 +70,16 @@ public class BeatManager : MonoBehaviour
         if (musicSource != null && musicSource.isPlaying && musicSource.clip != null)
         {
             musicTimer = (float)musicSource.timeSamples / musicSource.clip.frequency;
-
             beatInterval = 60f / currentBPM;
 
             if (musicTimer >= lastBeatTime + beatInterval)
             {
                 lastBeatTime += beatInterval;
+
+                if (isRecordingMode && dataContainer != null && playerTransform != null)
+                {
+                    dataContainer.recordedBeats.Add(playerTransform.position.x);
+                }
             }
         }
     }

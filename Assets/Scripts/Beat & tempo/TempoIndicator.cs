@@ -65,39 +65,6 @@ public class TempoIndicator : MonoBehaviour
         float musicTimer = BeatManager.Instance.GetMusicTimer();
         float lastBeatTime = BeatManager.Instance.GetLastBeatTime();
 
-        // --- DÉTECTION DU BEAT EXACT ---
-
-        if (lastBeatTime != previousLastBeatTime)
-        {
-            previousLastBeatTime = lastBeatTime;
-
-            if (player == null)
-            {
-                Debug.LogWarning("[TempoIndicator] Attention : Le champ 'Player' est vide dans l'inspecteur");
-                return;
-            }
-
-            if (Application.isPlaying)
-            {
-                float realX = player.position.x;
-                recordedBeatPositions.Add(realX);
-                BeatVisualizerTool tool = FindFirstObjectByType<BeatVisualizerTool>();
-
-                if (tool != null)
-                {
-                    float theoreticalX = tool.GetXAtTime(lastBeatTime);
-                    float gap = realX - theoreticalX;
-
-                    Debug.Log("[Lag Check] Beat détecté ! Écart : " + gap.ToString("F3") + " unités.");
-                }
-
-                else
-                {
-                    Debug.Log("[TempoIndicator] Beat détecté à X : " + realX + " mais BeatVisualizerTool est introuvable dans la scène.");
-                }
-            }
-        }
-
         // --- CALCULS DE L'ANIMATION UI ---
         float currentBPM = BeatManager.Instance.currentBPM;
         float beatInterval = 60f / (currentBPM > 0 ? currentBPM : 120f);
