@@ -2289,7 +2289,7 @@ MonoBehaviour:
   dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
-  totalLevelDuration: 127.5
+  totalLevelDuration: 126.75
   timelineZones:
   - label: Bunker demo
     startTime: 0
@@ -2328,11 +2328,11 @@ MonoBehaviour:
     calculatedEndX: 388.5
   - label: Bunker Transition
     startTime: 111
-    endTime: 127.5
+    endTime: 126.75
     bpmStart: 115
     bpmEnd: 105
     calculatedStartX: 388.5
-    calculatedEndX: 446.25
+    calculatedEndX: 443.625
   lineLength: 8
   beatColor: {r: 0, g: 1, b: 0, a: 1}
   barColor: {r: 0, g: 1, b: 1, a: 1}
@@ -2511,11 +2511,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalScale.x
-      value: 62
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 392
+      value: 391
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.y
