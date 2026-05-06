@@ -3509,7 +3509,7 @@ MonoBehaviour:
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
   playerTransform: {fileID: 1547518141}
-  isRecordingMode: 1
+  isRecordingMode: 0
   beatWindow: 0.15
 --- !u!4 &2091075366
 Transform:
