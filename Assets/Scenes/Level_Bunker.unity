@@ -2069,11 +2069,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 137
+      value: 133
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 296.5465
+      value: 294.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2134,11 +2134,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalScale.x
-      value: 115
+      value: 113
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.5
+      value: 31.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2286,7 +2286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51852e5f5be7f3b438d02d24aa2e52d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
-  dataContainer: {fileID: 11400000, guid: d4287c0a77ea9484a990c35ca545c22c, type: 2}
+  dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
   totalLevelDuration: 127.5
@@ -2511,15 +2511,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalScale.x
-      value: 58
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 393.5465
+      value: 392
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.00142
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3507,9 +3507,9 @@ MonoBehaviour:
   normalCutoff: 22000
   narrativeCutoff: 2000
   fadeSpeed: 2
-  dataContainer: {fileID: 11400000, guid: d4287c0a77ea9484a990c35ca545c22c, type: 2}
+  dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
   playerTransform: {fileID: 1547518141}
-  isRecordingMode: 1
+  isRecordingMode: 0
   beatWindow: 0.15
 --- !u!4 &2091075366
 Transform:
@@ -3813,9 +3813,9 @@ SceneRoots:
   - {fileID: 2091075366}
   - {fileID: 1645284004}
   - {fileID: 590829917}
+  - {fileID: 1334399123}
   - {fileID: 77317179}
   - {fileID: 1054593142}
-  - {fileID: 1334399123}
   - {fileID: 362334435}
   - {fileID: 1499756587}
   - {fileID: 1879382871}
