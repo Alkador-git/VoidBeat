@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Horizon_Demo
   m_EditorClassIdentifier: Assembly-CSharp::ZoneSettings
   zoneType: 3
-  bpmStart: 125
-  bpmEnd: 125
+  bpmStart: 135
+  bpmEnd: 135
   useLowPass: 0
   timeScale: 1

@@ -333,11 +333,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalScale.x
-      value: 42
+      value: 49
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 207
+      value: 308.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalPosition.y
@@ -913,8 +913,8 @@ Transform:
   m_GameObject: {fileID: 245261197}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 230.02562, y: -4.37735, z: 0}
-  m_LocalScale: {x: 500, y: 2, z: 1}
+  m_LocalPosition: {x: 325, y: -4.37735, z: 0}
+  m_LocalScale: {x: 700, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 112467683}
@@ -2071,11 +2071,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 133
+      value: 241.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 294.5
+      value: 453.75
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2136,11 +2136,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalScale.x
-      value: 113
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.5
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2297,47 +2297,47 @@ MonoBehaviour:
   spatialOffset: 0
   totalLevelDuration: 178
   timelineZones:
-  - label: Bunker demo
+  - label: Horizon demo
     startTime: 0
-    endTime: 17
+    endTime: 18
     bpmStart: 90
     bpmEnd: 90
     calculatedStartX: 0
-    calculatedEndX: 59.5
-  - label: Bunker Action 1
-    startTime: 17
+    calculatedEndX: 63
+  - label: Horizon Action 1
+    startTime: 18
     endTime: 74
     bpmStart: 90
     bpmEnd: 105
-    calculatedStartX: 59.5
+    calculatedStartX: 63
     calculatedEndX: 259
-  - label: Bunker Lore
+  - label: Horizon Lore
     startTime: 74
     endTime: 88
     bpmStart: 105
     bpmEnd: 95
     calculatedStartX: 259
     calculatedEndX: 308
-  - label: Bunker Checkpoint
+  - label: Horizon Checkpoint
     startTime: 88
     endTime: 102
     bpmStart: 95
     bpmEnd: 95
     calculatedStartX: 308
     calculatedEndX: 357
-  - label: Bunker Action 2
+  - label: Horizon Action 2
     startTime: 102
-    endTime: 169.5
+    endTime: 171
     bpmStart: 95
     bpmEnd: 115
     calculatedStartX: 357
-    calculatedEndX: 593.25
-  - label: Bunker Transition
-    startTime: 169.5
+    calculatedEndX: 598.5
+  - label: Horizon Transition
+    startTime: 171
     endTime: 178
     bpmStart: 115
     bpmEnd: 105
-    calculatedStartX: 593.25
+    calculatedStartX: 598.5
     calculatedEndX: 623
   lineLength: 8
   beatColor: {r: 0, g: 1, b: 0, a: 1}
@@ -2517,11 +2517,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalScale.x
-      value: 60
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 391
+      value: 587
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2890,11 +2890,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalScale.x
-      value: 28
+      value: 49
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 172
+      value: 259.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3508,7 +3508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
   currentZone: {fileID: 0}
   currentBPM: 90
-  slowMoFactor: 0.5
+  slowMoFactor: 0.55
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 240086e6aefe95c4fade4df798b76342, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
@@ -3524,8 +3524,8 @@ MonoBehaviour:
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: bcb5b7097cc0bf746b7476b511f89f11, type: 2}
   playerTransform: {fileID: 1547518141}
-  isRecordingMode: 1
-  currentRecordingType: 0
+  isRecordingMode: 0
+  currentRecordingType: 1
   beatWindow: 0.15
 --- !u!4 &2091075366
 Transform:
@@ -3768,11 +3768,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 70
+      value: 196
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 123
+      value: 137
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.y

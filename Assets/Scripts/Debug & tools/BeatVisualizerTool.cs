@@ -126,10 +126,4 @@ public class BeatVisualizerTool : MonoBehaviour
             Gizmos.DrawLine(bottom, top);
         }
     }
-
-    [ContextMenu("Effacer les données d'enregistrement")]
-    public void ClearData()
-    {
-        if (dataContainer != null) dataContainer.recordedBeats.Clear();
-    }
 }

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZoneSettings
   zoneType: 2
   bpmStart: 135
-  bpmEnd: 155
+  bpmEnd: 135
   useLowPass: 0
   timeScale: 1
