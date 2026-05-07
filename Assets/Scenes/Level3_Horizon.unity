@@ -275,9 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b01f5d2f1c44442b41eb34622c538b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatSyncChecker
-  player: {fileID: 1547518141}
-  lineLength: 12
-  recordedBeatColor: {r: 1, g: 0, b: 0, a: 1}
+  recordKey: 101
 --- !u!4 &77317179
 Transform:
   m_ObjectHideFlags: 0
@@ -2297,50 +2295,50 @@ MonoBehaviour:
   dataContainer: {fileID: 11400000, guid: bcb5b7097cc0bf746b7476b511f89f11, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
-  totalLevelDuration: 126.75
+  totalLevelDuration: 178
   timelineZones:
   - label: Bunker demo
     startTime: 0
-    endTime: 32
+    endTime: 17
     bpmStart: 90
     bpmEnd: 90
     calculatedStartX: 0
-    calculatedEndX: 112
+    calculatedEndX: 59.5
   - label: Bunker Action 1
-    startTime: 32
-    endTime: 52
+    startTime: 17
+    endTime: 74
     bpmStart: 90
     bpmEnd: 105
-    calculatedStartX: 112
-    calculatedEndX: 182
+    calculatedStartX: 59.5
+    calculatedEndX: 259
   - label: Bunker Lore
-    startTime: 52
-    endTime: 60
+    startTime: 74
+    endTime: 88
     bpmStart: 105
     bpmEnd: 95
-    calculatedStartX: 182
-    calculatedEndX: 210
+    calculatedStartX: 259
+    calculatedEndX: 308
   - label: Bunker Checkpoint
-    startTime: 60
-    endTime: 72
+    startTime: 88
+    endTime: 102
     bpmStart: 95
     bpmEnd: 95
-    calculatedStartX: 210
-    calculatedEndX: 252
+    calculatedStartX: 308
+    calculatedEndX: 357
   - label: Bunker Action 2
-    startTime: 72
-    endTime: 111
+    startTime: 102
+    endTime: 169.5
     bpmStart: 95
     bpmEnd: 115
-    calculatedStartX: 252
-    calculatedEndX: 388.5
+    calculatedStartX: 357
+    calculatedEndX: 593.25
   - label: Bunker Transition
-    startTime: 111
-    endTime: 126.75
+    startTime: 169.5
+    endTime: 178
     bpmStart: 115
     bpmEnd: 105
-    calculatedStartX: 388.5
-    calculatedEndX: 443.625
+    calculatedStartX: 593.25
+    calculatedEndX: 623
   lineLength: 8
   beatColor: {r: 0, g: 1, b: 0, a: 1}
   barColor: {r: 0, g: 1, b: 1, a: 1}
@@ -3510,6 +3508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
   currentZone: {fileID: 0}
   currentBPM: 90
+  slowMoFactor: 0.5
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 240086e6aefe95c4fade4df798b76342, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
@@ -3526,6 +3525,7 @@ MonoBehaviour:
   dataContainer: {fileID: 11400000, guid: bcb5b7097cc0bf746b7476b511f89f11, type: 2}
   playerTransform: {fileID: 1547518141}
   isRecordingMode: 1
+  currentRecordingType: 0
   beatWindow: 0.15
 --- !u!4 &2091075366
 Transform:
