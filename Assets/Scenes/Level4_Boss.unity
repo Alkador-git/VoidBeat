@@ -845,8 +845,8 @@ Transform:
   m_GameObject: {fileID: 245261197}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 230.02562, y: -4.37735, z: 0}
-  m_LocalScale: {x: 500, y: 2, z: 1}
+  m_LocalPosition: {x: 350, y: -4.37735, z: 0}
+  m_LocalScale: {x: 800, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 112467683}
@@ -2119,6 +2119,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PhaseTransition zone (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b31fdf8892b61e4abffe874ac506625, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2188,7 +2192,7 @@ PrefabInstance:
     - target: {fileID: 5632263322626547057, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: settings
       value: 
-      objectReference: {fileID: 11400000, guid: 119d24d8426d89a4f816f52601aaede2, type: 2}
+      objectReference: {fileID: 11400000, guid: b74d05bf1c837bf43858b4b857801450, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2290,7 +2294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51852e5f5be7f3b438d02d24aa2e52d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
-  dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
+  dataContainer: {fileID: 11400000, guid: cb456368078e57c4298d9bd9030baed6, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
   totalLevelDuration: 150
@@ -2298,50 +2302,50 @@ MonoBehaviour:
   - label: Boss Phase Transition 1
     startTime: 0
     endTime: 32
-    bpmStart: 90
-    bpmEnd: 90
+    bpmStart: 50
+    bpmEnd: 100
     calculatedStartX: 0
     calculatedEndX: 112
   - label: Bunker Action 1
     startTime: 32
     endTime: 52
-    bpmStart: 90
-    bpmEnd: 105
+    bpmStart: 100
+    bpmEnd: 100
     calculatedStartX: 112
     calculatedEndX: 182
   - label: Boss Phase Transition 2
     startTime: 52
     endTime: 60
-    bpmStart: 105
-    bpmEnd: 95
+    bpmStart: 100
+    bpmEnd: 110
     calculatedStartX: 182
     calculatedEndX: 210
   - label: Bunker Action 2
     startTime: 60
     endTime: 72
-    bpmStart: 95
-    bpmEnd: 95
+    bpmStart: 110
+    bpmEnd: 110
     calculatedStartX: 210
     calculatedEndX: 252
   - label: Boss Phase Transition 3
     startTime: 72
     endTime: 111
-    bpmStart: 95
-    bpmEnd: 115
+    bpmStart: 110
+    bpmEnd: 120
     calculatedStartX: 252
     calculatedEndX: 388.5
   - label: Bunker Action 3
     startTime: 111
     endTime: 150
-    bpmStart: 115
-    bpmEnd: 105
+    bpmStart: 120
+    bpmEnd: 120
     calculatedStartX: 388.5
     calculatedEndX: 525
   - label: Bunker Transition
     startTime: 111
     endTime: 150
-    bpmStart: 115
-    bpmEnd: 105
+    bpmStart: 120
+    bpmEnd: 80
     calculatedStartX: 388.5
     calculatedEndX: 525
   lineLength: 8
@@ -2484,7 +2488,7 @@ PrefabInstance:
     - target: {fileID: 5632263322626547057, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: settings
       value: 
-      objectReference: {fileID: 11400000, guid: 119d24d8426d89a4f816f52601aaede2, type: 2}
+      objectReference: {fileID: 11400000, guid: a6d2fd0c2e7f2914e99f72fd36f3f5cb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2638,6 +2642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Transition zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 1754b4e4c436e8b4ba26f66eb417a459, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3002,7 +3010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BoostManager
   currentBoost: 50
   maxBoost: 100
-  decayRate: 6
+  decayRate: 5
   boostGain: 10
   boostSlider: {fileID: 142901686}
   fillImage: {fileID: 1762684405}
@@ -3658,7 +3666,7 @@ MonoBehaviour:
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: ee6d86c147fb90747acb310be5249aea, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
-  originalMusicBPM: 101
+  originalMusicBPM: 150
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
   pitchCompParam: PitchComp
@@ -3668,7 +3676,7 @@ MonoBehaviour:
   normalCutoff: 22000
   narrativeCutoff: 2000
   fadeSpeed: 2
-  dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
+  dataContainer: {fileID: 11400000, guid: cb456368078e57c4298d9bd9030baed6, type: 2}
   playerTransform: {fileID: 1547518141}
   isRecordingMode: 1
   beatWindow: 0.15
@@ -3681,7 +3689,7 @@ Transform:
   m_GameObject: {fileID: 2091075363}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 112.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3959,6 +3967,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Action zone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 03f8ad4232fff834792cf0cddf4634a7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3982,7 +3994,7 @@ SceneRoots:
   - {fileID: 1879382871}
   - {fileID: 443412866}
   - {fileID: 1388125233}
-  - {fileID: 690333309}
   - {fileID: 112467683}
   - {fileID: 1555631090}
   - {fileID: 1450609473}
+  - {fileID: 690333309}

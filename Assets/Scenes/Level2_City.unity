@@ -3509,7 +3509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
   currentZone: {fileID: 0}
-  currentBPM: 90
+  currentBPM: 115
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 6dbb8d986d023b344b14533bed79f435, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}

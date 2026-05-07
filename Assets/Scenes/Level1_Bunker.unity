@@ -1569,14 +1569,14 @@ MonoBehaviour:
   indicatorUI: {fileID: 1874104380}
   bpmText: {fileID: 2132684869}
   pulseScale: 1.2
-  shrinkDurationPercent: 0.2
-  anticipationDurationPercent: 0.2
+  shrinkDurationPercent: 0.15
+  anticipationDurationPercent: 0.15
   beatColor: {r: 0.17663792, g: 0.8018868, b: 0.011347434, a: 1}
   anticipateColor: {r: 0, g: 1, b: 1, a: 1}
   normalColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 0.2784314}
   player: {fileID: 1547518141}
   gizmoBeatColor: {r: 1, g: 0, b: 1, a: 1}
-  lineLength: 12
+  lineLength: 10
 --- !u!4 &590829917
 Transform:
   m_ObjectHideFlags: 0
@@ -3493,7 +3493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
   currentZone: {fileID: 0}
-  currentBPM: 90
+  currentBPM: 102
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 3d50c783539b9cb45b913c6044b5b589, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
@@ -3821,7 +3821,7 @@ SceneRoots:
   - {fileID: 1879382871}
   - {fileID: 443412866}
   - {fileID: 1388125233}
-  - {fileID: 690333309}
   - {fileID: 112467683}
   - {fileID: 1555631090}
   - {fileID: 1450609473}
+  - {fileID: 690333309}

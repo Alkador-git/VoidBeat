@@ -15,5 +15,5 @@ MonoBehaviour:
   zoneType: 4
   bpmStart: 170
   bpmEnd: 125
-  useLowPass: 1
+  useLowPass: 0
   timeScale: 1
