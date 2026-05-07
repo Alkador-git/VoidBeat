@@ -1,60 +1,26 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class BeatSyncChecker : MonoBehaviour
 {
-    [Header("Références")]
-    public Transform player;
-
-    [Header("Paramètres Visuels")]
-    public float lineLength = 12f;
-    public Color recordedBeatColor = Color.red;
-
-    private List<float> recordedXPositions = new List<float>();
+    [Header("Paramètres")]
+    public KeyCode recordKey = KeyCode.E;
 
     void Update()
     {
         if (Application.isPlaying)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(recordKey))
             {
-                RecordCurrentPosition();
+                TriggerManualRecord();
             }
         }
     }
 
-    private void RecordCurrentPosition()
+    private void TriggerManualRecord()
     {
-        if (player != null)
+        if (BeatManager.Instance != null)
         {
-            recordedXPositions.Add(player.position.x);
+            BeatManager.Instance.RecordManualBeat();
         }
-        else
-        {
-            recordedXPositions.Add(transform.position.x);
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (recordedXPositions == null || recordedXPositions.Count == 0) return;
-
-        Gizmos.color = recordedBeatColor;
-
-        foreach (float xPos in recordedXPositions)
-        {
-            float baselineY = (player != null) ? player.position.y : transform.position.y;
-
-            Vector3 bottom = new Vector3(xPos, baselineY - (lineLength / 2f), 0f);
-            Vector3 top = new Vector3(xPos, baselineY + (lineLength / 2f), 0f);
-
-            Gizmos.DrawLine(bottom, top);
-        }
-    }
-
-    [ContextMenu("Effacer les Beats Enregistrés")]
-    public void ClearRecordedBeats()
-    {
-        recordedXPositions.Clear();
     }
 }

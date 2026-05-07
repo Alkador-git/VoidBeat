@@ -275,9 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b01f5d2f1c44442b41eb34622c538b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatSyncChecker
-  player: {fileID: 1547518141}
-  lineLength: 12
-  recordedBeatColor: {r: 1, g: 0, b: 0, a: 1}
+  recordKey: 101
 --- !u!4 &77317179
 Transform:
   m_ObjectHideFlags: 0
@@ -2069,11 +2067,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 136.5
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 296.25
+      value: 298
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2321,17 +2319,17 @@ MonoBehaviour:
     calculatedEndX: 252
   - label: Bunker Action 2
     startTime: 72
-    endTime: 111
+    endTime: 112
     bpmStart: 93
     bpmEnd: 113
     calculatedStartX: 252
-    calculatedEndX: 388.5
+    calculatedEndX: 392
   - label: Bunker Transition
-    startTime: 111
+    startTime: 112
     endTime: 130
     bpmStart: 113
     bpmEnd: 103
-    calculatedStartX: 388.5
+    calculatedStartX: 392
     calculatedEndX: 455
   lineLength: 8
   beatColor: {r: 0, g: 1, b: 0, a: 1}
@@ -2511,11 +2509,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalScale.x
-      value: 66.5
+      value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 397.75
+      value: 399.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3494,6 +3492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
   currentZone: {fileID: 0}
   currentBPM: 102
+  slowMoFactor: 0.65
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 3d50c783539b9cb45b913c6044b5b589, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
@@ -3509,7 +3508,8 @@ MonoBehaviour:
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
   playerTransform: {fileID: 1547518141}
-  isRecordingMode: 1
+  isRecordingMode: 0
+  currentRecordingType: 1
   beatWindow: 0.15
 --- !u!4 &2091075366
 Transform:

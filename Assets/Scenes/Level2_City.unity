@@ -275,9 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b01f5d2f1c44442b41eb34622c538b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatSyncChecker
-  player: {fileID: 1547518141}
-  lineLength: 12
-  recordedBeatColor: {r: 1, g: 0, b: 0, a: 1}
+  recordKey: 101
 --- !u!4 &77317179
 Transform:
   m_ObjectHideFlags: 0
@@ -1573,7 +1571,7 @@ MonoBehaviour:
   indicatorUI: {fileID: 1874104380}
   bpmText: {fileID: 2132684869}
   pulseScale: 1.25
-  shrinkDurationPercent: 0.2
+  shrinkDurationPercent: 0.25
   anticipationDurationPercent: 0.25
   beatColor: {r: 0.17663792, g: 0.8018868, b: 0.011347434, a: 1}
   anticipateColor: {r: 0, g: 1, b: 1, a: 1}
@@ -2297,7 +2295,7 @@ MonoBehaviour:
   dataContainer: {fileID: 11400000, guid: 82854e55a6e95784193aa3cdc70b0633, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
-  totalLevelDuration: 104.75
+  totalLevelDuration: 108.25
   timelineZones:
   - label: City demo
     startTime: 0
@@ -2336,11 +2334,11 @@ MonoBehaviour:
     calculatedEndX: 336
   - label: City Transition
     startTime: 96
-    endTime: 104.75
+    endTime: 108.25
     bpmStart: 115
     bpmEnd: 105
     calculatedStartX: 336
-    calculatedEndX: 366.625
+    calculatedEndX: 378.875
   lineLength: 8
   beatColor: {r: 0, g: 1, b: 0, a: 1}
   barColor: {r: 0, g: 1, b: 1, a: 1}
@@ -2519,11 +2517,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalScale.x
-      value: 30.5
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 327.25
+      value: 333.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3510,6 +3508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
   currentZone: {fileID: 0}
   currentBPM: 100
+  slowMoFactor: 0.5
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 6dbb8d986d023b344b14533bed79f435, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
@@ -3526,6 +3525,7 @@ MonoBehaviour:
   dataContainer: {fileID: 11400000, guid: 82854e55a6e95784193aa3cdc70b0633, type: 2}
   playerTransform: {fileID: 1547518141}
   isRecordingMode: 0
+  currentRecordingType: 1
   beatWindow: 0.15
 --- !u!4 &2091075366
 Transform:
