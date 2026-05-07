@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bunker_Demo
   m_EditorClassIdentifier: Assembly-CSharp::ZoneSettings
   zoneType: 3
-  bpmStart: 90
-  bpmEnd: 90
+  bpmStart: 88
+  bpmEnd: 88
   useLowPass: 0
   timeScale: 1

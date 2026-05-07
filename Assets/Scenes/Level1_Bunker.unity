@@ -2289,50 +2289,50 @@ MonoBehaviour:
   dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
-  totalLevelDuration: 128
+  totalLevelDuration: 130
   timelineZones:
   - label: Bunker demo
     startTime: 0
     endTime: 32
-    bpmStart: 90
-    bpmEnd: 90
+    bpmStart: 88
+    bpmEnd: 88
     calculatedStartX: 0
     calculatedEndX: 112
   - label: Bunker Action 1
     startTime: 32
     endTime: 52
-    bpmStart: 90
-    bpmEnd: 105
+    bpmStart: 88
+    bpmEnd: 103
     calculatedStartX: 112
     calculatedEndX: 182
   - label: Bunker Lore
     startTime: 52
     endTime: 60
-    bpmStart: 105
-    bpmEnd: 95
+    bpmStart: 103
+    bpmEnd: 93
     calculatedStartX: 182
     calculatedEndX: 210
   - label: Bunker Checkpoint
     startTime: 60
     endTime: 72
-    bpmStart: 95
-    bpmEnd: 95
+    bpmStart: 93
+    bpmEnd: 93
     calculatedStartX: 210
     calculatedEndX: 252
   - label: Bunker Action 2
     startTime: 72
     endTime: 111
-    bpmStart: 95
-    bpmEnd: 115
+    bpmStart: 93
+    bpmEnd: 113
     calculatedStartX: 252
     calculatedEndX: 388.5
   - label: Bunker Transition
     startTime: 111
-    endTime: 128
-    bpmStart: 115
-    bpmEnd: 105
+    endTime: 130
+    bpmStart: 113
+    bpmEnd: 103
     calculatedStartX: 388.5
-    calculatedEndX: 448
+    calculatedEndX: 455
   lineLength: 8
   beatColor: {r: 0, g: 1, b: 0, a: 1}
   barColor: {r: 0, g: 1, b: 1, a: 1}
@@ -2511,11 +2511,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalScale.x
-      value: 59.5
+      value: 66.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 394.25
+      value: 397.75
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3501,7 +3501,7 @@ MonoBehaviour:
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
   pitchCompParam: PitchComp
-  speedUpCompFactor: 0.15
+  speedUpCompFactor: 0.1
   normalVol: -8
   narrativeVol: -15
   normalCutoff: 22000
@@ -3509,7 +3509,7 @@ MonoBehaviour:
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
   playerTransform: {fileID: 1547518141}
-  isRecordingMode: 0
+  isRecordingMode: 1
   beatWindow: 0.15
 --- !u!4 &2091075366
 Transform:

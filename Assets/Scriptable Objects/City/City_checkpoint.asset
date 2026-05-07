@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: City_checkpoint
   m_EditorClassIdentifier: Assembly-CSharp::ZoneSettings
   zoneType: 0
-  bpmStart: 115
-  bpmEnd: 115
+  bpmStart: 95
+  bpmEnd: 95
   useLowPass: 1
   timeScale: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bunker_Transition
   m_EditorClassIdentifier: Assembly-CSharp::ZoneSettings
   zoneType: 4
-  bpmStart: 115
-  bpmEnd: 105
+  bpmStart: 113
+  bpmEnd: 103
   useLowPass: 1
   timeScale: 1

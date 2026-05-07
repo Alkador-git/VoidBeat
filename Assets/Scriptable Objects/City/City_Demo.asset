@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: City_Demo
   m_EditorClassIdentifier: Assembly-CSharp::ZoneSettings
   zoneType: 3
-  bpmStart: 105
-  bpmEnd: 105
+  bpmStart: 90
+  bpmEnd: 90
   useLowPass: 0
   timeScale: 1

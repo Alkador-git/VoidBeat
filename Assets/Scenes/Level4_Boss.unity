@@ -3010,7 +3010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BoostManager
   currentBoost: 50
   maxBoost: 100
-  decayRate: 5
+  decayRate: 6.5
   boostGain: 10
   boostSlider: {fileID: 142901686}
   fillImage: {fileID: 1762684405}

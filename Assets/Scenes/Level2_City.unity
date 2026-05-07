@@ -2302,43 +2302,43 @@ MonoBehaviour:
   - label: City demo
     startTime: 0
     endTime: 11
-    bpmStart: 105
-    bpmEnd: 105
+    bpmStart: 90
+    bpmEnd: 90
     calculatedStartX: 0
     calculatedEndX: 38.5
   - label: City Action 1
     startTime: 11
     endTime: 41
-    bpmStart: 105
-    bpmEnd: 125
+    bpmStart: 90
+    bpmEnd: 105
     calculatedStartX: 38.5
     calculatedEndX: 143.5
   - label: City Lore
     startTime: 41
     endTime: 48.5
-    bpmStart: 125
-    bpmEnd: 115
+    bpmStart: 105
+    bpmEnd: 95
     calculatedStartX: 143.5
     calculatedEndX: 169.75
   - label: City Checkpoint
     startTime: 48.5
     endTime: 60
-    bpmStart: 115
-    bpmEnd: 115
+    bpmStart: 95
+    bpmEnd: 95
     calculatedStartX: 169.75
     calculatedEndX: 210
   - label: City Action 2
     startTime: 60
     endTime: 96
-    bpmStart: 115
-    bpmEnd: 135
+    bpmStart: 95
+    bpmEnd: 115
     calculatedStartX: 210
     calculatedEndX: 336
   - label: City Transition
     startTime: 96
     endTime: 104.75
-    bpmStart: 135
-    bpmEnd: 125
+    bpmStart: 115
+    bpmEnd: 105
     calculatedStartX: 336
     calculatedEndX: 366.625
   lineLength: 8
@@ -2861,7 +2861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BoostManager
   currentBoost: 50
   maxBoost: 100
-  decayRate: 6
+  decayRate: 5.5
   boostGain: 10
   boostSlider: {fileID: 142901686}
   fillImage: {fileID: 1762684405}
@@ -3509,11 +3509,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
   currentZone: {fileID: 0}
-  currentBPM: 115
+  currentBPM: 100
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 6dbb8d986d023b344b14533bed79f435, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
-  originalMusicBPM: 115
+  originalMusicBPM: 100
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
   pitchCompParam: PitchComp
