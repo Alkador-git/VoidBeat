@@ -3513,7 +3513,7 @@ MonoBehaviour:
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 240086e6aefe95c4fade4df798b76342, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
-  originalMusicBPM: 100
+  originalMusicBPM: 135
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
   pitchCompParam: PitchComp
