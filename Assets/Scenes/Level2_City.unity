@@ -335,11 +335,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalScale.x
-      value: 42
+      value: 40.25
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 207
+      value: 166
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
       propertyPath: m_LocalPosition.y
@@ -381,6 +381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 51646d161652e67418da487fdf97b240, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2069,11 +2073,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 133
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 294.5
+      value: 249
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2118,7 +2122,7 @@ PrefabInstance:
     - target: {fileID: 5632263322626547057, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: settings
       value: 
-      objectReference: {fileID: 11400000, guid: 119d24d8426d89a4f816f52601aaede2, type: 2}
+      objectReference: {fileID: 11400000, guid: 9bcfce37ea9f7fd40ad5bec7dcadfd56, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2134,11 +2138,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalScale.x
-      value: 113
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.5
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2180,6 +2184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demo zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: e829717bccfb59249847680d293f5a75, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2286,53 +2294,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51852e5f5be7f3b438d02d24aa2e52d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
-  dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
+  dataContainer: {fileID: 11400000, guid: 82854e55a6e95784193aa3cdc70b0633, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
-  totalLevelDuration: 126.75
+  totalLevelDuration: 104.75
   timelineZones:
-  - label: Bunker demo
+  - label: City demo
     startTime: 0
-    endTime: 32
-    bpmStart: 90
-    bpmEnd: 90
-    calculatedStartX: 0
-    calculatedEndX: 112
-  - label: Bunker Action 1
-    startTime: 32
-    endTime: 52
-    bpmStart: 90
-    bpmEnd: 105
-    calculatedStartX: 112
-    calculatedEndX: 182
-  - label: Bunker Lore
-    startTime: 52
-    endTime: 60
+    endTime: 11
     bpmStart: 105
-    bpmEnd: 95
-    calculatedStartX: 182
-    calculatedEndX: 210
-  - label: Bunker Checkpoint
-    startTime: 60
-    endTime: 72
-    bpmStart: 95
-    bpmEnd: 95
-    calculatedStartX: 210
-    calculatedEndX: 252
-  - label: Bunker Action 2
-    startTime: 72
-    endTime: 111
-    bpmStart: 95
-    bpmEnd: 115
-    calculatedStartX: 252
-    calculatedEndX: 388.5
-  - label: Bunker Transition
-    startTime: 111
-    endTime: 126.75
-    bpmStart: 115
     bpmEnd: 105
-    calculatedStartX: 388.5
-    calculatedEndX: 443.625
+    calculatedStartX: 0
+    calculatedEndX: 38.5
+  - label: City Action 1
+    startTime: 11
+    endTime: 41
+    bpmStart: 105
+    bpmEnd: 125
+    calculatedStartX: 38.5
+    calculatedEndX: 143.5
+  - label: City Lore
+    startTime: 41
+    endTime: 48.5
+    bpmStart: 125
+    bpmEnd: 115
+    calculatedStartX: 143.5
+    calculatedEndX: 169.75
+  - label: City Checkpoint
+    startTime: 48.5
+    endTime: 60
+    bpmStart: 115
+    bpmEnd: 115
+    calculatedStartX: 169.75
+    calculatedEndX: 210
+  - label: City Action 2
+    startTime: 60
+    endTime: 96
+    bpmStart: 115
+    bpmEnd: 135
+    calculatedStartX: 210
+    calculatedEndX: 336
+  - label: City Transition
+    startTime: 96
+    endTime: 104.75
+    bpmStart: 135
+    bpmEnd: 125
+    calculatedStartX: 336
+    calculatedEndX: 366.625
   lineLength: 8
   beatColor: {r: 0, g: 1, b: 0, a: 1}
   barColor: {r: 0, g: 1, b: 1, a: 1}
@@ -2511,11 +2519,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalScale.x
-      value: 60
+      value: 30.5
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 391
+      value: 327.25
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2557,6 +2565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Transition zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: ef40f2b94b00cb048abf771c45f0b0e9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2880,11 +2892,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalScale.x
-      value: 28
+      value: 26.25
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 172
+      value: 132.65
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2926,6 +2938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lore zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: be79e1dfced41634da90b811efbff862, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b88dcf697dd78f44a2831d8b01a93bf, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3495,19 +3511,19 @@ MonoBehaviour:
   currentZone: {fileID: 0}
   currentBPM: 90
   musicSource: {fileID: 971797162}
-  musicClip: {fileID: 8300000, guid: 3d50c783539b9cb45b913c6044b5b589, type: 3}
+  musicClip: {fileID: 8300000, guid: 6dbb8d986d023b344b14533bed79f435, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
-  originalMusicBPM: 101
+  originalMusicBPM: 115
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
   pitchCompParam: PitchComp
   speedUpCompFactor: 0.15
   normalVol: -8
-  narrativeVol: -15
+  narrativeVol: -14
   normalCutoff: 22000
-  narrativeCutoff: 2000
+  narrativeCutoff: 2500
   fadeSpeed: 2
-  dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
+  dataContainer: {fileID: 11400000, guid: 82854e55a6e95784193aa3cdc70b0633, type: 2}
   playerTransform: {fileID: 1547518141}
   isRecordingMode: 0
   beatWindow: 0.15
@@ -3752,11 +3768,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 70
+      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 123
+      value: 67
       objectReference: {fileID: 0}
     - target: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3798,6 +3814,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Action zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 2b559006324a752478c1b2e0ada2ae9d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3821,7 +3841,7 @@ SceneRoots:
   - {fileID: 1879382871}
   - {fileID: 443412866}
   - {fileID: 1388125233}
-  - {fileID: 690333309}
   - {fileID: 112467683}
   - {fileID: 1555631090}
   - {fileID: 1450609473}
+  - {fileID: 690333309}

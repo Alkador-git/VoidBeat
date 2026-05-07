@@ -381,6 +381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: fd2d513119a0ef34e9a47d6c42c1daaf, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2118,7 +2122,7 @@ PrefabInstance:
     - target: {fileID: 5632263322626547057, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: settings
       value: 
-      objectReference: {fileID: 11400000, guid: 119d24d8426d89a4f816f52601aaede2, type: 2}
+      objectReference: {fileID: 11400000, guid: 111718f3d173d664ba33da7f1c27c31f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2180,6 +2184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demo zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 62ad611ed1dcc684ebc43c5f83beb382, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2286,7 +2294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51852e5f5be7f3b438d02d24aa2e52d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
-  dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
+  dataContainer: {fileID: 11400000, guid: bcb5b7097cc0bf746b7476b511f89f11, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
   totalLevelDuration: 126.75
@@ -2557,6 +2565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Transition zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 9fda0487fdf2bd646b788f84c5ae9243, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2926,6 +2938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lore zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: be79e1dfced41634da90b811efbff862, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: ffb9a932bc5d7a2449a5c50df4511a31, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3497,7 +3513,7 @@ MonoBehaviour:
   musicSource: {fileID: 971797162}
   musicClip: {fileID: 8300000, guid: 3d50c783539b9cb45b913c6044b5b589, type: 3}
   mixer: {fileID: 24100000, guid: bc85c3093ce3e2343a1c66ebb8b034f1, type: 2}
-  originalMusicBPM: 101
+  originalMusicBPM: 100
   lowPassParam: LowPassFreq
   musicVolParam: MusicVol
   pitchCompParam: PitchComp
@@ -3507,9 +3523,9 @@ MonoBehaviour:
   normalCutoff: 22000
   narrativeCutoff: 2000
   fadeSpeed: 2
-  dataContainer: {fileID: 11400000, guid: 5b82f8e4c7edf9b428dd7009b108645c, type: 2}
+  dataContainer: {fileID: 11400000, guid: bcb5b7097cc0bf746b7476b511f89f11, type: 2}
   playerTransform: {fileID: 1547518141}
-  isRecordingMode: 0
+  isRecordingMode: 1
   beatWindow: 0.15
 --- !u!4 &2091075366
 Transform:
@@ -3798,6 +3814,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Action zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5632263322626547057, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: ce7514b71898e194db386cae0cb682ba, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
