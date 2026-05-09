@@ -89583,7 +89583,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  bufferTime: 0.2
+  bufferTime: 0.15
   maxHorizontalVelocity: 10
   maxVerticalVelocityUp: 5
   maxVerticalVelocityDown: 8
