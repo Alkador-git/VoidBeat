@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class KZ0Controller : MonoBehaviour
 {
-    // --- COMPOSANTS ---
-    private Rigidbody2D rb;
+    // --- COMPOSANTS ---
+    private Rigidbody2D rb;
     public Animator anim;
     private BoxCollider2D playerCollider;
     private SpriteRenderer playerSR;
@@ -21,6 +21,13 @@ public class KZ0Controller : MonoBehaviour
     private bool isGrounded;
     public Transform groundCheck;
     public LayerMask groundLayer;
+
+    // --- INPUT BUFFERING ---
+    [Header("Input Buffering")]
+    public float bufferTime = 0.2f;
+    private float jumpBufferCounter;
+    private float dashBufferCounter;
+    private float slideBufferCounter;
 
     // --- VÉLOCITÉ ---
     [Header("Velocité Maximale")]
@@ -56,8 +63,8 @@ public class KZ0Controller : MonoBehaviour
     [Header("Effets de Ghosting")]
     public GameObject ghostPrefab;
     public float ghostDelay = 0.05f;
-    public Color ghostColor = new Color(0.12f, 0.73f, 1f, 0.5f);
-    public float ghostFadeSpeed = 4f;
+    public Color ghostColor = new Color(0.12f, 0.73f, 1f, 0.5f);
+    public float ghostFadeSpeed = 4f;
 
     // --- COMBAT ---
     [Header("Combat")]
@@ -73,20 +80,21 @@ public class KZ0Controller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         playerSR = GetComponent<SpriteRenderer>();
-        originalColliderSize = playerCollider.size;
+        originalColliderSize = playerCollider.size;
     }
 
     void Update()
     {
         UpdateAnimations();
         if (isKnockedBack) return;
+
+        // --- GESTION DU SOL ---
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         if (isGrounded)
         {
             coyoteTimeCounter = coyoteTimeDuration;
             hasTouchedGroundSinceDash = true;
         }
-
         else
         {
             coyoteTimeCounter -= Time.deltaTime;
@@ -94,23 +102,30 @@ public class KZ0Controller : MonoBehaviour
 
         if (gracePeriodCounter > 0) gracePeriodCounter -= Time.deltaTime;
 
-        if (GetJumpInput() && coyoteTimeCounter > 0f && !isSliding)
+        // --- MISE À JOUR DES BUFFERS ---
+        UpdateBuffers();
+
+        // --- LOGIQUE DE SAUT (Avec Buffer) ---
+        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f && !isSliding)
         {
+            jumpBufferCounter = 0f;
             HandleRhythmicAction();
             Jump();
         }
 
         if (isDashing) return;
+
         rb.gravityScale = (rb.linearVelocity.y < 0) ? fallGravityMultiplier : 1.15f;
         Vector2 baseVel = GetBaseRunVelocity();
         rb.linearVelocity = ClampVelocity(baseVel);
 
-        // --- LOGIQUE DE GLISSADE ---
+        // --- LOGIQUE DE GLISSADE (Avec Buffer) ---
         bool obstacleAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, groundLayer);
 
-        if ((GetSlideInput() || (isSliding && obstacleAbove)) && isGrounded)
+        if ((GetSlideInput() || slideBufferCounter > 0f || (isSliding && obstacleAbove)) && isGrounded)
         {
             if (!isSliding) StartSlide();
+            slideBufferCounter = 0f;
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 1f, Time.deltaTime / slideEaseDuration);
         }
         else
@@ -122,13 +137,32 @@ public class KZ0Controller : MonoBehaviour
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 0f, Time.deltaTime / slideEaseDuration);
         }
 
-        if (GetDashInput() && canDash && hasTouchedGroundSinceDash)
+        // --- LOGIQUE DE DASH (Avec Buffer) ---
+        if (dashBufferCounter > 0f && canDash && hasTouchedGroundSinceDash)
         {
+            dashBufferCounter = 0f;
             HandleRhythmicAction();
+
             Vector2 dashDir = new Vector2(Mathf.Max(0f, Input.GetAxisRaw("Horizontal")), Mathf.Max(0f, Input.GetAxisRaw("Vertical"))).normalized;
             if (dashDir == Vector2.zero) dashDir = Vector2.right;
             StartCoroutine(PerformDash(dashDir));
         }
+    }
+
+    private void UpdateBuffers()
+    {
+        if (GetJumpInput()) jumpBufferCounter = bufferTime;
+        else jumpBufferCounter -= Time.deltaTime;
+
+        if (GetDashInput()) dashBufferCounter = bufferTime;
+        else dashBufferCounter -= Time.deltaTime;
+
+        if (GetSlideInputDown()) slideBufferCounter = bufferTime;
+        else slideBufferCounter -= Time.deltaTime;
+
+        jumpBufferCounter = Mathf.Max(0, jumpBufferCounter);
+        dashBufferCounter = Mathf.Max(0, dashBufferCounter);
+        slideBufferCounter = Mathf.Max(0, slideBufferCounter);
     }
 
     private void UpdateAnimations()
@@ -190,7 +224,7 @@ public class KZ0Controller : MonoBehaviour
         GameObject ghostObj = Instantiate(ghostPrefab);
         if (ghostObj.TryGetComponent<DashGhost>(out DashGhost ghostScript))
         {
-            ghostScript.Init(playerSR.sprite, transform.position, transform.rotation, transform.localScale, ghostColor, ghostFadeSpeed);
+            ghostScript.Init(playerSR.sprite, transform.position, transform.rotation, transform.localScale, ghostColor, ghostFadeSpeed);
         }
     }
 
@@ -211,8 +245,12 @@ public class KZ0Controller : MonoBehaviour
     private void StopSlide() { isSliding = false; playerCollider.size = originalColliderSize; }
     private Vector2 GetBaseRunVelocity() => new Vector2(moveSpeed * Mathf.Lerp(1f, slideSpeedMultiplier, currentSlideLerp), rb.linearVelocity.y);
     private Vector2 ClampVelocity(Vector2 velocity) => new Vector2(Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity), Mathf.Clamp(velocity.y, -maxVerticalVelocityDown, maxVerticalVelocityUp));
+
+    // --- INPUTS ---
     private bool GetJumpInput() => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow);
     private bool GetSlideInput() => Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.S);
+    private bool GetSlideInputDown() => Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.S);
     private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.LeftShift);
+
     private void HandleRhythmicAction() { if (BeatManager.Instance != null && BeatManager.Instance.IsActionOnBeat()) BoostManager.Instance.AddBoost(); }
 }

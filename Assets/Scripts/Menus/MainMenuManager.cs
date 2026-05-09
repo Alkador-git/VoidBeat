@@ -6,6 +6,8 @@ using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public static MainMenuManager Instance;
+
     [Header("Panels (Canvas Groups)")]
     public CanvasGroup titleGroup;
     public CanvasGroup mainMenuGroup;
@@ -17,6 +19,9 @@ public class MainMenuManager : MonoBehaviour
     public TextMeshProUGUI totalFragmentsText;
     public LevelNode[] levelNodes;
 
+    [Header("Configuration des Scènes")]
+    public string firstLevelSceneName = "Level1_Bunker";
+
     [Header("Animations du Titre")]
     public TextMeshProUGUI pressAnyKeyText;
 
@@ -24,6 +29,12 @@ public class MainMenuManager : MonoBehaviour
     public float fadeDuration = 0.5f;
     private bool canProceedToMenu = false;
     private bool isTransitioning = false;
+
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -37,7 +48,54 @@ public class MainMenuManager : MonoBehaviour
         StartCoroutine(StartGameFlow());
     }
 
-    // --- NAVIGATION ---
+    // --- LOGIQUE DE DÉBUG ---
+
+    private void HandleDebugInputs()
+    {
+        if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) UnlockLevelDebug(1);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) UnlockLevelDebug(2);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) UnlockLevelDebug(3);
+            if (Input.GetKeyDown(KeyCode.Alpha4)) UnlockLevelDebug(4);
+        }
+    }
+
+    private void UnlockLevelDebug(int level)
+    {
+        PlayerPrefs.SetInt("LevelReached", level);
+        UpdateGlobalProgressUI();
+    }
+
+    // --- NAVIGATION ET CHARGEMENT ---
+
+    public void NewGame()
+    {
+        PlayerPrefs.SetInt("LevelReached", 1);
+        PlayerPrefs.SetInt("TotalFragments", 0);
+        LoadLevel(firstLevelSceneName);
+    }
+
+    public void ContinueGame()
+    {
+        int levelReached = PlayerPrefs.GetInt("LevelReached", 1);
+        if (levelReached <= levelNodes.Length)
+        {
+            string sceneToLoad = levelNodes[levelReached - 1].sceneToLoad;
+            LoadLevel(sceneToLoad);
+        }
+        else
+        {
+            LoadLevel(firstLevelSceneName);
+        }
+    }
+
+    public void LoadLevel(string sceneName)
+    {
+        if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
+    }
 
     public void OpenLevelSelection() => StartCoroutine(SwitchPanel(mainMenuGroup, levelSelectGroup));
     public void CloseLevelSelection() => StartCoroutine(SwitchPanel(levelSelectGroup, mainMenuGroup));
@@ -46,55 +104,37 @@ public class MainMenuManager : MonoBehaviour
     public void OpenQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 1, fadeDuration));
     public void CloseQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 0, fadeDuration));
 
-    public void LoadLevel(string sceneName)
-    {
-        if (isTransitioning) return;
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(sceneName);
-    }
-
     // --- LOGIQUE DES TRANSITIONS ---
 
     IEnumerator SwitchPanel(CanvasGroup from, CanvasGroup to)
     {
         if (isTransitioning) yield break;
         isTransitioning = true;
-
         yield return StartCoroutine(Fade(from, 0, fadeDuration));
-
         yield return StartCoroutine(Fade(to, 1, fadeDuration));
-
         isTransitioning = false;
     }
 
     IEnumerator Fade(CanvasGroup cg, float targetAlpha, float duration)
     {
         if (cg == null) yield break;
-
         if (targetAlpha > 0)
         {
             cg.gameObject.SetActive(true);
             cg.alpha = 0;
         }
-
         float startAlpha = cg.alpha;
         float time = 0;
-
         while (time < duration)
         {
             time += Time.deltaTime;
             cg.alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
             yield return null;
         }
-
         cg.alpha = targetAlpha;
         cg.interactable = (targetAlpha > 0);
         cg.blocksRaycasts = (targetAlpha > 0);
-
-        if (targetAlpha == 0)
-        {
-            cg.gameObject.SetActive(false);
-        }
+        if (targetAlpha == 0) cg.gameObject.SetActive(false);
     }
 
     // --- LOGIQUE DE JEU & ANIMATIONS ---
@@ -123,9 +163,14 @@ public class MainMenuManager : MonoBehaviour
 
     void Update()
     {
+        HandleDebugInputs();
+
         if (canProceedToMenu && Input.anyKeyDown && !isTransitioning)
         {
-            StartCoroutine(TitleToMenuTransition());
+            if (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))
+            {
+                StartCoroutine(TitleToMenuTransition());
+            }
         }
     }
 
@@ -134,6 +179,7 @@ public class MainMenuManager : MonoBehaviour
         isTransitioning = true;
         canProceedToMenu = false;
         yield return StartCoroutine(Fade(titleGroup, 0, fadeDuration));
+        titleGroup.gameObject.SetActive(false);
         yield return StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
         isTransitioning = false;
     }

@@ -12,13 +12,6 @@ public class LevelNode : MonoBehaviour
     public Color unlockedColor = Color.white;
     public Color lockedColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
-    private MainMenuManager mainMenuManager;
-
-    private void Awake()
-    {
-        mainMenuManager = Object.FindFirstObjectByType<MainMenuManager>();
-    }
-
     public void SetStatus(bool unlocked)
     {
         button.interactable = unlocked;
@@ -29,13 +22,5 @@ public class LevelNode : MonoBehaviour
         if (outlineImage != null)
             outlineImage.color = unlocked ? unlockedColor : lockedColor;
             
-    }
-
-    public void OnClick()
-    {
-        if (mainMenuManager != null)
-            mainMenuManager.LoadLevel(sceneToLoad);
-        else
-            Debug.LogWarning($"MainMenuManager introuvable pour charger la scène '{sceneToLoad}'.");
     }
 }

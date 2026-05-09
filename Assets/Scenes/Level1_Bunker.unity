@@ -89583,6 +89583,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  bufferTime: 0.2
   maxHorizontalVelocity: 10
   maxVerticalVelocityUp: 5
   maxVerticalVelocityDown: 8
@@ -90955,8 +90956,8 @@ Transform:
   m_GameObject: {fileID: 985297133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.565, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 190706020}
@@ -90990,7 +90991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f5bef0c9155ab49a582c957b198dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebugTeleport
-  player: {fileID: 1547518142}
+  player: {fileID: 190706018}
   checkpointsContainer: {fileID: 1879382871}
 --- !u!4 &1054593142
 Transform:
@@ -92485,8 +92486,8 @@ MonoBehaviour:
   narrativeCutoff: 2000
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: 6e8dc576e731cee49b214e9254b174e4, type: 2}
-  playerTransform: {fileID: 1547518141}
-  isRecordingMode: 0
+  playerTransform: {fileID: 190706020}
+  isRecordingMode: 1
   currentRecordingType: 1
   beatWindow: 0.15
 --- !u!4 &2091075366

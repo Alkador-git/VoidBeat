@@ -73,9 +73,7 @@ public class BlackHoleManager : MonoBehaviour
 
     // --- EFFETS ---
 
-    /// Déclenche l'absorption du joueur par le trou noir
     void TriggerSpaghettification()
     {
-        Debug.Log("K-Z0 est absorbé par le Néant-X...");
     }
 }

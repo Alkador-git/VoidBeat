@@ -45,8 +45,6 @@ public class CheckpointManager : MonoBehaviour
             savedTimeSamples = BeatManager.Instance.musicSource.timeSamples;
             savedLastBeatTime = BeatManager.Instance.GetLastBeatTime();
             savedBPM = BeatManager.Instance.currentBPM;
-
-            Debug.Log($"[Checkpoint] Musique enregistrée : Timer={savedMusicTimer}s, Sample={savedTimeSamples}");
         }
     }
 
