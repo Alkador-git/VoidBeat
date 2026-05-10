@@ -7,17 +7,27 @@ public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager Instance;
 
+    // --- PAUSE MENU ---
+
     [Header("Menus Canvas")]
     public GameObject pauseMenuUI;
+
     public GameObject victoryMenuUI;
 
-    [Header("Écran de Victoire - Stats")]
+    // --- VICTORY SCREEN DISPLAYS ---
+
+    [Header("Ã‰cran de Victoire - Stats")]
     public TextMeshProUGUI totalScoreText;
+
     public TextMeshProUGUI fragmentsText;
+
     public TextMeshProUGUI accuracyText;
 
     private bool isPaused = false;
 
+    // --- INITIALIZATION ---
+
+    /// Initializes singleton and hides menus.
     void Awake()
     {
         Instance = this;
@@ -25,6 +35,9 @@ public class GameUIManager : MonoBehaviour
         victoryMenuUI.SetActive(false);
     }
 
+    // --- UPDATE LOOP ---
+
+    /// Handles pause input
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -34,8 +47,9 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    // --- LOGIQUE PAUSE ---
+    // --- PAUSE LOGIC ---
 
+    /// Pauses game and shows pause menu.
     public void Pause()
     {
         isPaused = true;
@@ -49,6 +63,7 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    /// Resumes game and hides pause menu.
     public void Resume()
     {
         isPaused = false;
@@ -65,8 +80,9 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    // --- LOGIQUE VICTOIRE ---
+    // --- VICTORY SCREEN ---
 
+    /// Displays victory screen with game statistics.
     public void ShowVictoryScreen(int score, int fragments, int totalFragments, float accuracy)
     {
         victoryMenuUI.SetActive(true);
@@ -77,17 +93,19 @@ public class GameUIManager : MonoBehaviour
 
         totalScoreText.text = "SCORE TOTAL : " + score.ToString("N0");
         fragmentsText.text = $"FRAGMENTS : {fragments} / {totalFragments}";
-        accuracyText.text = $"PRÉCISION RYTHMIQUE : {accuracy:F1}%";
+        accuracyText.text = $"PRÃ‰CISION RYTHMIQUE : {accuracy:F1}%";
     }
 
-    // --- NAVIGATION ---
+    // --- SCENE NAVIGATION ---
 
+    /// Loads the next level in sequence.
     public void LoadNextLevel()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    /// Returns to main menu.
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;

@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class DebugTeleport : MonoBehaviour
 {
+    // --- CONFIGURATION ---
+
     [Header("Références")]
     public GameObject player;
+
     public Transform checkpointsContainer;
 
+    // --- STATE ---
+
     private bool resetVelocity = true;
+
+    // --- UPDATE LOOP ---
 
     void Update()
     {
@@ -22,6 +29,9 @@ public class DebugTeleport : MonoBehaviour
         }
     }
 
+    // --- TELEPORTATION ---
+
+    /// Teleports player to specified checkpoint child.
     private void TeleportToChild(int index)
     {
         if (checkpointsContainer == null || player == null) return;
@@ -30,16 +40,13 @@ public class DebugTeleport : MonoBehaviour
         {
             Transform targetCheckpoint = checkpointsContainer.GetChild(index);
 
-            // 1. Téléportation du joueur
             player.transform.position = targetCheckpoint.position;
 
-            // 2. Reset de la vélocité
             if (resetVelocity && player.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
             {
                 rb.linearVelocity = Vector2.zero;
             }
 
-            // 3. SYNCHRONISATION DU TROU NOIR
             BlackHoleManager bhManager = FindFirstObjectByType<BlackHoleManager>();
             if (bhManager != null)
             {

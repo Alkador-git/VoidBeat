@@ -30,12 +30,14 @@ public class MainMenuManager : MonoBehaviour
     private bool canProceedToMenu = false;
     private bool isTransitioning = false;
 
+    // Initialise le singleton au réveil du script
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
+    // Configure l'état initial des panneaux et lance l'animation de départ
     void Start()
     {
         SetupPanel(titleGroup, false);
@@ -48,8 +50,7 @@ public class MainMenuManager : MonoBehaviour
         StartCoroutine(StartGameFlow());
     }
 
-    // --- LOGIQUE DE DÉBUG ---
-
+    // Gère les raccourcis clavier (Alt + 1,2,3,4) pour débloquer les niveaux en test
     private void HandleDebugInputs()
     {
         if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
@@ -61,14 +62,14 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    // Force la sauvegarde de la progression pour le débogage
     private void UnlockLevelDebug(int level)
     {
         PlayerPrefs.SetInt("LevelReached", level);
         UpdateGlobalProgressUI();
     }
 
-    // --- NAVIGATION ET CHARGEMENT ---
-
+    // Réinitialise la progression et charge le premier niveau (Bunker)
     public void NewGame()
     {
         PlayerPrefs.SetInt("LevelReached", 1);
@@ -76,6 +77,7 @@ public class MainMenuManager : MonoBehaviour
         LoadLevel(firstLevelSceneName);
     }
 
+    // Charge la scène correspondant au dernier niveau atteint par le joueur
     public void ContinueGame()
     {
         int levelReached = PlayerPrefs.GetInt("LevelReached", 1);
@@ -90,6 +92,7 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    // Gère le chargement technique d'une scène et remet le temps à la normale
     public void LoadLevel(string sceneName)
     {
         if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
@@ -97,6 +100,7 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    // Fonctions de navigation pour ouvrir/fermer les menus via des transitions
     public void OpenLevelSelection() => StartCoroutine(SwitchPanel(mainMenuGroup, levelSelectGroup));
     public void CloseLevelSelection() => StartCoroutine(SwitchPanel(levelSelectGroup, mainMenuGroup));
     public void OpenCredits() => StartCoroutine(SwitchPanel(mainMenuGroup, creditsGroup));
@@ -104,8 +108,7 @@ public class MainMenuManager : MonoBehaviour
     public void OpenQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 1, fadeDuration));
     public void CloseQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 0, fadeDuration));
 
-    // --- LOGIQUE DES TRANSITIONS ---
-
+    // Enchaîne le fondu sortant d'un panneau et le fondu entrant d'un autre
     IEnumerator SwitchPanel(CanvasGroup from, CanvasGroup to)
     {
         if (isTransitioning) yield break;
@@ -115,6 +118,7 @@ public class MainMenuManager : MonoBehaviour
         isTransitioning = false;
     }
 
+    // Modifie progressivement l'opacité (alpha) d'un panneau pour un effet de fondu
     IEnumerator Fade(CanvasGroup cg, float targetAlpha, float duration)
     {
         if (cg == null) yield break;
@@ -137,8 +141,7 @@ public class MainMenuManager : MonoBehaviour
         if (targetAlpha == 0) cg.gameObject.SetActive(false);
     }
 
-    // --- LOGIQUE DE JEU & ANIMATIONS ---
-
+    // Met à jour l'affichage des fragments collectés et l'état des nœuds de niveaux
     public void UpdateGlobalProgressUI()
     {
         int totalFragments = PlayerPrefs.GetInt("TotalFragments", 0);
@@ -154,6 +157,7 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    // Animation d'apparition de l'écran titre au lancement du jeu
     IEnumerator StartGameFlow()
     {
         yield return StartCoroutine(Fade(titleGroup, 1, 1f));
@@ -161,6 +165,7 @@ public class MainMenuManager : MonoBehaviour
         StartCoroutine(PulsePressAnyKey());
     }
 
+    // Vérifie les entrées clavier pour le débug ou pour quitter l'écran titre
     void Update()
     {
         HandleDebugInputs();
@@ -174,6 +179,7 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    // Transition visuelle entre l'écran titre et le menu principal
     IEnumerator TitleToMenuTransition()
     {
         isTransitioning = true;
@@ -184,8 +190,10 @@ public class MainMenuManager : MonoBehaviour
         isTransitioning = false;
     }
 
+    // Ferme complètement l'application
     public void ConfirmQuit() => Application.Quit();
 
+    // Définit les paramètres d'affichage de base d'un panneau (visibilité et interaction)
     void SetupPanel(CanvasGroup cg, bool startActive)
     {
         if (cg == null) return;
@@ -195,6 +203,7 @@ public class MainMenuManager : MonoBehaviour
         cg.gameObject.SetActive(startActive);
     }
 
+    // Fait pulser l'opacité du texte "Appuyer sur une touche" sur l'écran titre
     IEnumerator PulsePressAnyKey()
     {
         while (canProceedToMenu)

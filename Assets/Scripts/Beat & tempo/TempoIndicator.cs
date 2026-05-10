@@ -4,41 +4,48 @@ using System.Collections.Generic;
 
 public class TempoIndicator : MonoBehaviour
 {
-    // --- VISUELS ---
+    // --- VISUALS ---
 
-    [Header("Réglages Visuels")]
     public RectTransform indicatorUI;
+
     public Text bpmText;
+
     public float pulseScale = 1.3f;
 
-    [Header("Timings de l'Animation (En % du beat)")]
+    // --- ANIMATION TIMING ---
+
     [Range(0.05f, 0.5f)]
     public float shrinkDurationPercent = 0.2f;
 
     [Range(0.05f, 0.5f)]
     public float anticipationDurationPercent = 0.35f;
 
-    // --- COULEURS ---
+    // --- COLORS ---
 
-    [Header("Couleurs UI")]
     public Color beatColor = Color.green;
+
     public Color anticipateColor = Color.cyan;
+
     public Color normalColor = new Color(1, 1, 1, 0.5f);
 
     // --- GIZMOS ---
 
-    [Header("Réglages Gizmos (Debug Tempo)")]
     public Transform player;
+
     public Color gizmoBeatColor = Color.magenta;
+
     public float lineLength = 12f;
 
-    // --- COMPOSANTS INTERNES ---
+    // --- INTERNAL COMPONENTS ---
 
     private Image img;
     private Vector3 originalScale;
     private float previousLastBeatTime;
     private List<float> recordedBeatPositions = new List<float>();
 
+    // --- INITIALIZATION ---
+
+    /// Initializes UI components and references.
     void Start()
     {
         if (indicatorUI != null)
@@ -53,6 +60,9 @@ public class TempoIndicator : MonoBehaviour
         }
     }
 
+    // --- UPDATE LOOP ---
+
+    /// Updates tempo display and animations.
     void Update()
     {
         if (BeatManager.Instance == null || indicatorUI == null) return;
@@ -65,7 +75,8 @@ public class TempoIndicator : MonoBehaviour
         float musicTimer = BeatManager.Instance.GetMusicTimer();
         float lastBeatTime = BeatManager.Instance.GetLastBeatTime();
 
-        // --- CALCULS DE L'ANIMATION UI ---
+        // --- ANIMATION CALCULATIONS ---
+
         float currentBPM = BeatManager.Instance.currentBPM;
         float beatInterval = 60f / (currentBPM > 0 ? currentBPM : 120f);
 
@@ -97,7 +108,9 @@ public class TempoIndicator : MonoBehaviour
         }
     }
 
-    // --- DESSIN DES GIZMOS DANS L'ÉDITEUR ---
+    // --- GIZMO VISUALIZATION ---
+
+    /// Draws beat position gizmos in the editor.
     private void OnDrawGizmos()
     {
         if (recordedBeatPositions == null || recordedBeatPositions.Count == 0) return;
@@ -115,6 +128,9 @@ public class TempoIndicator : MonoBehaviour
         }
     }
 
+    // --- GIZMO MANAGEMENT ---
+
+    /// Clears all recorded beat position gizmos.
     [ContextMenu("Effacer les Gizmos de Beat")]
     public void ClearGizmos()
     {

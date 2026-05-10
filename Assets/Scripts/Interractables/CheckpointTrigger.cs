@@ -2,23 +2,22 @@ using UnityEngine;
 
 public class CheckpointTrigger : MonoBehaviour
 {
-    // --- ÉTAT ---
+    // --- STATE ---
 
     private bool isActivated = false;
 
-    // --- VISUELS ---
+    // --- VISUALS ---
 
     public Color activeColor = Color.cyan;
     private SpriteRenderer sr;
 
-    // --- INITIALISATION ---
+    // --- INITIALIZATION ---
 
-    /// Récupère le composant SpriteRenderer
     void Start() => sr = GetComponent<SpriteRenderer>();
 
-    // --- DÉTECTION ---
+    // --- COLLISION DETECTION ---
 
-    /// Gère l'entrée du joueur dans la zone de checkpoint
+    /// Activates checkpoint when player enters the zone.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isActivated)

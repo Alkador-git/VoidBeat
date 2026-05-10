@@ -4,15 +4,23 @@ public class CheckpointManager : MonoBehaviour
 {
     public static CheckpointManager Instance;
 
-    [Header("État du Checkpoint")]
+    // --- CHECKPOINT STATE ---
+
     public Vector3 lastCheckpointPosition;
+
     public float boostOnRespawn = 60f;
 
-    // --- SAUVEGARDE DE LA MUSIQUE ---
+    // --- MUSIC STATE SAVING ---
+
     private float savedMusicTimer;
+
     private int savedTimeSamples;
+
     private float savedLastBeatTime;
+
     private float savedBPM;
+
+    // --- INITIALIZATION ---
 
     void Awake()
     {
@@ -20,6 +28,7 @@ public class CheckpointManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    /// Sets up initial checkpoint from player position.
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -34,7 +43,9 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    /// Définit la position du dernier checkpoint et capture l'état exact de la musique
+    // --- CHECKPOINT MANAGEMENT ---
+
+    /// Saves current checkpoint position and music state.
     public void SetCheckpoint(Vector3 newPos)
     {
         lastCheckpointPosition = newPos;
@@ -48,7 +59,9 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    /// Réapparaît le joueur au dernier checkpoint avec boost et musique restaurés
+    // --- RESPAWN LOGIC ---
+
+    /// Respawns player at last checkpoint with restored music state.
     public void RespawnPlayer(GameObject player)
     {
         player.transform.position = lastCheckpointPosition;
@@ -61,7 +74,7 @@ public class CheckpointManager : MonoBehaviour
             BoostManager.Instance.currentBoost = boostOnRespawn;
         }
 
-        // --- RESTAURATION DIRECTE DES SAMPLES ---
+        // --- DIRECT SAMPLE RESTORATION ---
         if (BeatManager.Instance != null && BeatManager.Instance.musicSource != null && BeatManager.Instance.musicSource.clip != null)
         {
             BeatManager.Instance.RestorePlayback(savedMusicTimer, savedTimeSamples, savedLastBeatTime, savedBPM);

@@ -6,14 +6,22 @@ public class CinemachineShake : MonoBehaviour
 {
     public static CinemachineShake Instance;
 
+    // --- COMPONENTS ---
+
     [Header("Composants")]
     public CinemachineCamera vCam;
     private CinemachineBasicMultiChannelPerlin noise;
 
+    // --- SMOOTHING PARAMETERS ---
+
     [Header("Paramètres de Fluidité")]
     public float shakeSmoothness = 20f;
+
     public float returnSmoothness = 10f;
 
+    // --- INITIALIZATION ---
+
+    /// Initializes singleton and gets perlin noise component.
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -23,7 +31,9 @@ public class CinemachineShake : MonoBehaviour
             noise = vCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
-    /// Shake avec oscillation fluide et retour progressif à zéro.
+    // --- SHAKE EFFECTS ---
+
+    /// Performs camera shake with smooth oscillation and return to normal.
     public IEnumerator Shake(float duration, float posAmplitude, float dutchAmplitude)
     {
         if (noise == null || vCam == null) yield break;

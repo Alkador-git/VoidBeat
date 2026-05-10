@@ -6,28 +6,33 @@ public class BoostManager : MonoBehaviour
 {
     public static BoostManager Instance;
 
-    // --- PARAMÈTRES ---
+    // --- BOOST PARAMETERS ---
 
-    [Header("Paramètres du Boost")]
     public float currentBoost = 50f;
+
     public float maxBoost = 100f;
+
     public float decayRate = 5f;
+
     public float boostGain = 10f;
 
-    // --- INTERFACE UTILISATEUR ---
+    // --- USER INTERFACE ---
 
-    [Header("UI")]
     public Slider boostSlider;
+
     public Image fillImage;
+
     public Color normalColor = Color.cyan;
+
     public Color lowColor = Color.magenta;
 
-    // --- INITIALISATION ---
+    // --- INITIALIZATION ---
 
     void Awake() => Instance = this;
 
-    // --- MISE À JOUR ---
+    // --- UPDATE LOOP ---
 
+    /// Applies boost decay and updates UI display.
     void Update()
     {
         currentBoost -= decayRate * Time.deltaTime;
@@ -38,19 +43,22 @@ public class BoostManager : MonoBehaviour
         if (fillImage) fillImage.color = Color.Lerp(lowColor, normalColor, currentBoost / maxBoost);
     }
 
-    // --- GESTION DU BOOST ---
+    // --- BOOST MANAGEMENT ---
 
+    /// Adds default boost amount.
     public void AddBoost()
     {
         AddBoost(boostGain);
     }
 
+    /// Adds specified boost amount clamped to max.
     public void AddBoost(float boostReward)
     {
         currentBoost += boostReward;
         currentBoost = Mathf.Clamp(currentBoost, 0, maxBoost);
     }
 
+    /// Removes specified boost amount clamped to zero.
     public void RemoveBoost(float amount)
     {
         currentBoost -= amount;

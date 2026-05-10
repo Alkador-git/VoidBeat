@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class KZ0Combat : MonoBehaviour
 {
-    // --- ATTAQUE ---
+    // --- ATTACK CONFIGURATION ---
 
     [Header("Attaque")]
     public float attackRange = 1.5f;
+
     public LayerMask enemyLayer;
+
     public Transform attackPoint;
 
-    // --- MISE À JOUR ---
+    // --- UPDATE LOOP ---
 
-    /// Gère les entrées d'attaque du joueur
+    /// Handles player attack input.
     void Update()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))
@@ -20,12 +22,11 @@ public class KZ0Combat : MonoBehaviour
         }
     }
 
-    // --- LOGIQUE ---
+    // --- ATTACK LOGIC ---
 
-    /// Détecte et frappe les ennemis dans la zone d'attaque
+    /// Detects and damages enemies in attack range.
     void Slash()
     {
-        // Détection des ennemis dans la zone
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)
@@ -37,9 +38,9 @@ public class KZ0Combat : MonoBehaviour
         }
     }
 
-    // --- DÉBOGAGE ---
+    // --- DEBUGGING ---
 
-    /// Visualisation de la portée d'attaque dans l'éditeur
+    /// Visualizes attack range in the editor.
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null) return;

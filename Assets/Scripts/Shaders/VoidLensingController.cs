@@ -2,23 +2,39 @@ using UnityEngine;
 
 public class VoidLensingController : MonoBehaviour
 {
-    [Header("Références")]
+    // --- REFERENCES ---
+
     public Material lensingMaterial;
+
     public Material spaghettiMaterial;
+
     public URPFeatureManager featureManager;
+
+    // --- RENDERER FEATURE NAMES ---
 
     [Header("Noms des Renderer Features")]
     public string lensingFeatureName = "VoidLensingPass";
+
     public string spaghettiFeatureName = "VoidSpaghettificationPass";
 
+    // --- POSITION & SIZE ---
+
     [Header("Position & Taille")]
-    [Range(0f, 1f)] public float blackHoleHeight = 0.5f;
-    [Range(0f, 2f)] public float maxRadius = 0.65f;
+    [Range(0f, 1f)]
+    public float blackHoleHeight = 0.5f;
+
+    [Range(0f, 2f)]
+    public float maxRadius = 0.65f;
+
+    // --- DANGER THRESHOLD ---
 
     [Header("Seuils de Danger")]
-    [Range(0f, 1f)] public float activationThreshold = 0.6f;
+    [Range(0f, 1f)]
+    public float activationThreshold = 0.6f;
 
-    // Met à jour les effets de lentille en fonction du niveau de danger
+    // --- UPDATE LOOP ---
+
+    /// Updates lensing effects based on danger level.
     void Update()
     {
         if (BoostManager.Instance == null) return;
@@ -41,7 +57,7 @@ public class VoidLensingController : MonoBehaviour
             featureManager.SetFeatureActive(spaghettiFeatureName, isDangerous);
         }
 
-        // Mettre à jour les shaders seulement si nécessaire
+        // Update shaders only if needed
         if (isDangerous)
         {
             UpdateShader(lensingMaterial, intensity);
@@ -49,13 +65,14 @@ public class VoidLensingController : MonoBehaviour
         }
     }
 
-    // Met à jour les paramètres du shader
+    // --- SHADER UPDATES ---
+
+    /// Updates shader parameters with current intensity.
     void UpdateShader(Material mat, float intensity)
     {
         if (mat == null) return;
         mat.SetFloat("_CenterY", blackHoleHeight);
         mat.SetFloat("_Intensity", intensity);
         mat.SetFloat("_BlackHoleRadius", maxRadius * intensity);
-
     }
 }

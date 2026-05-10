@@ -3,22 +3,31 @@ using System.Collections;
 
 public class VoidEnemy : MonoBehaviour
 {
-    // --- RÉGLAGES ---
+    // --- CONFIGURATION ---
+
     [Header("Réglages")]
     public float boostReward = 10f;
+
     public float boostPenalty = 5f;
+
     public GameObject deathEffect;
 
-    // --- EFFETS DE COLLISION ---
+    // --- COLLISION EFFECTS ---
+
     [Header("Effets de Collision")]
     public float shakeMagnitude = 0.1f;
+
     public float shakeDuration = 0.15f;
+
     public Vector2 knockbackForce = new Vector2(-1.5f, 0.5f);
 
-    // --- LOGIQUE INTERNE ---
-    private bool wasHit = false; // Empêche la punition si l'ennemi meurt pendant la grâce
+    // --- INTERNAL STATE ---
 
-    /// Gère l'impact quand l'ennemi est frappé par le sabre du joueur
+    private bool wasHit = false;
+
+    // --- HIT HANDLING ---
+
+    /// Applies hit damage and rewards on beat.
     public void TakeHit()
     {
         if (wasHit) return;
@@ -32,8 +41,9 @@ public class VoidEnemy : MonoBehaviour
         Die();
     }
 
-    // --- DÉTECTION ---
+    // --- COLLISION DETECTION ---
 
+    /// Handles collision with player.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !wasHit)
@@ -45,7 +55,9 @@ public class VoidEnemy : MonoBehaviour
         }
     }
 
-    /// Fenêtre de tolérance
+    // --- GRACE PERIOD ---
+
+    /// Provides collision tolerance window before penalty.
     private IEnumerator GracePeriodCoroutine(KZ0Controller controller)
     {
         controller.NotifyEnemyCollision();
@@ -58,6 +70,7 @@ public class VoidEnemy : MonoBehaviour
         }
     }
 
+    /// Applies boost penalty and knockback when enemy hits player.
     private void ApplyPenalty(KZ0Controller controller)
     {
         if (BoostManager.Instance != null)
@@ -73,6 +86,7 @@ public class VoidEnemy : MonoBehaviour
 
     // --- DESTRUCTION ---
 
+    /// Destroys enemy and spawns death effect.
     private void Die()
     {
         if (deathEffect != null)

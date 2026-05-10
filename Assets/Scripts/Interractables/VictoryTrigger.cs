@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class VictoryTrigger : MonoBehaviour
 {
+    // --- STATE ---
+
     private bool hasWon = false;
 
+    // --- COLLISION DETECTION ---
+
+    /// Triggers victory screen when player reaches the goal.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !hasWon)

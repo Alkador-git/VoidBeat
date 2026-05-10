@@ -2,22 +2,21 @@ using UnityEngine;
 
 public class ZoneTrigger : MonoBehaviour
 {
-    // --- RÉGLAGES ---
+    // --- CONFIGURATION ---
 
     public ZoneSettings settings;
 
-    // --- COMPOSANTS ---
+    // --- COMPONENTS ---
 
     private BoxCollider2D col;
 
-    // --- INITIALISATION ---
+    // --- INITIALIZATION ---
 
-    /// Récupère le composant BoxCollider2D
     void Awake() => col = GetComponent<BoxCollider2D>();
 
-    // --- DÉTECTION ---
+    // --- DETECTION ---
 
-    /// Détecte quand le joueur entre dans une nouvelle zone
+    /// Detects when the player enters a new zone.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -26,7 +25,7 @@ public class ZoneTrigger : MonoBehaviour
         }
     }
 
-    /// Met à jour la progression du joueur dans la zone
+    /// Updates the player's progression within the zone.
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

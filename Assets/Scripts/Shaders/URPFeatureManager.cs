@@ -4,10 +4,13 @@ using UnityEngine.Rendering.Universal;
 [ExecuteAlways]
 public class URPFeatureManager : MonoBehaviour
 {
-    [Header("Référence")]
+    // --- RENDERER DATA ---
+
     public Renderer2DData rendererData;
 
-    // Controle les renderer features
+    // --- FEATURE CONTROL ---
+
+    /// Activates or deactivates a renderer feature by name.
     public void SetFeatureActive(string featureName, bool active)
     {
         if (rendererData == null) return;
@@ -21,7 +24,9 @@ public class URPFeatureManager : MonoBehaviour
         }
     }
 
-    // Désactive les features lors de l'activation en mode édition
+    // --- EDITOR MODE HANDLING ---
+
+    /// Disables features when entering edit mode.
     void OnEnable()
     {
 #if UNITY_EDITOR
@@ -30,7 +35,7 @@ public class URPFeatureManager : MonoBehaviour
 #endif
     }
 
-    // Désactive les features lors de la validation en mode édition
+    /// Disables features during editor validation.
     void OnValidate()
     {
 #if UNITY_EDITOR
@@ -39,7 +44,9 @@ public class URPFeatureManager : MonoBehaviour
 #endif
     }
 
-    // Désactive toutes les renderer features
+    // --- FEATURE MANAGEMENT ---
+
+    /// Disables all renderer features.
     private void DisableAllFeatures()
     {
         if (rendererData == null) return;
