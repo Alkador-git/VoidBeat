@@ -287,9 +287,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VoidBeatMenuManager
   titleGroup: {fileID: 771063339}
   mainMenuGroup: {fileID: 362477290}
-  submainMenuGroup: {fileID: 461996299}
+  submainMenuGroup: {fileID: 1377540616}
   creditsGroup: {fileID: 18049350}
-  subcreditsGroup: {fileID: 1377540616}
+  subcreditsGroup: {fileID: 461996299}
   quitPopupGroup: {fileID: 1065859507}
   levelSelectGroup: {fileID: 1804403368}
   totalFragmentsText: {fileID: 158970806}
@@ -856,7 +856,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461996294}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

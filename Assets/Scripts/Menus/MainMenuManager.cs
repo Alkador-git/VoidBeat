@@ -42,9 +42,9 @@ public class MainMenuManager : MonoBehaviour
     {
         SetupPanel(titleGroup, false);
         SetupPanel(mainMenuGroup, false);
-        SetupPanel(submainMenuGroup, true);
+        SetupPanel(submainMenuGroup, false);
         SetupPanel(creditsGroup, false);
-        SetupPanel(subcreditsGroup, true);
+        SetupPanel(subcreditsGroup, false);
         SetupPanel(quitPopupGroup, false);
         SetupPanel(levelSelectGroup, false);
 
@@ -54,13 +54,12 @@ public class MainMenuManager : MonoBehaviour
 
     // --- NAVIGATION ---
 
-    public void OpenLevelSelection() => StartCoroutine(SwitchPanel(submainMenuGroup, levelSelectGroup));
-    public void CloseLevelSelection() => StartCoroutine(SwitchPanel(levelSelectGroup, submainMenuGroup));
-
+    public void OpenLevelSelection() => StartCoroutine(TransitionToLevelSelection());
+    public void CloseLevelSelection() => StartCoroutine(TransitionBackFromLevelSelection());
     public void OpenCredits() => StartCoroutine(TransitionToCredits());
     public void CloseCredits() => StartCoroutine(TransitionBackFromCredits());
 
-    // --- LOGIQUE DES COROUTINES DE TRANSITION ---
+    // --- TRANSITION ---
 
     IEnumerator TitleToMenuTransition()
     {
@@ -70,7 +69,33 @@ public class MainMenuManager : MonoBehaviour
         yield return StartCoroutine(Fade(titleGroup, 0, fadeDuration));
         titleGroup.gameObject.SetActive(false);
 
-        yield return StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
+        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
+        yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
+
+        isTransitioning = false;
+    }
+
+    IEnumerator TransitionToLevelSelection()
+    {
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+
+        StartCoroutine(Fade(submainMenuGroup, 0, fadeDuration));
+        yield return StartCoroutine(Fade(mainMenuGroup, 0, fadeDuration));
+
+        yield return StartCoroutine(Fade(levelSelectGroup, 1, fadeDuration));
+
+        isTransitioning = false;
+    }
+
+    IEnumerator TransitionBackFromLevelSelection()
+    {
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+
+        yield return StartCoroutine(Fade(levelSelectGroup, 0, fadeDuration));
+
+        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
         yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
 
         isTransitioning = false;
@@ -81,9 +106,10 @@ public class MainMenuManager : MonoBehaviour
         if (isTransitioning) yield break;
         isTransitioning = true;
 
-        yield return StartCoroutine(Fade(submainMenuGroup, 0, fadeDuration));
+        StartCoroutine(Fade(submainMenuGroup, 0, fadeDuration));
         yield return StartCoroutine(Fade(mainMenuGroup, 0, fadeDuration));
-        yield return StartCoroutine(Fade(creditsGroup, 1, fadeDuration));
+
+        StartCoroutine(Fade(creditsGroup, 1, fadeDuration));
         yield return StartCoroutine(Fade(subcreditsGroup, 1, fadeDuration));
 
         isTransitioning = false;
@@ -94,25 +120,16 @@ public class MainMenuManager : MonoBehaviour
         if (isTransitioning) yield break;
         isTransitioning = true;
 
-        yield return StartCoroutine(Fade(subcreditsGroup, 0, fadeDuration));
+        StartCoroutine(Fade(subcreditsGroup, 0, fadeDuration));
         yield return StartCoroutine(Fade(creditsGroup, 0, fadeDuration));
-        yield return StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
+
+        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
         yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
 
         isTransitioning = false;
     }
 
-    // --- FONCTIONS DE BASE ---
-
-    public IEnumerator SwitchPanel(CanvasGroup from, CanvasGroup to)
-    {
-        if (isTransitioning) yield break;
-        isTransitioning = true;
-        yield return StartCoroutine(Fade(from, 0, fadeDuration));
-        yield return StartCoroutine(Fade(to, 1, fadeDuration));
-        isTransitioning = false;
-    }
-
+    // --- FONCTION DE FADE ---
     public IEnumerator Fade(CanvasGroup cg, float targetAlpha, float duration)
     {
         if (cg == null) yield break;
@@ -120,6 +137,9 @@ public class MainMenuManager : MonoBehaviour
         if (targetAlpha > 0)
         {
             cg.gameObject.SetActive(true);
+            cg.alpha = 0;
+            cg.interactable = false;
+            cg.blocksRaycasts = false;
         }
         else
         {
@@ -158,16 +178,7 @@ public class MainMenuManager : MonoBehaviour
         LoadLevel(firstLevelSceneName);
     }
 
-    public void ContinueGame()
-    {
-        int levelReached = PlayerPrefs.GetInt("LevelReached", 1);
-        if (levelReached <= levelNodes.Length)
-        {
-            string sceneToLoad = levelNodes[levelReached - 1].sceneToLoad;
-            LoadLevel(sceneToLoad);
-        }
-        else LoadLevel(firstLevelSceneName);
-    }
+    public void ContinueGame() => OpenLevelSelection();
 
     public void LoadLevel(string sceneName)
     {
