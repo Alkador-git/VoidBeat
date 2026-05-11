@@ -89621,6 +89621,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  jumpTime: 0.2
   bufferTime: 0.15
   maxHorizontalVelocity: 10
   maxVerticalVelocityUp: 5
@@ -90391,15 +90392,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.013888889
-    y: 0.013888889
-    width: 0.9722222
-    height: 0.9722222
+    x: 0.037572253
+    y: 0.03767123
+    width: 0.92485553
+    height: 0.9246575
   near clip plane: 0.1
   far clip plane: 100
   field of view: 40
   orthographic: 1
-  orthographic size: 4.921875
+  orthographic size: 4.21875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
