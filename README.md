@@ -60,7 +60,7 @@ Objectif 1 : Gestion du Flow & Combat
 
 [x] - Implémenter le Dash Multidirectionnel.
 
-[~] - Création splash screen, menu écran titre, menu principal, crédits, popup quitter, options vidéo audio calibration et commandes, menu pause et écran de victoire, menu sélection niveaux
+[x] - Création splash screen, menu écran titre, menu principal, crédits, popup quitter, menu pause et écran de victoire, menu sélection niveaux
 
 [x] - Implémenter le système de pénalité de désynchronisation + bonus de sync.
 
@@ -71,6 +71,8 @@ Objectif 2 : Dynamisme, Environnement & Pacing
 [x] - Implémenter le modèle de difficulté en "Dents de scie" (Chute de BPM post-checkpoint et transitions ralenties).
 
 [x] - Programmer les "Couloirs Narratifs" (zones sans ennemis, caméra surélevée, filtre audio low-pass).
+
+[ ] - Menu options vidéo audio calibration et commandes
 
 
 Objectif 3 : Feedback Sensoriel (Juice)
