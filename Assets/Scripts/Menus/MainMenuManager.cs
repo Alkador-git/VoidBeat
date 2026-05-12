@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 
 public class MainMenuManager : MonoBehaviour
@@ -12,10 +14,28 @@ public class MainMenuManager : MonoBehaviour
     public CanvasGroup titleGroup;
     public CanvasGroup mainMenuGroup;
     public CanvasGroup submainMenuGroup;
+    public CanvasGroup optionsGroup;
+    public CanvasGroup currentOptionsTab;
     public CanvasGroup creditsGroup;
     public CanvasGroup subcreditsGroup;
     public CanvasGroup quitPopupGroup;
     public CanvasGroup levelSelectGroup;
+
+    [Header("Sub-Options Tabs")]
+    public CanvasGroup videoTab;
+    public CanvasGroup audioTab;
+    public CanvasGroup calibrationTab;
+    public CanvasGroup controlsTab;
+
+    [Header("Audio Settings")]
+    public AudioMixer mainMixer;
+    public Slider musicSlider;
+    public Slider sfxSlider;
+
+    [Header("Calibration Settings")]
+    public TextMeshProUGUI latencyText;
+    private float lastPulseTime;
+    private List<float> latencyOffsets = new List<float>();
 
     [Header("UI Global Map")]
     public TextMeshProUGUI totalFragmentsText;
@@ -43,10 +63,17 @@ public class MainMenuManager : MonoBehaviour
         SetupPanel(titleGroup, false);
         SetupPanel(mainMenuGroup, false);
         SetupPanel(submainMenuGroup, false);
+        SetupPanel(optionsGroup, false);
         SetupPanel(creditsGroup, false);
         SetupPanel(subcreditsGroup, false);
         SetupPanel(quitPopupGroup, false);
         SetupPanel(levelSelectGroup, false);
+
+        SetupPanel(videoTab, false);
+        SetupPanel(audioTab, false);
+        SetupPanel(calibrationTab, false);
+        SetupPanel(controlsTab, false);
+        currentOptionsTab = videoTab;
 
         UpdateGlobalProgressUI();
         StartCoroutine(StartGameFlow());
@@ -54,50 +81,80 @@ public class MainMenuManager : MonoBehaviour
 
     // --- NAVIGATION ---
 
+    public void OpenOptions() => StartCoroutine(TransitionToOptions());
+    public void CloseOptions() => StartCoroutine(TransitionBackFromOptions());
+
+    public void SwitchOptionsTab(CanvasGroup newTab)
+    {
+        if (newTab == currentOptionsTab) return;
+        StartCoroutine(SwitchPanel(currentOptionsTab, newTab));
+        currentOptionsTab = newTab;
+    }
+
     public void OpenLevelSelection() => StartCoroutine(TransitionToLevelSelection());
     public void CloseLevelSelection() => StartCoroutine(TransitionBackFromLevelSelection());
     public void OpenCredits() => StartCoroutine(TransitionToCredits());
     public void CloseCredits() => StartCoroutine(TransitionBackFromCredits());
 
-    // --- TRANSITION ---
+    // --- LOGIQUE AUDIO ---
 
-    IEnumerator TitleToMenuTransition()
+    public void SetMusicVolume(float volume)
     {
-        isTransitioning = true;
-        canProceedToMenu = false;
-
-        yield return StartCoroutine(Fade(titleGroup, 0, fadeDuration));
-        titleGroup.gameObject.SetActive(false);
-
-        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
-        yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
-
-        isTransitioning = false;
+        mainMixer.SetFloat("MusicVol", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
     }
 
-    IEnumerator TransitionToLevelSelection()
+    public void SetSFXVolume(float volume)
+    {
+        mainMixer.SetFloat("SFXVol", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+    }
+
+    // --- LOGIQUE VIDÉO ---
+
+    public void SetFullScreen(bool isFull) => Screen.fullScreen = isFull;
+
+    public void SetVSync(int index) => QualitySettings.vSyncCount = index;
+
+    // --- LOGIQUE CALIBRATION ---
+
+    public void TestLatencyInput()
+    {
+        // Mesure l'écart entre le clic et le battement théorique du BeatManager
+        if (BeatManager.Instance != null)
+        {
+            float musicTimer = BeatManager.Instance.GetMusicTimer();
+            float lastBeat = BeatManager.Instance.GetLastBeatTime();
+            float offset = (musicTimer - lastBeat) * 1000f; // en ms
+
+            latencyOffsets.Add(offset);
+            if (latencyOffsets.Count > 5) latencyOffsets.RemoveAt(0);
+
+            float average = 0;
+            foreach (float f in latencyOffsets) average += f;
+            average /= latencyOffsets.Count;
+
+            latencyText.text = $"LATENCE DÉTECTÉE : {Mathf.RoundToInt(average)}ms";
+        }
+    }
+
+    // --- COROUTINES DE TRANSITION ---
+
+    IEnumerator TransitionToOptions()
     {
         if (isTransitioning) yield break;
         isTransitioning = true;
-
         StartCoroutine(Fade(submainMenuGroup, 0, fadeDuration));
-        yield return StartCoroutine(Fade(mainMenuGroup, 0, fadeDuration));
-
-        yield return StartCoroutine(Fade(levelSelectGroup, 1, fadeDuration));
-
+        yield return StartCoroutine(Fade(optionsGroup, 1, fadeDuration));
         isTransitioning = false;
     }
 
-    IEnumerator TransitionBackFromLevelSelection()
+    IEnumerator TransitionBackFromOptions()
     {
         if (isTransitioning) yield break;
         isTransitioning = true;
-
-        yield return StartCoroutine(Fade(levelSelectGroup, 0, fadeDuration));
-
-        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
+        StartCoroutine(Fade(optionsGroup, 0, fadeDuration));
         yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
-
         isTransitioning = false;
     }
 
@@ -105,13 +162,10 @@ public class MainMenuManager : MonoBehaviour
     {
         if (isTransitioning) yield break;
         isTransitioning = true;
-
         StartCoroutine(Fade(submainMenuGroup, 0, fadeDuration));
-        yield return StartCoroutine(Fade(mainMenuGroup, 0, fadeDuration));
-
+        StartCoroutine(Fade(mainMenuGroup, 0, fadeDuration));
         StartCoroutine(Fade(creditsGroup, 1, fadeDuration));
         yield return StartCoroutine(Fade(subcreditsGroup, 1, fadeDuration));
-
         isTransitioning = false;
     }
 
@@ -119,21 +173,47 @@ public class MainMenuManager : MonoBehaviour
     {
         if (isTransitioning) yield break;
         isTransitioning = true;
-
         StartCoroutine(Fade(subcreditsGroup, 0, fadeDuration));
-        yield return StartCoroutine(Fade(creditsGroup, 0, fadeDuration));
-
+        StartCoroutine(Fade(creditsGroup, 0, fadeDuration));
         StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
         yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
-
         isTransitioning = false;
     }
 
-    // --- FONCTION DE FADE ---
+    IEnumerator TransitionToLevelSelection()
+    {
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+        StartCoroutine(Fade(submainMenuGroup, 0, fadeDuration));
+        StartCoroutine(Fade(mainMenuGroup, 0, fadeDuration));
+        yield return StartCoroutine(Fade(levelSelectGroup, 1, fadeDuration));
+        isTransitioning = false;
+    }
+
+    IEnumerator TransitionBackFromLevelSelection()
+    {
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+        yield return StartCoroutine(Fade(levelSelectGroup, 0, fadeDuration));
+        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
+        yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
+        isTransitioning = false;
+    }
+
+    // --- FONCTIONS DE BASE ---
+
+    public IEnumerator SwitchPanel(CanvasGroup from, CanvasGroup to)
+    {
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+        yield return StartCoroutine(Fade(from, 0, fadeDuration));
+        yield return StartCoroutine(Fade(to, 1, fadeDuration));
+        isTransitioning = false;
+    }
+
     public IEnumerator Fade(CanvasGroup cg, float targetAlpha, float duration)
     {
         if (cg == null) yield break;
-
         if (targetAlpha > 0)
         {
             cg.gameObject.SetActive(true);
@@ -141,36 +221,30 @@ public class MainMenuManager : MonoBehaviour
             cg.interactable = false;
             cg.blocksRaycasts = false;
         }
-        else
-        {
-            cg.interactable = false;
-            cg.blocksRaycasts = false;
-        }
-
         float startAlpha = cg.alpha;
         float time = 0;
-
         while (time < duration)
         {
             time += Time.deltaTime;
             cg.alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
             yield return null;
         }
-
         cg.alpha = targetAlpha;
-
         bool isActive = (targetAlpha > 0.9f);
         cg.interactable = isActive;
         cg.blocksRaycasts = isActive;
-
-        if (targetAlpha <= 0.05f)
-        {
-            cg.gameObject.SetActive(false);
-        }
+        if (targetAlpha <= 0.05f) cg.gameObject.SetActive(false);
     }
 
-    // --- LOGIQUE DE JEU ---
+    // Gère le chargement technique d'une scène et remet le temps à la normale
+    public void LoadLevel(string sceneName)
+    {
+        if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
+    }
 
+    // Réinitialise la progression et charge le premier niveau (Bunker)
     public void NewGame()
     {
         PlayerPrefs.SetInt("LevelReached", 1);
@@ -179,18 +253,11 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void ContinueGame() => OpenLevelSelection();
-
-    public void LoadLevel(string sceneName)
-    {
-        if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(sceneName);
-    }
-
     public void OpenQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 1, fadeDuration));
     public void CloseQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 0, fadeDuration));
     public void ConfirmQuit() => Application.Quit();
 
+    // Définit les paramètres d'affichage de base d'un panneau (visibilité et interaction)
     void SetupPanel(CanvasGroup cg, bool startActive)
     {
         if (cg == null) return;
@@ -200,6 +267,7 @@ public class MainMenuManager : MonoBehaviour
         cg.gameObject.SetActive(startActive);
     }
 
+    // Animation d'apparition de l'écran titre au lancement du jeu
     IEnumerator StartGameFlow()
     {
         yield return StartCoroutine(Fade(titleGroup, 1, 1f));
@@ -217,8 +285,26 @@ public class MainMenuManager : MonoBehaviour
                 StartCoroutine(TitleToMenuTransition());
             }
         }
+
+        if (calibrationTab.alpha > 0.9f && Input.GetKeyDown(KeyCode.Space))
+        {
+            TestLatencyInput();
+        }
     }
 
+    // Transition visuelle entre l'écran titre et le menu principal
+    IEnumerator TitleToMenuTransition()
+    {
+        isTransitioning = true;
+        canProceedToMenu = false;
+        yield return StartCoroutine(Fade(titleGroup, 0, fadeDuration));
+        titleGroup.gameObject.SetActive(false);
+        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
+        yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
+        isTransitioning = false;
+    }
+
+    // Gère les raccourcis clavier pour débloquer les niveaux en test
     private void HandleDebugInputs()
     {
         if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
@@ -230,24 +316,26 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    // Force la sauvegarde de la progression pour le débogage
     private void UnlockLevelDebug(int level)
     {
         PlayerPrefs.SetInt("LevelReached", level);
         UpdateGlobalProgressUI();
     }
 
+    // Met à jour l'affichage des fragments collectés et l'état des nœuds de niveaux
     public void UpdateGlobalProgressUI()
-    {
-        int totalFragments = PlayerPrefs.GetInt("TotalFragments", 0);
+    { int totalFragments = PlayerPrefs.GetInt("TotalFragments", 0);
         int levelReached = PlayerPrefs.GetInt("LevelReached", 1);
-        if (totalFragmentsText != null) totalFragmentsText.text = $"FRAGMENTS : {totalFragments}/50";
+        if (totalFragmentsText != null)
+            totalFragmentsText.text = $"FRAGMENTS : {totalFragments}/50";
         for (int i = 0; i < levelNodes.Length; i++)
         {
-            bool isUnlocked = (i + 1) <= levelReached;
-            levelNodes[i].SetStatus(isUnlocked);
+            bool isUnlocked = (i + 1) <= levelReached; levelNodes[i].SetStatus(isUnlocked);
         }
     }
 
+    // Fait pulser l'opacité du texte sur l'écran titre
     IEnumerator PulsePressAnyKey()
     {
         while (canProceedToMenu)
@@ -256,8 +344,7 @@ public class MainMenuManager : MonoBehaviour
             {
                 float alpha = (Mathf.Sin(Time.time * 3f) + 1f) / 2f;
                 pressAnyKeyText.alpha = alpha;
-            }
-            yield return null;
+            } yield return null;
         }
     }
 }
