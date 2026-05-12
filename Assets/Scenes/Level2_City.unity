@@ -119,6 +119,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &15969289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1230081723495483371, guid: 980aa2c1551ebcb47b8b4fa3d4f15e70, type: 3}
+  m_PrefabInstance: {fileID: 93624721}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &15969293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15969289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db3d9411ebc444945808eb68436dc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JumpObstacleFall
+  boostPenalty: 5
+  shakeMagnitude: 0.25
+  shakeDuration: 0.35
 --- !u!1 &62325807
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +219,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -75547,7 +75567,7 @@ Tilemap:
   - m_RefCount: 7524
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
-  m_AnimationFrameRate: 1
+  m_AnimationFrameRate: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -30, y: -5, z: 0}
   m_Size: {x: 504, y: 18, z: 1}
@@ -75674,7 +75694,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1230081723495483371, guid: 980aa2c1551ebcb47b8b4fa3d4f15e70, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 15969293}
   m_SourcePrefab: {fileID: 100100000, guid: 980aa2c1551ebcb47b8b4fa3d4f15e70, type: 3}
 --- !u!1 &112467682
 GameObject:
@@ -76292,6 +76315,26 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &258420870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1454247774048518290, guid: 31a17e35302157845bfbd6f4d511bab3, type: 3}
+  m_PrefabInstance: {fileID: 880032287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &258420874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258420870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d45bc2964dfcd43bd558b5af6a503a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlideObstacleMoving
+  boostPenalty: 5
+  shakeMagnitude: 0.25
+  shakeDuration: 0.35
 --- !u!4 &273507006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
@@ -77133,7 +77176,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1454247774048518290, guid: 31a17e35302157845bfbd6f4d511bab3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 258420874}
   m_SourcePrefab: {fileID: 100100000, guid: 31a17e35302157845bfbd6f4d511bab3, type: 3}
 --- !u!1 &971797161
 GameObject:
@@ -78005,6 +78051,26 @@ Transform:
   - {fileID: 62325808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1478956646 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1230081723495483371, guid: 51bece27ff29feb419300204bf46a122, type: 3}
+  m_PrefabInstance: {fileID: 4097936492080033820}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1478956647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478956646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fec2f8a88ca12d40a4fcccac3f21f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JumpObstacle
+  boostPenalty: 5
+  shakeMagnitude: 0.25
+  shakeDuration: 0.35
 --- !u!1 &1499756585
 GameObject:
   m_ObjectHideFlags: 0
@@ -78355,7 +78421,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1230081723495483371, guid: 8198be45707e6644f871a16a2b50657e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2010319095}
   m_SourcePrefab: {fileID: 100100000, guid: 8198be45707e6644f871a16a2b50657e, type: 3}
 --- !u!1001 &1753782889
 PrefabInstance:
@@ -78704,6 +78773,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1853024302 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1454247774048518290, guid: ab56fb6d638dadf45b9e4cd34d8662ae, type: 3}
+  m_PrefabInstance: {fileID: 3998506714974682696}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1853024306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853024302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a6549a321fd744380ebd76d04af43a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlideObstacle
+  boostPenalty: 5
+  shakeMagnitude: 0.25
+  shakeDuration: 0.35
 --- !u!1 &1874104379
 GameObject:
   m_ObjectHideFlags: 0
@@ -78888,6 +78977,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970927420}
   m_CullTransparentMesh: 1
+--- !u!1 &2010319091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1230081723495483371, guid: 8198be45707e6644f871a16a2b50657e, type: 3}
+  m_PrefabInstance: {fileID: 1682852897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2010319095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010319091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675d0b5ac52424f4da04a611bdccf435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JumpObstacleMoving
+  boostPenalty: 5
+  shakeMagnitude: 0.25
+  shakeDuration: 0.35
 --- !u!4 &2040940462 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2315291647311750479, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
@@ -79234,7 +79343,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1454247774048518290, guid: ab56fb6d638dadf45b9e4cd34d8662ae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1853024306}
   m_SourcePrefab: {fileID: 100100000, guid: ab56fb6d638dadf45b9e4cd34d8662ae, type: 3}
 --- !u!1001 &4097936492080033820
 PrefabInstance:
@@ -79291,7 +79403,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1230081723495483371, guid: 51bece27ff29feb419300204bf46a122, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1478956647}
   m_SourcePrefab: {fileID: 100100000, guid: 51bece27ff29feb419300204bf46a122, type: 3}
 --- !u!1001 &6825854795576440457
 PrefabInstance:
