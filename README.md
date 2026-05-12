@@ -72,9 +72,9 @@ Objectif 2 : Dynamisme, Environnement & Pacing
 
 [x] - Programmer les "Couloirs Narratifs" (zones sans ennemis, caméra surélevée, filtre audio low-pass).
 
-[ ] - Level Design (Niveaux Bunker; Ville; Horizon)
+[~] - Level Design (Niveaux Bunker; Ville; Horizon)
 
-[ ] - Menu options vidéo audio calibration et commandes
+[~] - Menus options vidéo audio calibration et commandes
 
 
 Objectif 3 : Feedback Sensoriel (Juice)
