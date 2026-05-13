@@ -136,8 +136,6 @@ Animations mouvements :
 
 [x] - Dégâts subi
 
-[ ] - Idle
-
 Character Diegetic UI :
 
 [ ] - Noyau
