@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using System.Linq;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -32,9 +33,12 @@ public class MainMenuManager : MonoBehaviour
     public Slider musicSlider;
     public Slider sfxSlider;
 
+    [Header("Video Settings")]
+    public TMP_Dropdown resolutionDropdown;
+    private Resolution[] resolutions;
+
     [Header("Calibration Settings")]
     public TextMeshProUGUI latencyText;
-    private float lastPulseTime;
     private List<float> latencyOffsets = new List<float>();
 
     [Header("UI Global Map")]
@@ -60,6 +64,7 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
+        // Initialisation des panels
         SetupPanel(titleGroup, false);
         SetupPanel(mainMenuGroup, false);
         SetupPanel(submainMenuGroup, false);
@@ -68,15 +73,89 @@ public class MainMenuManager : MonoBehaviour
         SetupPanel(subcreditsGroup, false);
         SetupPanel(quitPopupGroup, false);
         SetupPanel(levelSelectGroup, false);
-
         SetupPanel(videoTab, false);
         SetupPanel(audioTab, false);
         SetupPanel(calibrationTab, false);
         SetupPanel(controlsTab, false);
         currentOptionsTab = videoTab;
 
+        // --- INITIALISATION AUDIO ---
+        if (musicSlider != null)
+        {
+            musicSlider.minValue = 0.0001f;
+            musicSlider.maxValue = 1f;
+            musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
+            musicSlider.onValueChanged.AddListener(SetMusicVolume);
+        }
+
+        if (sfxSlider != null)
+        {
+            sfxSlider.minValue = 0.0001f;
+            sfxSlider.maxValue = 1f;
+            sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
+            sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+        }
+
+        // --- INITIALISATION RÉSOLUTIONS ---
+        InitResolutionDropdown();
+
         UpdateGlobalProgressUI();
         StartCoroutine(StartGameFlow());
+    }
+
+    // --- LOGIQUE VIDÉO & RÉSOLUTIONS ---
+
+    void InitResolutionDropdown()
+    {
+        if (resolutionDropdown == null) return;
+
+        // Récupère toutes les résolutions et supprime les doublons de taille
+        resolutions = Screen.resolutions.Select(res => new Resolution { width = res.width, height = res.height }).Distinct().ToArray();
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+        int currentResolutionIndex = 0;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+
+            if (resolutions[i].width == Screen.currentResolution.width &&
+                resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+
+        resolutionDropdown.onValueChanged.AddListener(SetResolution);
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution res = resolutions[resolutionIndex];
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen);
+    }
+
+    public void SetFullScreen(bool isFull) => Screen.fullScreen = isFull;
+    public void SetVSync(int index) => QualitySettings.vSyncCount = index;
+
+    // --- LOGIQUE AUDIO ---
+
+    public void SetMusicVolume(float volume)
+    {
+        mainMixer.SetFloat("MusicVol", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        mainMixer.SetFloat("SFXVol", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", volume);
     }
 
     // --- NAVIGATION ---
@@ -96,49 +175,177 @@ public class MainMenuManager : MonoBehaviour
     public void OpenCredits() => StartCoroutine(TransitionToCredits());
     public void CloseCredits() => StartCoroutine(TransitionBackFromCredits());
 
-    // --- LOGIQUE AUDIO ---
-
-    public void SetMusicVolume(float volume)
+    public IEnumerator SwitchPanel(CanvasGroup from, CanvasGroup to)
     {
-        mainMixer.SetFloat("MusicVol", Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat("MusicVolume", volume);
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+        yield return StartCoroutine(Fade(from, 0, fadeDuration));
+        yield return StartCoroutine(Fade(to, 1, fadeDuration));
+        isTransitioning = false;
     }
 
-    public void SetSFXVolume(float volume)
+    public IEnumerator Fade(CanvasGroup cg, float targetAlpha, float duration)
     {
-        mainMixer.SetFloat("SFXVol", Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat("SFXVolume", volume);
+        if (cg == null) yield break;
+        if (targetAlpha > 0)
+        {
+            cg.gameObject.SetActive(true);
+            cg.alpha = 0;
+            cg.interactable = false;
+            cg.blocksRaycasts = false;
+        }
+        else
+        {
+            cg.interactable = false;
+            cg.blocksRaycasts = false;
+        }
+
+        float startAlpha = cg.alpha;
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            cg.alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
+            yield return null;
+        }
+        cg.alpha = targetAlpha;
+        bool isActive = (targetAlpha > 0.9f);
+        cg.interactable = isActive;
+        cg.blocksRaycasts = isActive;
+        if (targetAlpha <= 0.05f) cg.gameObject.SetActive(false);
     }
 
-    // --- LOGIQUE VIDÉO ---
+    public void LoadLevel(string sceneName)
+    {
+        if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
+    }
 
-    public void SetFullScreen(bool isFull) => Screen.fullScreen = isFull;
+    public void NewGame()
+    {
+        PlayerPrefs.SetInt("LevelReached", 1);
+        PlayerPrefs.SetInt("TotalFragments", 0);
+        LoadLevel(firstLevelSceneName);
+    }
 
-    public void SetVSync(int index) => QualitySettings.vSyncCount = index;
+    public void ContinueGame() => OpenLevelSelection();
+    public void OpenQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 1, fadeDuration));
+    public void CloseQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 0, fadeDuration));
+    public void ConfirmQuit() => Application.Quit();
 
-    // --- LOGIQUE CALIBRATION ---
+    void SetupPanel(CanvasGroup cg, bool startActive)
+    {
+        if (cg == null) return;
+        cg.alpha = startActive ? 1 : 0;
+        cg.interactable = startActive;
+        cg.blocksRaycasts = startActive;
+        cg.gameObject.SetActive(startActive);
+    }
+
+    IEnumerator StartGameFlow()
+    {
+        yield return StartCoroutine(Fade(titleGroup, 1, 1f));
+        canProceedToMenu = true;
+        StartCoroutine(PulsePressAnyKey());
+    }
+
+    void Update()
+    {
+        HandleDebugInputs();
+        if (canProceedToMenu && Input.anyKeyDown && !isTransitioning)
+        {
+            if (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))
+                StartCoroutine(TitleToMenuTransition());
+        }
+
+        if (calibrationTab.alpha > 0.9f && Input.GetKeyDown(KeyCode.Space))
+            TestLatencyInput();
+    }
+
+    IEnumerator TitleToMenuTransition()
+    {
+        isTransitioning = true;
+        canProceedToMenu = false;
+        yield return StartCoroutine(Fade(titleGroup, 0, fadeDuration));
+        titleGroup.gameObject.SetActive(false);
+        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
+        yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
+        isTransitioning = false;
+    }
+
+    private void HandleDebugInputs()
+    {
+        if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) UnlockLevelDebug(1);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) UnlockLevelDebug(2);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) UnlockLevelDebug(3);
+            if (Input.GetKeyDown(KeyCode.Alpha4)) UnlockLevelDebug(4);
+        }
+    }
+
+    private void UnlockLevelDebug(int level)
+    {
+        PlayerPrefs.SetInt("LevelReached", level);
+        UpdateGlobalProgressUI();
+    }
+
+    public void UpdateGlobalProgressUI()
+    {
+        int totalFragments = PlayerPrefs.GetInt("TotalFragments", 0);
+        int levelReached = PlayerPrefs.GetInt("LevelReached", 1);
+        if (totalFragmentsText != null) totalFragmentsText.text = $"FRAGMENTS : {totalFragments}/50";
+        for (int i = 0; i < levelNodes.Length; i++)
+        {
+            bool isUnlocked = (i + 1) <= levelReached;
+            levelNodes[i].SetStatus(isUnlocked);
+        }
+    }
+
+    IEnumerator PulsePressAnyKey()
+    {
+        while (canProceedToMenu)
+        {
+            if (pressAnyKeyText != null)
+                pressAnyKeyText.alpha = (Mathf.Sin(Time.time * 3f) + 1f) / 2f;
+            yield return null;
+        }
+    }
 
     public void TestLatencyInput()
     {
-        // Mesure l'écart entre le clic et le battement théorique du BeatManager
         if (BeatManager.Instance != null)
         {
             float musicTimer = BeatManager.Instance.GetMusicTimer();
             float lastBeat = BeatManager.Instance.GetLastBeatTime();
             float offset = (musicTimer - lastBeat) * 1000f;
-
             latencyOffsets.Add(offset);
             if (latencyOffsets.Count > 5) latencyOffsets.RemoveAt(0);
-
-            float average = 0;
-            foreach (float f in latencyOffsets) average += f;
-            average /= latencyOffsets.Count;
-
+            float average = latencyOffsets.Average();
             latencyText.text = $"LATENCE DÉTECTÉE : {Mathf.RoundToInt(average)}ms";
         }
     }
 
-    // --- COROUTINES DE TRANSITION ---
+    IEnumerator TransitionToLevelSelection()
+    {
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+        StartCoroutine(Fade(submainMenuGroup, 0, fadeDuration));
+        StartCoroutine(Fade(mainMenuGroup, 0, fadeDuration));
+        yield return StartCoroutine(Fade(levelSelectGroup, 1, fadeDuration));
+        isTransitioning = false;
+    }
+
+    IEnumerator TransitionBackFromLevelSelection()
+    {
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+        yield return StartCoroutine(Fade(levelSelectGroup, 0, fadeDuration));
+        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
+        yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
+        isTransitioning = false;
+    }
 
     IEnumerator TransitionToOptions()
     {
@@ -178,173 +385,5 @@ public class MainMenuManager : MonoBehaviour
         StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
         yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
         isTransitioning = false;
-    }
-
-    IEnumerator TransitionToLevelSelection()
-    {
-        if (isTransitioning) yield break;
-        isTransitioning = true;
-        StartCoroutine(Fade(submainMenuGroup, 0, fadeDuration));
-        StartCoroutine(Fade(mainMenuGroup, 0, fadeDuration));
-        yield return StartCoroutine(Fade(levelSelectGroup, 1, fadeDuration));
-        isTransitioning = false;
-    }
-
-    IEnumerator TransitionBackFromLevelSelection()
-    {
-        if (isTransitioning) yield break;
-        isTransitioning = true;
-        yield return StartCoroutine(Fade(levelSelectGroup, 0, fadeDuration));
-        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
-        yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
-        isTransitioning = false;
-    }
-
-    // --- FONCTIONS DE BASE ---
-
-    public IEnumerator SwitchPanel(CanvasGroup from, CanvasGroup to)
-    {
-        if (isTransitioning) yield break;
-        isTransitioning = true;
-        yield return StartCoroutine(Fade(from, 0, fadeDuration));
-        yield return StartCoroutine(Fade(to, 1, fadeDuration));
-        isTransitioning = false;
-    }
-
-    public IEnumerator Fade(CanvasGroup cg, float targetAlpha, float duration)
-    {
-        if (cg == null) yield break;
-        if (targetAlpha > 0)
-        {
-            cg.gameObject.SetActive(true);
-            cg.alpha = 0;
-            cg.interactable = false;
-            cg.blocksRaycasts = false;
-        }
-        float startAlpha = cg.alpha;
-        float time = 0;
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            cg.alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
-            yield return null;
-        }
-        cg.alpha = targetAlpha;
-        bool isActive = (targetAlpha > 0.9f);
-        cg.interactable = isActive;
-        cg.blocksRaycasts = isActive;
-        if (targetAlpha <= 0.05f) cg.gameObject.SetActive(false);
-    }
-
-    // Gère le chargement technique d'une scène et remet le temps à la normale
-    public void LoadLevel(string sceneName)
-    {
-        if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(sceneName);
-    }
-
-    // Réinitialise la progression et charge le premier niveau (Bunker)
-    public void NewGame()
-    {
-        PlayerPrefs.SetInt("LevelReached", 1);
-        PlayerPrefs.SetInt("TotalFragments", 0);
-        LoadLevel(firstLevelSceneName);
-    }
-
-    public void ContinueGame() => OpenLevelSelection();
-    public void OpenQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 1, fadeDuration));
-    public void CloseQuitPopup() => StartCoroutine(Fade(quitPopupGroup, 0, fadeDuration));
-    public void ConfirmQuit() => Application.Quit();
-
-    // Définit les paramètres d'affichage de base d'un panneau (visibilité et interaction)
-    void SetupPanel(CanvasGroup cg, bool startActive)
-    {
-        if (cg == null) return;
-        cg.alpha = startActive ? 1 : 0;
-        cg.interactable = startActive;
-        cg.blocksRaycasts = startActive;
-        cg.gameObject.SetActive(startActive);
-    }
-
-    // Animation d'apparition de l'écran titre au lancement du jeu
-    IEnumerator StartGameFlow()
-    {
-        yield return StartCoroutine(Fade(titleGroup, 1, 1f));
-        canProceedToMenu = true;
-        StartCoroutine(PulsePressAnyKey());
-    }
-
-    void Update()
-    {
-        HandleDebugInputs();
-        if (canProceedToMenu && Input.anyKeyDown && !isTransitioning)
-        {
-            if (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))
-            {
-                StartCoroutine(TitleToMenuTransition());
-            }
-        }
-
-        if (calibrationTab.alpha > 0.9f && Input.GetKeyDown(KeyCode.Space))
-        {
-            TestLatencyInput();
-        }
-    }
-
-    // Transition visuelle entre l'écran titre et le menu principal
-    IEnumerator TitleToMenuTransition()
-    {
-        isTransitioning = true;
-        canProceedToMenu = false;
-        yield return StartCoroutine(Fade(titleGroup, 0, fadeDuration));
-        titleGroup.gameObject.SetActive(false);
-        StartCoroutine(Fade(mainMenuGroup, 1, fadeDuration));
-        yield return StartCoroutine(Fade(submainMenuGroup, 1, fadeDuration));
-        isTransitioning = false;
-    }
-
-    // Gère les raccourcis clavier pour débloquer les niveaux en test
-    private void HandleDebugInputs()
-    {
-        if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1)) UnlockLevelDebug(1);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) UnlockLevelDebug(2);
-            if (Input.GetKeyDown(KeyCode.Alpha3)) UnlockLevelDebug(3);
-            if (Input.GetKeyDown(KeyCode.Alpha4)) UnlockLevelDebug(4);
-        }
-    }
-
-    // Force la sauvegarde de la progression pour le débogage
-    private void UnlockLevelDebug(int level)
-    {
-        PlayerPrefs.SetInt("LevelReached", level);
-        UpdateGlobalProgressUI();
-    }
-
-    // Met à jour l'affichage des fragments collectés et l'état des nœuds de niveaux
-    public void UpdateGlobalProgressUI()
-    { int totalFragments = PlayerPrefs.GetInt("TotalFragments", 0);
-        int levelReached = PlayerPrefs.GetInt("LevelReached", 1);
-        if (totalFragmentsText != null)
-            totalFragmentsText.text = $"FRAGMENTS : {totalFragments}/50";
-        for (int i = 0; i < levelNodes.Length; i++)
-        {
-            bool isUnlocked = (i + 1) <= levelReached; levelNodes[i].SetStatus(isUnlocked);
-        }
-    }
-
-    // Fait pulser l'opacité du texte sur l'écran titre
-    IEnumerator PulsePressAnyKey()
-    {
-        while (canProceedToMenu)
-        {
-            if (pressAnyKeyText != null)
-            {
-                float alpha = (Mathf.Sin(Time.time * 3f) + 1f) / 2f;
-                pressAnyKeyText.alpha = alpha;
-            } yield return null;
-        }
     }
 }
