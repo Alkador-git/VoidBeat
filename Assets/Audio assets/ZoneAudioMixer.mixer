@@ -32,7 +32,7 @@ AudioMixerGroupController:
   - {fileID: -7560643260960328251}
   - {fileID: -2503829731144900990}
   - {fileID: 8715327250514819090}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 1
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -74,10 +74,13 @@ AudioMixerController:
     name: LowPassFreq
   - guid: 491d12820592b2946b0e4175eb23e440
     name: PitchComp
+  - guid: a05a8bdf39afebf4a8f3983df8a3fab0
+    name: SFXVol
   m_AudioMixerGroupViews:
   - guids:
     - a1fb28c83d36929438b0441a69b7d218
     - 8f4a9ba91a9bf3047b2656c2e38f7c57
+    - 66fadec30396e2c4b876e7dab3de1420
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -92,13 +95,14 @@ AudioMixerGroupController:
   m_GroupID: a1fb28c83d36929438b0441a69b7d218
   m_Children:
   - {fileID: -6314420253139273196}
+  - {fileID: 2773406271008503288}
   m_Volume: 9c04128649229ac478db1c19c7deb17f
   m_Pitch: f2d548c8a4a9de146957781762504617
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 24400004}
   - {fileID: 8790805834149329220}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 8
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -157,6 +161,40 @@ AudioMixerSnapshotController:
     0a0ec2eb222a43f459ec4bb45ae7a368: 1
     ac81679e93df69a4789a51d4dc3e0b57: 1
     e54d3e9f2edd8e4469748337903f2ada: 1
+    a05a8bdf39afebf4a8f3983df8a3fab0: 1
+--- !u!244 &1803489103399961494
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: cc575cae448a7f9408983ef576c6bb1a
+  m_EffectName: Attenuation
+  m_MixLevel: 534675c395803694a8dad5f9753ad3c4
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &2773406271008503288
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SFX
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 66fadec30396e2c4b876e7dab3de1420
+  m_Children: []
+  m_Volume: a05a8bdf39afebf4a8f3983df8a3fab0
+  m_Pitch: b2a7a1ff8983714419d3bf2541ca317c
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 1803489103399961494}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &6987947776109900600
 AudioMixerEffectController:
   m_ObjectHideFlags: 3

@@ -125,7 +125,7 @@ public class MainMenuManager : MonoBehaviour
         {
             float musicTimer = BeatManager.Instance.GetMusicTimer();
             float lastBeat = BeatManager.Instance.GetLastBeatTime();
-            float offset = (musicTimer - lastBeat) * 1000f; // en ms
+            float offset = (musicTimer - lastBeat) * 1000f;
 
             latencyOffsets.Add(offset);
             if (latencyOffsets.Count > 5) latencyOffsets.RemoveAt(0);
