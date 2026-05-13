@@ -89389,6 +89389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5123332726592571134, guid: d2e129d9fab66a14ba4bc22225c9bc83, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -89704,8 +89708,9 @@ GameObject:
   - component: {fileID: 231265585}
   - component: {fileID: 231265588}
   - component: {fileID: 231265587}
-  - component: {fileID: 231265590}
   - component: {fileID: 231265589}
+  - component: {fileID: 231265590}
+  - component: {fileID: 231265591}
   m_Layer: 0
   m_Name: Cinemachine Camera
   m_TagString: Untagged
@@ -89848,6 +89853,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachinePixelPerfect
+--- !u!114 &231265591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231265583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5843e61e46a43e6439a283b58efe4ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CinemachineZoneManager
+  defaultOffset: {x: 2.5, y: 1.5, z: -10}
+  smoothSpeed: 2
 --- !u!1 &245261197
 GameObject:
   m_ObjectHideFlags: 0
@@ -90392,10 +90411,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.037572253
-    y: 0.03767123
-    width: 0.92485553
-    height: 0.9246575
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.1
   far clip plane: 100
   field of view: 40
@@ -90482,7 +90501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBrain
   ShowDebugText: 0
-  ShowCameraFrustum: 1
+  ShowCameraFrustum: 0
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
@@ -90580,6 +90599,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &615756077 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2779715313743244883, guid: be79e1dfced41634da90b811efbff862, type: 3}
+  m_PrefabInstance: {fileID: 1753782889}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &690333306
 GameObject:
   m_ObjectHideFlags: 0
@@ -91103,6 +91127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Action zone
       objectReference: {fileID: 0}
+    - target: {fileID: 5123332726592571134, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5632263322626547057, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: settings
       value: 
@@ -91167,6 +91195,10 @@ PrefabInstance:
     - target: {fileID: 2779715313743244883, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
       propertyPath: m_Name
       value: Demo zone
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123332726592571134, guid: 2226a9fec9498d844a52a1b0124dc673, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -91544,6 +91576,10 @@ PrefabInstance:
     - target: {fileID: 2779715313743244883, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
       propertyPath: m_Name
       value: Transition zone
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123332726592571134, guid: 9e4eaac04cc1c4944ab727774b3b4764, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -91942,16 +91978,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lore zone
       objectReference: {fileID: 0}
+    - target: {fileID: 2905231472469413795, guid: be79e1dfced41634da90b811efbff862, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123332726592571134, guid: be79e1dfced41634da90b811efbff862, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2779715313743244883, guid: be79e1dfced41634da90b811efbff862, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1753782894}
   m_SourcePrefab: {fileID: 100100000, guid: be79e1dfced41634da90b811efbff862, type: 3}
 --- !u!4 &1753782890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2315291647311750479, guid: be79e1dfced41634da90b811efbff862, type: 3}
   m_PrefabInstance: {fileID: 1753782889}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1753782894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615756077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13bd5911ccb149441b32d8b7c9887f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraZoneTrigger
+  zoneOffset: {x: 2.5, y: 3, z: -5}
 --- !u!1 &1762684403
 GameObject:
   m_ObjectHideFlags: 0
@@ -92755,6 +92815,10 @@ PrefabInstance:
     - target: {fileID: 2779715313743244883, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
       propertyPath: m_Name
       value: Action zone
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123332726592571134, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
