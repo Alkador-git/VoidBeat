@@ -126,7 +126,7 @@ public class BeatManager : MonoBehaviour
     private void ToggleSlowMotion()
     {
         isSlowMoActive = !isSlowMoActive;
-        globalSpeedMultiplier = isSlowMoActive ? slowMoFactor : 1f;
+        globalSpeedMultiplier = isSlowMoActive ? slowMoFactor : 0.5f;
 
         ApplyZoneEffects();
         UpdateTempoCalculations();
