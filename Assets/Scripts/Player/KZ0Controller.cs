@@ -66,13 +66,6 @@ public class KZ0Controller : MonoBehaviour
     private bool isDashing = false;
     private bool hasTouchedGroundSinceDash = true;
 
-    // --- EFFETS DE FANTÔME ---
-    [Header("Effets de Ghosting")]
-    public GameObject ghostPrefab;
-    public float ghostDelay = 0.05f;
-    public Color ghostColor = new Color(0.12f, 0.73f, 1f, 0.5f);
-    public float ghostFadeSpeed = 4f;
-
     // --- COMBAT ---
     [Header("Combat")]
     public float collisionGraceDuration = 0.1f;
@@ -228,20 +221,12 @@ public class KZ0Controller : MonoBehaviour
         hasTouchedGroundSinceDash = false;
 
         float elapsed = 0f;
-        float ghostTimer = 0f;
 
         while (elapsed < dashDuration)
         {
             if (isKnockedBack) break;
             float curveValue = dashEase.Evaluate(elapsed / dashDuration);
             rb.linearVelocity = (GetBaseRunVelocity() + (dir * new Vector2(dashForceX, dashForceY))) * curveValue;
-
-            ghostTimer += Time.deltaTime;
-            if (ghostTimer >= ghostDelay)
-            {
-                SpawnGhost();
-                ghostTimer = 0f;
-            }
 
             elapsed += Time.deltaTime;
             yield return null;
@@ -250,17 +235,6 @@ public class KZ0Controller : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-    }
-
-    // Instancie un fantôme visuel pendant le dash
-    private void SpawnGhost()
-    {
-        if (ghostPrefab == null || playerSR == null) return;
-        GameObject ghostObj = Instantiate(ghostPrefab);
-        if (ghostObj.TryGetComponent<DashGhost>(out DashGhost ghostScript))
-        {
-            ghostScript.Init(playerSR.sprite, transform.position, transform.rotation, transform.localScale, ghostColor, ghostFadeSpeed);
-        }
     }
 
     // Dessine le détecteur de plafond dans la scène Unity

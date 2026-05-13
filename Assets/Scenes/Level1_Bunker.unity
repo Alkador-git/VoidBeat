@@ -199,7 +199,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -89569,9 +89569,9 @@ BoxCollider2D:
   m_Offset: {x: 0.05, y: -0.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.51401865}
-    oldSize: {x: 0.7708333, y: 1.1145834}
-    newSize: {x: 1.5416666, y: 2.2291667}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.3333334, y: 1.3333334}
+    newSize: {x: 2.6666667, y: 2.6666667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -89672,10 +89672,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   dashCooldown: 0.75
-  ghostPrefab: {fileID: 8129115674661701652, guid: fbd7eef82fb999249b72822fa27ca3cd, type: 3}
-  ghostDelay: 0.05
-  ghostColor: {r: 0.12, g: 0.73, b: 1, a: 0.5}
-  ghostFadeSpeed: 4
   collisionGraceDuration: 0.08
   knockbackDuration: 0.1
 --- !u!114 &190706024
@@ -91700,6 +91696,10 @@ PrefabInstance:
     - target: {fileID: -8089108032486474258, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
       propertyPath: m_SortingOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: ad51206d1ef9be44ba84c435c012075c, type: 3}
       propertyPath: m_LocalPosition.x
