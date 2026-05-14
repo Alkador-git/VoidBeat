@@ -4,19 +4,19 @@ using System.Collections;
 public class GhostReplayer : MonoBehaviour
 {
     public GhostData dataToPlay;
-    private SpriteRenderer sr;
     private Animator anim;
+    private SpriteRenderer[] childRenderers;
 
     void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-        sr.enabled = false;
+        anim = GetComponentInChildren<Animator>();
+        childRenderers = GetComponentsInChildren<SpriteRenderer>();
+        SetGhostVisuals(false);
     }
 
     public void StartDemo()
     {
-        sr.enabled = true;
+        SetGhostVisuals(true);
         StartCoroutine(PlayRoutine());
     }
 
@@ -35,13 +35,29 @@ public class GhostReplayer : MonoBehaviour
             if (elapsed >= currentFrame.time)
             {
                 transform.position = currentFrame.position;
-                if (!string.IsNullOrEmpty(currentFrame.animBoolName))
-                    anim.SetBool(currentFrame.animBoolName, currentFrame.animValue);
+
+                if (anim != null)
+                {
+                    anim.Play(currentFrame.animatorStateHash, 0, currentFrame.normalizedTime);
+                }
 
                 frameIndex++;
             }
             yield return null;
         }
-        sr.enabled = false;
+
+        SetGhostVisuals(false);
+    }
+
+    private void SetGhostVisuals(bool show)
+    {
+        if (childRenderers == null) return;
+        foreach (SpriteRenderer sr in childRenderers)
+        {
+            if (sr != null)
+            {
+                sr.enabled = show;
+            }
+        }
     }
 }

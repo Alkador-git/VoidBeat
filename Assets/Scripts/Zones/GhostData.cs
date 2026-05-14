@@ -6,8 +6,8 @@ public struct GhostFrame
 {
     public float time;
     public Vector3 position;
-    public string animBoolName;
-    public bool animValue;
+    public int animatorStateHash;
+    public float normalizedTime;
 }
 
 [CreateAssetMenu(fileName = "NewGhostData", menuName = "VoidBeat/GhostData")]

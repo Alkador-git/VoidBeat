@@ -89580,7 +89580,7 @@ Transform:
   m_GameObject: {fileID: 175217930}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 3, z: 0}
+  m_LocalPosition: {x: -5, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -89798,7 +89798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostRecorder
   dataToSave: {fileID: 11400000, guid: a20a309e5d081984589ccf0d81d744b8, type: 2}
-  isRecording: 1
+  isRecording: 0
 --- !u!1 &231265583
 GameObject:
   m_ObjectHideFlags: 0
@@ -93409,7 +93409,7 @@ MonoBehaviour:
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: 6e8dc576e731cee49b214e9254b174e4, type: 2}
   playerTransform: {fileID: 190706020}
-  isRecordingMode: 1
+  isRecordingMode: 0
   currentRecordingType: 1
   beatWindow: 0.15
 --- !u!4 &2091075366
@@ -93661,6 +93661,7 @@ SceneRoots:
   - {fileID: 1334399123}
   - {fileID: 77317179}
   - {fileID: 1054593142}
+  - {fileID: 175217933}
   - {fileID: 1342556193}
   - {fileID: 362334435}
   - {fileID: 1499756587}
@@ -93671,4 +93672,3 @@ SceneRoots:
   - {fileID: 1555631090}
   - {fileID: 1450609473}
   - {fileID: 690333309}
-  - {fileID: 175217933}
