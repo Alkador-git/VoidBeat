@@ -52,7 +52,6 @@ public class BeatVisualizerTool : MonoBehaviour
 
         DrawLevelBoundaries(basePos);
         DrawZoneGizmos(basePos);
-
         DrawRecordedBeats(basePos);
     }
 
@@ -120,7 +119,8 @@ public class BeatVisualizerTool : MonoBehaviour
             Gizmos.color = isNewBar ? barColor : beatColor;
             float currentLineHeight = isNewBar ? lineLength : lineLength * 0.7f;
 
-            float xPos = dataContainer.recordedBeats[i] + spatialOffset;
+            float xPos = dataContainer.recordedBeats[i].xPos + spatialOffset;
+
             Vector3 bottom = basePos + new Vector3(xPos, -currentLineHeight / 2, 0);
             Vector3 top = basePos + new Vector3(xPos, currentLineHeight / 2, 0);
             Gizmos.DrawLine(bottom, top);

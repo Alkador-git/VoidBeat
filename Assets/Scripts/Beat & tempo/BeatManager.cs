@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BeatManager : MonoBehaviour
 {
@@ -9,62 +10,41 @@ public class BeatManager : MonoBehaviour
     public enum RecordingType { Automatic, Manual }
 
     // --- CURRENT ZONE STATE ---
-
     public ZoneSettings currentZone;
-
     public float currentBPM;
 
     // --- SLOW MOTION ---
-
     public float slowMoFactor = 0.5f;
     private bool isSlowMoActive = false;
     private float globalSpeedMultiplier = 1f;
 
     // --- AUDIO CONFIGURATION ---
-
     public AudioSource musicSource;
-
     public AudioClip musicClip;
-
     public AudioMixer mixer;
-
     public float originalMusicBPM = 90f;
-
     public string lowPassParam = "LowPassFreq";
-
     public string musicVolParam = "MusicVol";
-
     public string pitchCompParam = "PitchComp";
 
     // --- SPEED COMPENSATION ---
-
     [Range(0f, 1f)]
     public float speedUpCompFactor = 1.0f;
 
     // --- AUDIO TRANSITIONS ---
-
     public float normalVol = 0f;
-
     public float narrativeVol = -15f;
-
     public float normalCutoff = 22000f;
-
     public float narrativeCutoff = 2000f;
-
     public float fadeSpeed = 2f;
 
     // --- BEAT RECORDING ---
-
     public BeatData dataContainer;
-
     public Transform playerTransform;
-
     public bool isRecordingMode = false;
-
     public RecordingType currentRecordingType = RecordingType.Automatic;
 
     // --- BEAT DETECTION ---
-
     public float beatWindow = 0.15f;
 
     private float beatInterval;
@@ -77,27 +57,25 @@ public class BeatManager : MonoBehaviour
     private float lastRewardedBeatTime = -1f;
 
     // --- INITIALIZATION ---
-
-    /// Initializes singleton instance.
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
-    /// Sets up audio mixer and tempo calculations.
     void Start()
     {
-        mixer.SetFloat(lowPassParam, normalCutoff);
-        mixer.SetFloat(musicVolParam, normalVol);
+        if (mixer != null)
+        {
+            mixer.SetFloat(lowPassParam, normalCutoff);
+            mixer.SetFloat(musicVolParam, normalVol);
+        }
 
         currentBPM = originalMusicBPM;
         UpdateTempoCalculations();
     }
 
     // --- UPDATE LOOP ---
-
-    /// Handles input and beat timing updates.
     void Update()
     {
         if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKeyDown(KeyCode.B))
@@ -116,37 +94,43 @@ public class BeatManager : MonoBehaviour
 
                 if (isRecordingMode && currentRecordingType == RecordingType.Automatic && dataContainer != null && playerTransform != null)
                 {
-                    dataContainer.recordedBeats.Add(playerTransform.position.x);
+                    BeatPoint newBeat = new BeatPoint
+                    {
+                        xPos = playerTransform.position.x,
+                        musicTime = musicTimer
+                    };
+                    dataContainer.recordedBeats.Add(newBeat);
                 }
             }
         }
     }
 
-    /// Toggles slow motion mode for debug/gameplay.
     private void ToggleSlowMotion()
     {
         isSlowMoActive = !isSlowMoActive;
-        globalSpeedMultiplier = isSlowMoActive ? slowMoFactor : 0.5f;
+        globalSpeedMultiplier = isSlowMoActive ? slowMoFactor : 1f;
 
         ApplyZoneEffects();
         UpdateTempoCalculations();
     }
 
     // --- BEAT RECORDING ---
-
-    /// Records a manual beat position during gameplay.
     public void RecordManualBeat()
     {
         if (!isRecordingMode || currentRecordingType != RecordingType.Manual) return;
         if (dataContainer == null || playerTransform == null) return;
 
-        dataContainer.recordedBeats.Add(playerTransform.position.x);
-        dataContainer.recordedBeats.Sort();
+        BeatPoint manualBeat = new BeatPoint
+        {
+            xPos = playerTransform.position.x,
+            musicTime = (float)musicSource.timeSamples / musicSource.clip.frequency
+        };
+
+        dataContainer.recordedBeats.Add(manualBeat);
+        dataContainer.recordedBeats.Sort((a, b) => a.musicTime.CompareTo(b.musicTime));
     }
 
     // --- MUSIC TIMING ---
-
-    /// Gets the current music playback timer.
     public float GetMusicTimer()
     {
         if (musicSource != null && musicSource.clip != null && isMusicStarted)
@@ -156,10 +140,8 @@ public class BeatManager : MonoBehaviour
         return musicTimer;
     }
 
-    /// Gets the time of the last detected beat.
     public float GetLastBeatTime() => lastBeatTime;
 
-    /// Restores music playback to a specific state.
     public void RestorePlayback(float timer, int sampleTarget, float lastBeat, float bpm)
     {
         if (!isMusicStarted) return;
@@ -178,14 +160,11 @@ public class BeatManager : MonoBehaviour
     }
 
     // --- ZONE MANAGEMENT ---
-
-    /// Detects when player enters and starts music.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isMusicStarted) StartMusic();
     }
 
-    /// Starts music playback and initializes beat tracking.
     public void StartMusic()
     {
         if (isMusicStarted) return;
@@ -202,16 +181,12 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Handles entry into a new zone.
     public void EnterNewZone(ZoneSettings newSettings)
     {
         currentZone = newSettings;
         ApplyZoneEffects();
     }
 
-    // --- AUDIO EFFECTS ---
-
-    /// Applies zone-specific audio and time effects.
     private void ApplyZoneEffects()
     {
         if (currentZone == null) return;
@@ -225,7 +200,6 @@ public class BeatManager : MonoBehaviour
         Time.timeScale = currentZone.timeScale * globalSpeedMultiplier;
     }
 
-    /// Gradually transitions audio parameters to target values.
     private IEnumerator FadeAudioRoutine(float targetdB, float targetFreq)
     {
         float currentdB;
@@ -237,6 +211,7 @@ public class BeatManager : MonoBehaviour
         {
             currentdB = Mathf.MoveTowards(currentdB, targetdB, fadeSpeed * 15f * Time.deltaTime);
             mixer.SetFloat(musicVolParam, currentdB);
+
             currentFreq = Mathf.MoveTowards(currentFreq, targetFreq, fadeSpeed * 15000f * Time.deltaTime);
             mixer.SetFloat(lowPassParam, currentFreq);
             yield return null;
@@ -245,7 +220,6 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Updates BPM based on player progress within a zone.
     public void UpdateZoneProgress(float progress)
     {
         if (currentZone == null) return;
@@ -253,9 +227,6 @@ public class BeatManager : MonoBehaviour
         UpdateTempoCalculations();
     }
 
-    // --- TEMPO CALCULATIONS ---
-
-    /// Calculates and applies pitch and tempo compensation.
     private void UpdateTempoCalculations()
     {
         beatInterval = 60f / currentBPM;
@@ -273,10 +244,7 @@ public class BeatManager : MonoBehaviour
                     float fullCompensation = 1f / targetPitch;
                     compensatedPitch = Mathf.Lerp(1f, fullCompensation, speedUpCompFactor);
                 }
-                else
-                {
-                    compensatedPitch = 1f;
-                }
+                else compensatedPitch = 1f;
 
                 compensatedPitch = Mathf.Clamp(compensatedPitch, 0.5f, 2.0f);
                 mixer.SetFloat(pitchCompParam, compensatedPitch);
@@ -285,19 +253,26 @@ public class BeatManager : MonoBehaviour
     }
 
     // --- BEAT DETECTION ---
-
-    /// Checks if the player's action is aligned with the beat and applies boost rewards.
     public bool IsActionOnBeat()
     {
-        if (musicSource == null || !musicSource.isPlaying || musicSource.clip == null) return false;
+        if (musicSource == null || !musicSource.isPlaying || musicSource.clip == null || dataContainer == null) return false;
 
-        musicTimer = (float)musicSource.timeSamples / musicSource.clip.frequency;
-        float timeSinceLastBeat = musicTimer - lastBeatTime;
-        float timeToNextBeat = beatInterval - timeSinceLastBeat;
-        float closestDistance = Mathf.Min(timeSinceLastBeat, timeToNextBeat);
-        float deltaMs = closestDistance * 1000f;
-        float closestBeatTarget = (timeSinceLastBeat < timeToNextBeat) ? lastBeatTime : lastBeatTime + beatInterval;
+        float currentMusicTime = (float)musicSource.timeSamples / musicSource.clip.frequency;
 
+        float minDelta = float.MaxValue;
+        float targetBeatTime = -1f;
+
+        foreach (var beat in dataContainer.recordedBeats)
+        {
+            float delta = Mathf.Abs(currentMusicTime - beat.musicTime);
+            if (delta < minDelta)
+            {
+                minDelta = delta;
+                targetBeatTime = beat.musicTime;
+            }
+        }
+
+        float deltaMs = minDelta * 1000f;
         string feedback = "";
         float boostPercent = 0f;
         bool isIgnoredSuccess = false;
@@ -305,12 +280,17 @@ public class BeatManager : MonoBehaviour
         if (deltaMs <= 35f) { feedback = "parfait"; boostPercent = 0.05f; consecutiveMisses = 0; }
         else if (deltaMs <= 75f) { feedback = "bien"; boostPercent = 0.025f; consecutiveMisses = 0; }
         else if (deltaMs <= 150f) { feedback = "juste"; boostPercent = 0.015f; consecutiveMisses = 0; }
-        else { feedback = "raté"; consecutiveMisses++; boostPercent = (consecutiveMisses >= 2) ? -0.1f : -0.05f; }
+        else
+        {
+            feedback = "raté";
+            consecutiveMisses++;
+            boostPercent = (consecutiveMisses >= 2) ? -0.1f : -0.05f;
+        }
 
         if (deltaMs <= 150f)
         {
-            if (Mathf.Approximately(closestBeatTarget, lastRewardedBeatTime)) isIgnoredSuccess = true;
-            else lastRewardedBeatTime = closestBeatTarget;
+            if (Mathf.Approximately(targetBeatTime, lastRewardedBeatTime)) isIgnoredSuccess = true;
+            else lastRewardedBeatTime = targetBeatTime;
         }
 
         if (BoostManager.Instance != null && !isIgnoredSuccess)
@@ -319,8 +299,10 @@ public class BeatManager : MonoBehaviour
             float rewardAmount = max * boostPercent;
             if (rewardAmount >= 0f) BoostManager.Instance.AddBoost(rewardAmount);
             else BoostManager.Instance.RemoveBoost(Mathf.Abs(rewardAmount));
+
+            Debug.Log($"[DATA BEAT] Écart: {deltaMs:F1}ms ({feedback})");
         }
 
-        return (timeSinceLastBeat <= beatWindow || timeToNextBeat <= beatWindow);
+        return (minDelta <= beatWindow);
     }
 }

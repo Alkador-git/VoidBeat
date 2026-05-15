@@ -90354,7 +90354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &362334432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90808,15 +90808,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.25
-    y: -0.18750001
-    width: 0.5
-    height: 0.37500003
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.1
   far clip plane: 100
   field of view: 40
   orthographic: 1
-  orthographic size: 1.40625
+  orthographic size: 4.21875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -93515,7 +93515,7 @@ MonoBehaviour:
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: 12bf13a62e0324c458bf6acce28625ee, type: 2}
   playerTransform: {fileID: 190706020}
-  isRecordingMode: 0
+  isRecordingMode: 1
   currentRecordingType: 1
   beatWindow: 0.15
 --- !u!4 &2091075366

@@ -9,7 +9,7 @@ public class BeatSyncChecker : MonoBehaviour
 
     // --- UPDATE LOOP ---
 
-    /// Handles manual beat recording input during gameplay.
+    /// Gère l'entrée manuelle d'enregistrement de beat pendant le jeu.
     void Update()
     {
         if (Application.isPlaying)
@@ -23,7 +23,7 @@ public class BeatSyncChecker : MonoBehaviour
 
     // --- RECORDING ---
 
-    /// Triggers manual beat recording in BeatManager.
+    /// Déclenche l'enregistrement manuel dans le BeatManager.
     private void TriggerManualRecord()
     {
         if (BeatManager.Instance != null)

@@ -107,7 +107,7 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    // --- LOGIQUE DES ONGLETS (SECURISÉE) ---
+    // --- LOGIQUE DES ONGLETS ---
 
     public void SwitchOptionsTab(CanvasGroup newTab)
     {
