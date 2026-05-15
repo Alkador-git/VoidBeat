@@ -76,7 +76,7 @@ Objectif 2 : Dynamisme, Environnement & Pacing
 
 [~] - Menus options vidéo audio calibration et commandes
 
-[ ] - Beatmanager V3 --} Save Beat position & timesample + tempo indicator based on recorded timesample.
+[x] - Beatmanager V3 --} Save Beat position & timesample + tempo indicator based on recorded timesample.
 
 Objectif 3 : Feedback Sensoriel (Juice)
 
