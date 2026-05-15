@@ -90657,6 +90657,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2315291647311750479, guid: f6f96b1da8458d049874f841b7beb60f, type: 3}
   m_PrefabInstance: {fileID: 6825854795576440457}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &513633372
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3362365799968685371, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_Name
+      value: VictoryTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 455
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -90759,15 +90816,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.3385417
+    y: 0.009259259
+    width: 0.33333334
+    height: 0.3333333
   near clip plane: 0.1
   far clip plane: 100
   field of view: 40
   orthographic: 1
-  orthographic size: 4.21875
+  orthographic size: 2.8125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -92598,8 +92655,8 @@ MonoBehaviour:
   boostGain: 10
   boostSlider: {fileID: 142901686}
   fillImage: {fileID: 1762684405}
-  normalColor: {r: 0, g: 1, b: 1, a: 1}
-  lowColor: {r: 1, g: 0, b: 0.203341, a: 1}
+  normalColor: {r: 0, g: 0.91027164, b: 1, a: 1}
+  lowColor: {r: 1, g: 0, b: 0.11936569, a: 1}
 --- !u!4 &1645284004
 Transform:
   m_ObjectHideFlags: 0
@@ -93684,18 +93741,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial Control Prompt
       objectReference: {fileID: 0}
-    - target: {fileID: 8123336519652903754, guid: 7ff65d169c2d4a044a5c7a99bbafbcfb, type: 3}
-      propertyPath: m_Size.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8123336519652903754, guid: 7ff65d169c2d4a044a5c7a99bbafbcfb, type: 3}
-      propertyPath: m_Offset.x
-      value: -3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8991678812432858420, guid: 7ff65d169c2d4a044a5c7a99bbafbcfb, type: 3}
-      propertyPath: fadeInSpeed
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -93791,3 +93836,4 @@ SceneRoots:
   - {fileID: 1450609473}
   - {fileID: 690333309}
   - {fileID: 2890202759790884031}
+  - {fileID: 513633372}
