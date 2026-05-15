@@ -90808,15 +90808,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.3385417
-    y: 0.009259259
-    width: 0.33333334
-    height: 0.3333333
+    x: -0.25
+    y: -0.18750001
+    width: 0.5
+    height: 0.37500003
   near clip plane: 0.1
   far clip plane: 100
   field of view: 40
   orthographic: 1
-  orthographic size: 2.8125
+  orthographic size: 1.40625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -92012,7 +92012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51852e5f5be7f3b438d02d24aa2e52d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
-  dataContainer: {fileID: 11400000, guid: 6e8dc576e731cee49b214e9254b174e4, type: 2}
+  dataContainer: {fileID: 11400000, guid: 12bf13a62e0324c458bf6acce28625ee, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
   totalLevelDuration: 130
@@ -93513,7 +93513,7 @@ MonoBehaviour:
   normalCutoff: 22000
   narrativeCutoff: 2000
   fadeSpeed: 2
-  dataContainer: {fileID: 11400000, guid: 6e8dc576e731cee49b214e9254b174e4, type: 2}
+  dataContainer: {fileID: 11400000, guid: 12bf13a62e0324c458bf6acce28625ee, type: 2}
   playerTransform: {fileID: 190706020}
   isRecordingMode: 0
   currentRecordingType: 1
