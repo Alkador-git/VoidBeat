@@ -8,7 +8,7 @@ public class CinemachineCameraController : MonoBehaviour
     private CinemachineCamera vCam;
     private CinemachineFollow followComponent;
 
-    [Header("Paramètres de Suivi (GDD)")]
+    [Header("Paramètres de Suivi")]
     public Vector3 defaultOffset = new Vector3(2.5f, 2f, -10f);
     public float smoothSpeed = 5f;
 
@@ -26,10 +26,6 @@ public class CinemachineCameraController : MonoBehaviour
         if (followComponent != null)
         {
             followComponent.FollowOffset = defaultOffset;
-        }
-        else
-        {
-            Debug.LogError("Aucun composant Cinemachine Follow trouvé sur cette caméra !");
         }
 
         targetOffset = defaultOffset;

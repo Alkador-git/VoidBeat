@@ -74,10 +74,16 @@ public class CheckpointManager : MonoBehaviour
             BoostManager.Instance.currentBoost = boostOnRespawn;
         }
 
-        // --- DIRECT SAMPLE RESTORATION ---
         if (BeatManager.Instance != null && BeatManager.Instance.musicSource != null && BeatManager.Instance.musicSource.clip != null)
         {
             BeatManager.Instance.RestorePlayback(savedMusicTimer, savedTimeSamples, savedLastBeatTime, savedBPM);
+        }
+
+        // On cherche le BlackHoleManager dans la scène et on force son repositionnement
+        BlackHoleManager bh = FindAnyObjectByType<BlackHoleManager>();
+        if (bh != null)
+        {
+            bh.SnapToPosition();
         }
     }
 }
