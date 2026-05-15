@@ -4,12 +4,14 @@ public class TutorialPrompt : MonoBehaviour
 {
     [Header("Réglages")]
     public SpriteRenderer promptSprite;
+    public SpriteRenderer prompteffectSprite;
     public float fadeInSpeed = 5f;
     private bool isVisible = false;
 
     void Start()
     {
         if (promptSprite) promptSprite.color = new Color(1, 1, 1, 0);
+        if (prompteffectSprite) prompteffectSprite.color = new Color(1, 1, 1, 0);
     }
 
     void Update()
@@ -18,6 +20,7 @@ public class TutorialPrompt : MonoBehaviour
         float targetAlpha = isVisible ? 1f : 0f;
         float newAlpha = Mathf.MoveTowards(promptSprite.color.a, targetAlpha, Time.deltaTime * fadeInSpeed);
         promptSprite.color = new Color(1, 1, 1, newAlpha);
+        prompteffectSprite.color = new Color(1, 1, 1, newAlpha);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
