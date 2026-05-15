@@ -99,16 +99,16 @@ public class GameUIManager : MonoBehaviour
     // --- SCENE NAVIGATION ---
 
     /// Loads the next level in sequence.
-    public void LoadNextLevel()
+    public void LoadNextLevel(string NextLevelSceneName)
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(NextLevelSceneName);
     }
 
     /// Returns to main menu.
-    public void GoToMainMenu()
+    public void GoToMainMenu(string MainMenuName)
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene(MainMenuName);
     }
 }
