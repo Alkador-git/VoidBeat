@@ -120138,11 +120138,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 447.25
+      value: 623.25
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.49999964
+      value: 0.5000206
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -121280,11 +121280,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 234
+      value: 336
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.50001216
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -121633,7 +121633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f5bef0c9155ab49a582c957b198dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebugTeleport
-  player: {fileID: 1547518142}
+  player: {fileID: 190706018}
   checkpointsContainer: {fileID: 1879382871}
 --- !u!4 &1054593142
 Transform:
