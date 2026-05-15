@@ -11,10 +11,6 @@ public class GhostRecorder : MonoBehaviour
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
-        if (anim == null)
-        {
-            Debug.LogError("GhostRecorder : Aucun Animator trouvé dans les objets enfants.");
-        }
     }
 
     void Update()

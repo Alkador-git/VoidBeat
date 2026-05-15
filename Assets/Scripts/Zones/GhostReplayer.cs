@@ -30,10 +30,11 @@ public class GhostReplayer : MonoBehaviour
         while (frameIndex < dataToPlay.frames.Count)
         {
             float elapsed = Time.time - startTime;
-            GhostFrame currentFrame = dataToPlay.frames[frameIndex];
 
-            if (elapsed >= currentFrame.time)
+            while (frameIndex < dataToPlay.frames.Count && elapsed >= dataToPlay.frames[frameIndex].time)
             {
+                GhostFrame currentFrame = dataToPlay.frames[frameIndex];
+
                 transform.position = currentFrame.position;
 
                 if (anim != null)
@@ -43,6 +44,7 @@ public class GhostReplayer : MonoBehaviour
 
                 frameIndex++;
             }
+
             yield return null;
         }
 

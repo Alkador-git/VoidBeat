@@ -22,7 +22,7 @@ public class TutorialPrompt : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Ghost"))
+        if (other.CompareTag("Player"))
         {
             isVisible = true;
         }
