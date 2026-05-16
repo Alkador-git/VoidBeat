@@ -130,6 +130,14 @@ public class BeatManager : MonoBehaviour
         dataContainer.recordedBeats.Sort((a, b) => a.musicTime.CompareTo(b.musicTime));
     }
 
+    private void OnDisable()
+    {
+        if (isRecordingMode && dataContainer != null)
+        {
+            dataContainer.SaveData();
+        }
+    }
+
     // --- MUSIC TIMING ---
     public float GetMusicTimer()
     {

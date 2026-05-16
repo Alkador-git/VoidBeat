@@ -18,5 +18,21 @@ public class BeatData : ScriptableObject
     public void ClearData()
     {
         recordedBeats.Clear();
+#if UNITY_EDITOR
+        SaveData();
+#endif
+    }
+
+    // --- NOUVEAU : FORCER LA SAUVEGARDE SUR LE DISQUE ---
+    [ContextMenu("Sauvegarder les Données sur le Disque")]
+    public void SaveData()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+
+        UnityEditor.AssetDatabase.SaveAssets();
+
+        Debug.Log($"<color=#00FF00>[VoidBeat] Sauvegarde forcée réussie ! {recordedBeats.Count} beats ont été écrits dans le fichier {name}.asset</color>");
+#endif
     }
 }
