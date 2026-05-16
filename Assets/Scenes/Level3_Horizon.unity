@@ -120138,11 +120138,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 623.25
+      value: 623
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5000206
+      value: 0.50002056
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -121884,7 +121884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51852e5f5be7f3b438d02d24aa2e52d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatVisualizerTool
-  dataContainer: {fileID: 11400000, guid: bcb5b7097cc0bf746b7476b511f89f11, type: 2}
+  dataContainer: {fileID: 11400000, guid: cc98fee11b43e9145aa19e0198ae4126, type: 2}
   moveSpeed: 3.5
   spatialOffset: 0
   totalLevelDuration: 178
@@ -123050,7 +123050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 623
+      value: 624
       objectReference: {fileID: 0}
     - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
       propertyPath: m_LocalPosition.y
@@ -123199,7 +123199,7 @@ MonoBehaviour:
   normalCutoff: 22000
   narrativeCutoff: 2000
   fadeSpeed: 2
-  dataContainer: {fileID: 11400000, guid: bcb5b7097cc0bf746b7476b511f89f11, type: 2}
+  dataContainer: {fileID: 11400000, guid: cc98fee11b43e9145aa19e0198ae4126, type: 2}
   playerTransform: {fileID: 1547518141}
   isRecordingMode: 1
   currentRecordingType: 1
