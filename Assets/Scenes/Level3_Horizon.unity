@@ -120226,8 +120226,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackHoleManager
   player: {fileID: 190706020}
-  safeDistance: 50
+  maxFollowDistance: 20
   deathDistance: 10
+  speedAtZeroBoost: 5
+  speedAtHalfBoost: 3.5
+  speedAtFullBoost: 2.5
   blackHoleOverlay: {fileID: 362334434}
   voidColor: {r: 0.1764706, g: 0, b: 0.1764706, a: 0.78431374}
   playerCollider: {fileID: 190706021}
@@ -123198,7 +123201,7 @@ MonoBehaviour:
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: bcb5b7097cc0bf746b7476b511f89f11, type: 2}
   playerTransform: {fileID: 1547518141}
-  isRecordingMode: 0
+  isRecordingMode: 1
   currentRecordingType: 1
   beatWindow: 0.15
 --- !u!4 &2091075366

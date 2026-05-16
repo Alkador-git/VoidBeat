@@ -76607,8 +76607,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackHoleManager
   player: {fileID: 190706020}
-  safeDistance: 50
+  maxFollowDistance: 20
   deathDistance: 10
+  speedAtZeroBoost: 5
+  speedAtHalfBoost: 3.5
+  speedAtFullBoost: 2.5
   blackHoleOverlay: {fileID: 362334434}
   voidColor: {r: 0.1764706, g: 0, b: 0.1764706, a: 0.78431374}
   playerCollider: {fileID: 190706021}

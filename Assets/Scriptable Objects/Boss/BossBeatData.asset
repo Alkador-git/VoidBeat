@@ -1,0 +1,471 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ba7994b0c5c164daf0286fa3c03006, type: 3}
+  m_Name: BossBeatData
+  m_EditorClassIdentifier: Assembly-CSharp::BeatData
+  recordedBeats:
+  - xPos: 116.96262
+    musicTime: 0.81977326
+  - xPos: 123.785675
+    musicTime: 1.9651928
+  - xPos: 130.50877
+    musicTime: 3.1910431
+  - xPos: 136.67964
+    musicTime: 4.401111
+  - xPos: 142.30748
+    musicTime: 5.580952
+  - xPos: 147.78064
+    musicTime: 6.796032
+  - xPos: 152.9794
+    musicTime: 7.9963946
+  - xPos: 157.96487
+    musicTime: 9.2172785
+  - xPos: 162.79587
+    musicTime: 10.444127
+  - xPos: 167.2285
+    musicTime: 11.620658
+  - xPos: 171.59293
+    musicTime: 12.8193655
+  - xPos: 175.77106
+    musicTime: 13.990023
+  - xPos: 178.11871
+    musicTime: 14.648594
+  - xPos: 180.20142
+    musicTime: 15.233968
+  - xPos: 182.27425
+    musicTime: 15.808911
+  - xPos: 184.28894
+    musicTime: 16.373379
+  - xPos: 186.40506
+    musicTime: 16.969229
+  - xPos: 188.53424
+    musicTime: 17.565079
+  - xPos: 190.7164
+    musicTime: 18.17136
+  - xPos: 192.82227
+    musicTime: 18.756758
+  - xPos: 194.93842
+    musicTime: 19.352585
+  - xPos: 197.14265
+    musicTime: 19.979795
+  - xPos: 199.35004
+    musicTime: 20.586077
+  - xPos: 201.35371
+    musicTime: 21.150566
+  - xPos: 203.50516
+    musicTime: 21.756847
+  - xPos: 205.69809
+    musicTime: 22.363152
+  - xPos: 207.8245
+    musicTime: 22.969433
+  - xPos: 209.9643
+    musicTime: 23.565283
+  - xPos: 212.09201
+    musicTime: 24.161135
+  - xPos: 214.29587
+    musicTime: 24.777868
+  - xPos: 216.4242
+    musicTime: 25.363266
+  - xPos: 218.41833
+    musicTime: 25.927732
+  - xPos: 220.65526
+    musicTime: 26.554943
+  - xPos: 222.8276
+    musicTime: 27.171679
+  - xPos: 225.06432
+    musicTime: 27.788435
+  - xPos: 226.98257
+    musicTime: 28.331995
+  - xPos: 229.22142
+    musicTime: 28.959206
+  - xPos: 231.29245
+    musicTime: 29.534126
+  - xPos: 233.41852
+    musicTime: 30.129978
+  - xPos: 235.64601
+    musicTime: 30.757166
+  - xPos: 237.83997
+    musicTime: 31.36347
+  - xPos: 240.00179
+    musicTime: 31.969772
+  - xPos: 242.0605
+    musicTime: 32.55515
+  - xPos: 244.14465
+    musicTime: 33.130817
+  - xPos: 246.3496
+    musicTime: 33.760296
+  - xPos: 248.5557
+    musicTime: 34.38084
+  - xPos: 250.66006
+    musicTime: 34.971203
+  - xPos: 252.73218
+    musicTime: 35.552334
+  - xPos: 254.92508
+    musicTime: 36.17721
+  - xPos: 256.9439
+    musicTime: 36.750454
+  - xPos: 259.06097
+    musicTime: 37.34626
+  - xPos: 261.19955
+    musicTime: 37.964783
+  - xPos: 263.30453
+    musicTime: 38.563354
+  - xPos: 265.29907
+    musicTime: 39.141838
+  - xPos: 267.4041
+    musicTime: 39.743084
+  - xPos: 269.57837
+    musicTime: 40.378006
+  - xPos: 271.6166
+    musicTime: 40.960453
+  - xPos: 273.70172
+    musicTime: 41.565804
+  - xPos: 275.88312
+    musicTime: 42.194218
+  - xPos: 277.79034
+    musicTime: 42.747982
+  - xPos: 279.85098
+    musicTime: 43.357323
+  - xPos: 282.10934
+    musicTime: 44.011723
+  - xPos: 284.12744
+    musicTime: 44.602016
+  - xPos: 286.0465
+    musicTime: 45.17163
+  - xPos: 288.1169
+    musicTime: 45.7754
+  - xPos: 290.2443
+    musicTime: 46.402493
+  - xPos: 292.2484
+    musicTime: 46.986847
+  - xPos: 294.01056
+    musicTime: 47.506054
+  - xPos: 296.13684
+    musicTime: 48.148117
+  - xPos: 298.09775
+    musicTime: 48.7361
+  - xPos: 300.1043
+    musicTime: 49.33644
+  - xPos: 302.13434
+    musicTime: 49.926895
+  - xPos: 304.23804
+    musicTime: 50.56245
+  - xPos: 306.17786
+    musicTime: 51.14227
+  - xPos: 308.2812
+    musicTime: 51.76669
+  - xPos: 310.27585
+    musicTime: 52.368797
+  - xPos: 312.31485
+    musicTime: 52.970905
+  - xPos: 314.47485
+    musicTime: 53.606464
+  - xPos: 316.45758
+    musicTime: 54.208572
+  - xPos: 318.34436
+    musicTime: 54.777233
+  - xPos: 320.33743
+    musicTime: 55.36821
+  - xPos: 322.33362
+    musicTime: 55.970318
+  - xPos: 324.46014
+    musicTime: 56.605873
+  - xPos: 326.25476
+    musicTime: 57.141087
+  - xPos: 328.38092
+    musicTime: 57.776646
+  - xPos: 330.44052
+    musicTime: 58.389908
+  - xPos: 332.3148
+    musicTime: 58.947414
+  - xPos: 334.45178
+    musicTime: 59.582993
+  - xPos: 336.44516
+    musicTime: 60.1851
+  - xPos: 338.4721
+    musicTime: 60.787212
+  - xPos: 340.4922
+    musicTime: 61.378162
+  - xPos: 342.56165
+    musicTime: 62.002586
+  - xPos: 344.68927
+    musicTime: 62.63814
+  - xPos: 346.5843
+    musicTime: 63.206802
+  - xPos: 348.5119
+    musicTime: 63.78662
+  - xPos: 350.518
+    musicTime: 64.38873
+  - xPos: 352.58093
+    musicTime: 64.99084
+  - xPos: 354.72885
+    musicTime: 65.63755
+  - xPos: 356.67792
+    musicTime: 66.22852
+  - xPos: 358.5304
+    musicTime: 66.77487
+  - xPos: 360.4902
+    musicTime: 67.36585
+  - xPos: 362.60718
+    musicTime: 67.97912
+  - xPos: 364.42636
+    musicTime: 68.53662
+  - xPos: 366.55212
+    musicTime: 69.17218
+  - xPos: 368.64746
+    musicTime: 69.7966
+  - xPos: 370.70746
+    musicTime: 70.40987
+  - xPos: 372.70132
+    musicTime: 71.00082
+  - xPos: 374.76398
+    musicTime: 71.61408
+  - xPos: 376.72513
+    musicTime: 72.20503
+  - xPos: 378.7857
+    musicTime: 72.82945
+  - xPos: 380.84668
+    musicTime: 73.431564
+  - xPos: 382.71802
+    musicTime: 74.00023
+  - xPos: 384.71265
+    musicTime: 74.59118
+  - xPos: 386.68402
+    musicTime: 75.171
+  - xPos: 388.7799
+    musicTime: 75.80656
+  - xPos: 390.82922
+    musicTime: 76.419815
+  - xPos: 392.5227
+    musicTime: 76.921585
+  - xPos: 394.7282
+    musicTime: 77.59059
+  - xPos: 396.74426
+    musicTime: 78.19272
+  - xPos: 398.75262
+    musicTime: 78.783676
+  - xPos: 400.84546
+    musicTime: 79.4081
+  - xPos: 403.11572
+    musicTime: 80.08826
+  - xPos: 404.6563
+    musicTime: 80.545395
+  - xPos: 406.79483
+    musicTime: 81.19211
+  - xPos: 408.7242
+    musicTime: 81.76077
+  - xPos: 410.7165
+    musicTime: 82.3629
+  - xPos: 412.87772
+    musicTime: 83.00961
+  - xPos: 414.86255
+    musicTime: 83.60057
+  - xPos: 416.75592
+    musicTime: 84.15807
+  - xPos: 418.73868
+    musicTime: 84.74905
+  - xPos: 420.82053
+    musicTime: 85.37344
+  - xPos: 422.6613
+    musicTime: 85.919815
+  - xPos: 424.35834
+    musicTime: 86.432724
+  - xPos: 425.95267
+    musicTime: 86.90105
+  - xPos: 427.24814
+    musicTime: 87.30245
+  - xPos: 428.91016
+    musicTime: 87.79306
+  - xPos: 430.90607
+    musicTime: 88.38401
+  - xPos: 432.89948
+    musicTime: 88.97497
+  - xPos: 434.9823
+    musicTime: 89.59939
+  - xPos: 436.97525
+    musicTime: 90.20213
+  - xPos: 438.99283
+    musicTime: 90.806145
+  - xPos: 440.87604
+    musicTime: 91.36653
+  - xPos: 442.98056
+    musicTime: 92.00669
+  - xPos: 444.88525
+    musicTime: 92.56941
+  - xPos: 446.9035
+    musicTime: 93.18964
+  - xPos: 448.7858
+    musicTime: 93.76596
+  - xPos: 450.7378
+    musicTime: 94.35471
+  - xPos: 452.80856
+    musicTime: 94.97873
+  - xPos: 454.82608
+    musicTime: 95.59265
+  - xPos: 456.76605
+    musicTime: 96.17365
+  - xPos: 458.8061
+    musicTime: 96.812904
+  - xPos: 460.69992
+    musicTime: 97.396255
+  - xPos: 462.4946
+    musicTime: 97.93485
+  - xPos: 464.62024
+    musicTime: 98.58934
+  - xPos: 466.6175
+    musicTime: 99.21068
+  - xPos: 468.62167
+    musicTime: 99.83329
+  - xPos: 470.50647
+    musicTime: 100.410904
+  - xPos: 472.48932
+    musicTime: 101.02435
+  - xPos: 474.4174
+    musicTime: 101.62742
+  - xPos: 476.27948
+    musicTime: 102.196754
+  - xPos: 478.22913
+    musicTime: 102.81374
+  - xPos: 480.1355
+    musicTime: 103.40859
+  - xPos: 481.94226
+    musicTime: 103.9695
+  - xPos: 483.86966
+    musicTime: 104.578255
+  - xPos: 485.6174
+    musicTime: 105.1295
+  - xPos: 487.56732
+    musicTime: 105.7405
+  - xPos: 489.49628
+    musicTime: 106.35268
+  - xPos: 491.51224
+    musicTime: 106.98962
+  - xPos: 493.39743
+    musicTime: 107.58052
+  - xPos: 495.3697
+    musicTime: 108.20805
+  - xPos: 497.3637
+    musicTime: 108.83594
+  - xPos: 499.1919
+    musicTime: 109.4283
+  - xPos: 500.9809
+    musicTime: 109.98512
+  - xPos: 502.9046
+    musicTime: 110.60118
+  - xPos: 504.77744
+    musicTime: 111.193535
+  - xPos: 506.71387
+    musicTime: 111.79773
+  - xPos: 508.57745
+    musicTime: 112.39009
+  - xPos: 510.55957
+    musicTime: 113.01798
+  - xPos: 512.24536
+    musicTime: 113.56295
+  - xPos: 514.28284
+    musicTime: 114.2027
+  - xPos: 516.08734
+    musicTime: 114.77136
+  - xPos: 518.1714
+    musicTime: 115.434784
+  - xPos: 519.90967
+    musicTime: 115.99161
+  - xPos: 521.8833
+    musicTime: 116.6195
+  - xPos: 523.71344
+    musicTime: 117.20002
+  - xPos: 525.54895
+    musicTime: 117.780525
+  - xPos: 527.3241
+    musicTime: 118.34918
+  - xPos: 529.29443
+    musicTime: 118.97707
+  - xPos: 531.1475
+    musicTime: 119.557594
+  - xPos: 533.0626
+    musicTime: 120.16179
+  - xPos: 534.9933
+    musicTime: 120.77785
+  - xPos: 536.9329
+    musicTime: 121.3939
+  - xPos: 538.8147
+    musicTime: 121.99809
+  - xPos: 540.6887
+    musicTime: 122.590454
+  - xPos: 542.5378
+    musicTime: 123.17095
+  - xPos: 544.5124
+    musicTime: 123.79884
+  - xPos: 546.2293
+    musicTime: 124.343834
+  - xPos: 548.24414
+    musicTime: 124.98356
+  - xPos: 550.25165
+    musicTime: 125.623314
+  - xPos: 552.0363
+    musicTime: 126.19197
+  - xPos: 553.7856
+    musicTime: 126.74878
+  - xPos: 555.7148
+    musicTime: 127.353
+  - xPos: 557.7311
+    musicTime: 128.00458
+  - xPos: 559.5813
+    musicTime: 128.58508
+  - xPos: 561.3319
+    musicTime: 129.13005
+  - xPos: 563.3595
+    musicTime: 129.78166
+  - xPos: 565.34076
+    musicTime: 130.40955
+  - xPos: 567.24774
+    musicTime: 131.01375
+  - xPos: 569.08734
+    musicTime: 131.6061
+  - xPos: 570.992
+    musicTime: 132.2103
+  - xPos: 572.8547
+    musicTime: 132.79082
+  - xPos: 574.5051
+    musicTime: 133.32393
+  - xPos: 576.55426
+    musicTime: 133.96367
+  - xPos: 578.5267
+    musicTime: 134.57973
+  - xPos: 580.5545
+    musicTime: 135.23131
+  - xPos: 582.55145
+    musicTime: 135.87106
+  - xPos: 586.3153
+    musicTime: 137.06761
+  - xPos: 588.2442
+    musicTime: 137.67181
+  - xPos: 590.25085
+    musicTime: 138.31157
+  - xPos: 593.7731
+    musicTime: 139.43706
+  - xPos: 595.9143
+    musicTime: 140.10048
+  - xPos: 597.6731
+    musicTime: 140.66914
+  - xPos: 599.55975
+    musicTime: 141.26149
+  - xPos: 601.61914
+    musicTime: 141.91309
+  - xPos: 603.38
+    musicTime: 142.48175
+  - xPos: 605.097
+    musicTime: 143.02672
+  - xPos: 606.85803
+    musicTime: 143.57167
+  - xPos: 608.6998
+    musicTime: 144.16403
