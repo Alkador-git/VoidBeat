@@ -89798,7 +89798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostRecorder
   dataToSave: {fileID: 11400000, guid: a20a309e5d081984589ccf0d81d744b8, type: 2}
-  isRecording: 1
+  isRecording: 0
 --- !u!1 &231265583
 GameObject:
   m_ObjectHideFlags: 0
