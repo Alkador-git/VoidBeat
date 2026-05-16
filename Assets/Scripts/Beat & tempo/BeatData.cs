@@ -32,7 +32,7 @@ public class BeatData : ScriptableObject
 
         UnityEditor.AssetDatabase.SaveAssets();
 
-        Debug.Log($"<color=#00FF00>[VoidBeat] Sauvegarde forcée réussie ! {recordedBeats.Count} beats ont été écrits dans le fichier {name}.asset</color>");
+        Debug.Log($"Sauvegarde forcée réussie ! {recordedBeats.Count} beats ont été écrits dans le fichier {name}.asset");
 #endif
     }
 }
