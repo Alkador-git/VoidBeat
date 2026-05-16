@@ -89,11 +89,11 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BlackHoleRadius: 0.050934196
+    - _BlackHoleRadius: 0.46185565
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
-    - _CenterY: 0.2
+    - _CenterY: 0.35
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -106,7 +106,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Intensity: 0.12733549
+    - _Intensity: 0.7571404
     - _LensingStrength: -0.035
     - _LensingThickness: 0.3
     - _Metallic: 0

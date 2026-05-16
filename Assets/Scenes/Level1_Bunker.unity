@@ -89798,7 +89798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostRecorder
   dataToSave: {fileID: 11400000, guid: a20a309e5d081984589ccf0d81d744b8, type: 2}
-  isRecording: 0
+  isRecording: 1
 --- !u!1 &231265583
 GameObject:
   m_ObjectHideFlags: 0
@@ -90280,11 +90280,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 447.25
+      value: 454.75
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.49999964
+      value: 0.50000054
       objectReference: {fileID: 0}
     - target: {fileID: 4227440839489784833, guid: 5d3fe58d58635d9468922d79d24e716e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -90354,7 +90354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &362334432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90370,7 +90370,7 @@ MonoBehaviour:
   player: {fileID: 190706020}
   maxFollowDistance: 25
   deathDistance: 10
-  speedAtZeroBoost: 5.5
+  speedAtZeroBoost: 7
   speedAtHalfBoost: 3.5
   speedAtFullBoost: 2.5
   blackHoleOverlay: {fileID: 362334434}
@@ -90481,7 +90481,7 @@ Transform:
   m_GameObject: {fileID: 362334431}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -75, y: 1.5, z: 0}
+  m_LocalPosition: {x: -50, y: 1.5, z: 0}
   m_LocalScale: {x: 25, y: 25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -90666,7 +90666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 455
+      value: 456.5
       objectReference: {fileID: 0}
     - target: {fileID: 5726008647123887651, guid: 052e9244150e2fc41be77eedc9f39c23, type: 3}
       propertyPath: m_LocalPosition.y
@@ -92224,9 +92224,9 @@ MonoBehaviour:
   featureManager: {fileID: 1388125230}
   lensingFeatureName: NeantXLensingPass
   spaghettiFeatureName: VoidDistortionPass
-  blackHoleHeight: 0.2
-  maxRadius: 0.4
-  activationThreshold: 0.6
+  blackHoleHeight: 0.35
+  maxRadius: 0.61
+  activationThreshold: 0.45
 --- !u!114 &1388125232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92240,7 +92240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoidDistortionEffect
   distortionMaterial: {fileID: 2100000, guid: 9f6a8ac9c116d3646bd587a453982f44, type: 2}
-  activationThreshold: 0.5
+  activationThreshold: 0.45
   maxStretch: 0
   stretchCurvature: 5
   maxAberration: 0.3
@@ -93518,7 +93518,7 @@ MonoBehaviour:
   fadeSpeed: 2
   dataContainer: {fileID: 11400000, guid: 12bf13a62e0324c458bf6acce28625ee, type: 2}
   playerTransform: {fileID: 190706020}
-  isRecordingMode: 1
+  isRecordingMode: 0
   currentRecordingType: 1
   beatWindow: 0.15
 --- !u!4 &2091075366
