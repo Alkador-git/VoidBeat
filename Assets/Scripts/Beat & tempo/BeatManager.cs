@@ -286,9 +286,9 @@ public class BeatManager : MonoBehaviour
         float boostPercent = 0f;
         bool isIgnoredSuccess = false;
 
-        if (deltaMs <= 35f) { feedback = "parfait"; boostPercent = 0.05f; consecutiveMisses = 0; }
-        else if (deltaMs <= 75f) { feedback = "bien"; boostPercent = 0.025f; consecutiveMisses = 0; }
-        else if (deltaMs <= 150f) { feedback = "juste"; boostPercent = 0.015f; consecutiveMisses = 0; }
+        if (deltaMs <= 30f) { feedback = "parfait"; boostPercent = 0.05f; consecutiveMisses = 0; }
+        else if (deltaMs <= 70f) { feedback = "bien"; boostPercent = 0.025f; consecutiveMisses = 0; }
+        else if (deltaMs <= 125f) { feedback = "juste"; boostPercent = 0.015f; consecutiveMisses = 0; }
         else
         {
             feedback = "raté";

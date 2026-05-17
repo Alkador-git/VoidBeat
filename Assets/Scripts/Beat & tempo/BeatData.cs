@@ -23,8 +23,6 @@ public class BeatData : ScriptableObject
 #endif
     }
 
-    // --- NOUVEAU : FORCER LA SAUVEGARDE SUR LE DISQUE ---
-    [ContextMenu("Sauvegarder les Données sur le Disque")]
     public void SaveData()
     {
 #if UNITY_EDITOR

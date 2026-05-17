@@ -13,7 +13,7 @@ public class GhostRecorder : MonoBehaviour
 
     private float timer = 0f;
     private float recordTimer = 0f;
-    private float recordInterval = 1f / 120f;
+    private float recordInterval = 1f / 90f;
     private Animator anim;
 
     void Start()
@@ -28,7 +28,6 @@ public class GhostRecorder : MonoBehaviour
         timer += Time.deltaTime;
         recordTimer += Time.deltaTime;
 
-        // --- ENREGISTREMENT BRIDÉ À 120 FPS ---
         if (recordTimer >= recordInterval)
         {
             recordTimer -= recordInterval;
