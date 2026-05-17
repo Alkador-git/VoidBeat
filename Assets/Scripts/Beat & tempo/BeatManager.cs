@@ -65,6 +65,7 @@ public class BeatManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         if (mixer != null)
         {
             mixer.SetFloat(lowPassParam, normalCutoff);

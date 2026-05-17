@@ -5,7 +5,15 @@ public class GhostRecorder : MonoBehaviour
 {
     public GhostData dataToSave;
     public bool isRecording = false;
+
+    [Header("Configuration des Triggers")]
+    public string startTriggerTag = "RecordingTrigger";
+
+    public string stopTriggerTag = "RecordingEndTrigger";
+
     private float timer = 0f;
+    private float recordTimer = 0f;
+    private float recordInterval = 1f / 120f;
     private Animator anim;
 
     void Start()
@@ -18,17 +26,54 @@ public class GhostRecorder : MonoBehaviour
         if (!isRecording || dataToSave == null || anim == null) return;
 
         timer += Time.deltaTime;
+        recordTimer += Time.deltaTime;
 
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-
-        GhostFrame frame = new GhostFrame
+        // --- ENREGISTREMENT BRIDÉ À 120 FPS ---
+        if (recordTimer >= recordInterval)
         {
-            time = timer,
-            position = transform.position,
-            animatorStateHash = stateInfo.shortNameHash,
-            normalizedTime = stateInfo.normalizedTime
-        };
+            recordTimer -= recordInterval;
 
-        dataToSave.frames.Add(frame);
+            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+            GhostFrame frame = new GhostFrame
+            {
+                time = timer,
+                position = transform.position,
+                animatorStateHash = stateInfo.shortNameHash,
+                normalizedTime = stateInfo.normalizedTime
+            };
+
+            dataToSave.frames.Add(frame);
+        }
+    }
+
+    // --- LOGIQUE DE DÉCLENCHEMENT ---
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag(startTriggerTag))
+        {
+            if (dataToSave != null)
+            {
+                dataToSave.ClearData();
+            }
+
+            timer = 0f;
+            recordTimer = 0f;
+            isRecording = true;
+        }
+        else if (other.CompareTag(stopTriggerTag))
+        {
+            if (isRecording)
+            {
+                isRecording = false;
+
+#if UNITY_EDITOR
+                if (dataToSave != null)
+                {
+                    dataToSave.SaveData();
+                }
+#endif
+            }
+        }
     }
 }
