@@ -161,7 +161,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Déclenchement des délégations d'actions rythmiques basées sur le compteur global.
+    /// Diffuse les actions de rythme globales aux abonnés selon le compteur de temps écoulé.
     private void TriggerIntervalEvents(int count)
     {
         OnBeat1?.Invoke();
@@ -171,7 +171,7 @@ public class BeatManager : MonoBehaviour
         if (count % 8 == 0) OnBeat8?.Invoke();
     }
 
-    /// Inversion de l'état du modificateur de vitesse globale pour le ralenti.
+    /// Alterne l'activation du mode ralenti cinétique.
     private void ToggleSlowMotion()
     {
         isSlowMoActive = !isSlowMoActive;
@@ -194,7 +194,7 @@ public class BeatManager : MonoBehaviour
     /// Renvoie la coordonnée temporelle exacte du précédent battement validé.
     public float GetLastBeatTime() => lastBeatTime;
 
-    /// Restauration des paramètres de lecture et synchronisation des boucles lors d'un respawn.
+    /// Restitue l'état complet du morceau lors des phases de réapparition au point de contrôle.
     public void RestorePlayback(float timer, int sampleTarget, float lastBeat, float bpm)
     {
         if (!isMusicStarted) return;
@@ -232,7 +232,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Routine d'atténuation progressive des volumes et fréquences de coupure.
+    /// Assure l'atténuation et la transition fluide des volumes et des fréquences de coupure du Mixer.
     private IEnumerator FadeAudioRoutine(float targetdB, float targetFreq)
     {
         float currentdB; float currentFreq;
@@ -249,7 +249,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Recalcul de l'intervalle et ajustement du pitch de la source audio.
+    /// Recalcule et adapte la hauteur du morceau pour pallier les effets de ralentissement.
     private void UpdateTempoCalculations()
     {
         beatInterval = 60f / currentBPM;
@@ -298,7 +298,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Calcul de l'état d'avancement linéaire séparant l'instant T des balises temporelles.
+    /// Évaluation de l'état d'avancement décimal séparant la lecture entre deux battements mémorisés.
     public float GetDataDrivenBeatPhase()
     {
         if (musicSource == null || musicSource.clip == null || !musicSource.isPlaying) return 0f;
@@ -336,7 +336,7 @@ public class BeatManager : MonoBehaviour
         return Mathf.Clamp01(phase);
     }
 
-    /// Renvoie la valeur d'indexation humaine du battement vers lequel progresse le morceau.
+    /// Récupération du numéro d'indexation direct représentant la marque temporelle imminente du morceau.
     public int GetNextBeatIndex()
     {
         if (musicSource == null || musicSource.clip == null || !musicSource.isPlaying) return -1;
@@ -372,7 +372,7 @@ public class BeatManager : MonoBehaviour
         ApplyZoneEffects();
     }
 
-    /// Applique les altérations de volume et d'échelle de temps de la zone courante.
+    /// Modulation dynamique de l'échelle de temps et lancements des processus d'atténuation.
     private void ApplyZoneEffects()
     {
         if (currentZone == null) return;

@@ -91099,7 +91099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbb3ebf5f132f94c95a10719c9f7b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatPulse
-  pulseInterval: 1
+  pulseInterval: 3
   pulseSize: 1.15
   anticipationPercent: 0.15
   shrinkPercent: 0.15
@@ -91920,7 +91920,7 @@ MonoBehaviour:
   distanceBeat: 175
   fadeInStartDistance: 500
   fadeInEndDistance: 250
-  fadeOutThresholdX: 20
+  fadeOutThresholdX: 25
   flashDuration: 0.25
   perfectColor: {r: 0, g: 0.78431374, b: 0, a: 1}
   goodColor: {r: 0, g: 0.19607843, b: 0.78431374, a: 1}
@@ -94179,7 +94179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbb3ebf5f132f94c95a10719c9f7b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatPulse
-  pulseInterval: 1
+  pulseInterval: 3
   pulseSize: 1.15
   anticipationPercent: 0.15
   shrinkPercent: 0.15

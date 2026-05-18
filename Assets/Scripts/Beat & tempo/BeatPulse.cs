@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BeatPulse : MonoBehaviour
 {
-    public enum BeatInterval { Every1Beat = 1, Every2Beats = 2, Every4Beats = 4, Every8Beats = 8 }
+    public enum BeatInterval { Every1Beat = 1, Every2Beats = 2, Every3Beats = 3, Every4Beats = 4, Every8Beats = 8 }
 
     [Header("Configuration du Rythme")]
     [SerializeField] private BeatInterval pulseInterval = BeatInterval.Every1Beat;

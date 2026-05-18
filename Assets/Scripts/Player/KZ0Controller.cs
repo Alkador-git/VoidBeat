@@ -48,6 +48,7 @@ public class KZ0Controller : MonoBehaviour
     private Vector2 originalColliderSize;
     private string initialSlideFeedback = "raté";
     private bool hasPassedUnderObstacle = false;
+    private int slideStartBeatCount = -1;
 
     [Header("Dash")]
     public float dashForceX = 20f;
@@ -154,6 +155,7 @@ public class KZ0Controller : MonoBehaviour
                 if (BeatManager.Instance != null)
                 {
                     BeatManager.Instance.IsActionOnBeat(false);
+                    slideStartBeatCount = BeatManager.Instance.beatCounter;
                 }
 
                 BeatManager.OnInputFeedback -= callback;
@@ -266,7 +268,7 @@ public class KZ0Controller : MonoBehaviour
     /// Indique si la fenêtre de protection temporelle contre les ennemis est active.
     public bool IsInCollisionGracePeriod() => gracePeriodCounter > 0;
 
-    /// Initialisation des forces du saut et configuration des variables de maintien.
+    /// Applique l'impulsion verticale du saut initial.
     private void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -305,6 +307,11 @@ public class KZ0Controller : MonoBehaviour
     {
         if (isSliding)
         {
+            if (BeatManager.Instance != null && BeatManager.Instance.beatCounter == slideStartBeatCount)
+            {
+                return;
+            }
+
             bool obstacleAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, groundLayer);
             if (BoostManager.Instance != null)
             {
@@ -352,6 +359,9 @@ public class KZ0Controller : MonoBehaviour
     /// Soumet l'évaluation temporelle de l'action pour appliquer la récompense de rythme standard.
     private void HandleRhythmicAction()
     {
-        if (BeatManager.Instance != null && BeatManager.Instance.IsActionOnBeat()) BoostManager.Instance.AddBoost();
+        if (BeatManager.Instance != null)
+        {
+            BeatManager.Instance.IsActionOnBeat(true);
+        }
     }
 }
