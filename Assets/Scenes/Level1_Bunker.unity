@@ -93349,7 +93349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   currentScore: 0
   currentMultiplier: 1
-  victoryTotalScoreText: {fileID: 257951238}
+  victoryTotalScoreText: {fileID: 242064227}
+  inGameTotalScoreText: {fileID: 257951238}
   scorePopUpText: {fileID: 1089949812}
   popUpDuration: 0.5
 --- !u!4 &1073287061
