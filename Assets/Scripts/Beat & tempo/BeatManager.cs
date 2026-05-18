@@ -181,6 +181,12 @@ public class BeatManager : MonoBehaviour
         UpdateTempoCalculations();
     }
 
+    /// Indique si le cycle musical de gameplay est actif et en cours de lecture.
+    public bool IsMusicActive()
+    {
+        return isMusicStarted && musicSource != null && musicSource.isPlaying;
+    }
+
     /// Restitue la position temporelle précise de lecture de la musique.
     public float GetMusicTimer()
     {

@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 1937496315745960080}
   - component: {fileID: 8123336519652903754}
   - component: {fileID: 8991678812432858420}
+  - component: {fileID: -6684868707438709543}
   m_Layer: 0
   m_Name: Tutorial Control Prompt
   m_TagString: Untagged
@@ -142,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 7223203001149416357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 3, z: 0}
+  m_LocalPosition: {x: 10, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -269,3 +270,20 @@ MonoBehaviour:
   promptSprite: {fileID: 1937496315745960080}
   prompteffectSprite: {fileID: 2074940919369467910}
   fadeInSpeed: 3
+--- !u!114 &-6684868707438709543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7223203001149416357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbb3ebf5f132f94c95a10719c9f7b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BeatPulse
+  pulseInterval: 2
+  pulseSize: 1.2
+  anticipationPercent: 0.15
+  shrinkPercent: 0.15
+  visualTarget: {fileID: 0}
