@@ -1,16 +1,23 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    // --- CONFIGURATION ET ETAT ---
-
     public static ScoreManager Instance;
     public int currentScore = 0;
     public float currentMultiplier = 1f;
+
+    [Header("Composants UI")]
+    public TextMeshProUGUI victoryTotalScoreText;
+    public TextMeshProUGUI scorePopUpText;
+    public float popUpDuration = 0.5f;
+
     private string lastFeedbackType = "";
     private int currentStreak = 0;
     private float currentIncrement = 1f;
+    private Coroutine popUpCoroutine;
 
     // --- INITIALISATION ---
 
@@ -27,6 +34,11 @@ public class ScoreManager : MonoBehaviour
         if (BeatManager.Instance != null)
         {
             BeatManager.OnInputFeedback += ProcessScore;
+        }
+
+        if (scorePopUpText != null)
+        {
+            scorePopUpText.text = "";
         }
     }
 
@@ -75,6 +87,9 @@ public class ScoreManager : MonoBehaviour
         int scoreGained = Mathf.RoundToInt(baseScore * currentMultiplier);
         currentScore += scoreGained;
 
+        DisplayScorePopUp(scoreGained);
+        UpdateVictoryScore();
+
         Debug.Log("[ScoreManager] Precision: " + feedback + " | Ecart: " + deltaMs.ToString("F1") + "ms | Points gagnes: " + scoreGained + " | Multiplicateur: " + currentMultiplier.ToString("F4") + "x | Score total: " + currentScore);
     }
 
@@ -85,6 +100,10 @@ public class ScoreManager : MonoBehaviour
         currentMultiplier = 1f;
         currentIncrement = 1f;
         lastFeedbackType = "";
+
+        DisplayScorePopUp(0);
+
+        Debug.Log("[ScoreManager] Note ratee. Multiplicateur reinitialise.");
     }
 
     /// Conversion de la chaine de caracteres en valeur numerique.
@@ -117,5 +136,37 @@ public class ScoreManager : MonoBehaviour
         }
 
         return minDelta * 1000f;
+    }
+
+    // --- GESTION DE L'INTERFACE ---
+
+    /// Mise a jour du score total dans le menu victoire.
+    public void UpdateVictoryScore()
+    {
+        if (victoryTotalScoreText != null)
+        {
+            victoryTotalScoreText.text = currentScore.ToString();
+        }
+    }
+
+    /// Gere l'affichage temporaire du gain de points sous l'indicateur.
+    private void DisplayScorePopUp(int points)
+    {
+        if (scorePopUpText == null) return;
+
+        if (popUpCoroutine != null)
+        {
+            StopCoroutine(popUpCoroutine);
+        }
+
+        popUpCoroutine = StartCoroutine(ClearPopUpRoutine(points));
+    }
+
+    /// Coroutine pour masquer le texte temporaire apres un delai.
+    private IEnumerator ClearPopUpRoutine(int points)
+    {
+        scorePopUpText.text = "+" + points.ToString();
+        yield return new WaitForSeconds(popUpDuration);
+        scorePopUpText.text = "";
     }
 }
