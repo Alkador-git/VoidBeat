@@ -14,7 +14,8 @@ public class BeatManager : MonoBehaviour
     public static System.Action OnBeat2;
     public static System.Action OnBeat4;
     public static System.Action OnBeat8;
-    private int beatCounter = 0;
+
+    [HideInInspector] public int beatCounter = 0;
 
     // --- CURRENT ZONE STATE ---
     public ZoneSettings currentZone;
@@ -94,23 +95,73 @@ public class BeatManager : MonoBehaviour
         if (musicSource != null && musicSource.isPlaying && musicSource.clip != null)
         {
             musicTimer = (float)musicSource.timeSamples / musicSource.clip.frequency;
-            beatInterval = 60f / currentBPM;
 
-            if (musicTimer >= lastBeatTime + beatInterval)
+            if (isRecordingMode)
             {
-                lastBeatTime += beatInterval;
+                // Mode Enregistrement : Logique mathématique classique
+                beatInterval = 60f / currentBPM;
 
-                beatCounter++;
-                TriggerIntervalEvents(beatCounter);
-
-                if (isRecordingMode && currentRecordingType == RecordingType.Automatic && dataContainer != null && playerTransform != null)
+                if (musicTimer >= lastBeatTime + beatInterval)
                 {
-                    BeatPoint newBeat = new BeatPoint
+                    lastBeatTime += beatInterval;
+                    beatCounter++;
+                    TriggerIntervalEvents(beatCounter);
+
+                    if (currentRecordingType == RecordingType.Automatic && dataContainer != null && playerTransform != null)
                     {
-                        xPos = playerTransform.position.x,
-                        musicTime = musicTimer
-                    };
-                    dataContainer.recordedBeats.Add(newBeat);
+                        BeatPoint newBeat = new BeatPoint
+                        {
+                            xPos = playerTransform.position.x,
+                            musicTime = musicTimer
+                        };
+                        dataContainer.recordedBeats.Add(newBeat);
+                    }
+                }
+            }
+            else
+            {
+                // Mode Gameplay : Calé et synchronisé à 100% sur la grille de données temporelles
+                if (dataContainer != null && dataContainer.recordedBeats != null && dataContainer.recordedBeats.Count > 0)
+                {
+                    List<BeatPoint> beats = dataContainer.recordedBeats;
+                    int nextIdx = -1;
+                    for (int i = 0; i < beats.Count; i++)
+                    {
+                        if (beats[i].musicTime > musicTimer)
+                        {
+                            nextIdx = i;
+                            break;
+                        }
+                    }
+
+                    if (nextIdx > 0)
+                    {
+                        int currentIdx = nextIdx - 1;
+                        lastBeatTime = beats[currentIdx].musicTime;
+                        beatInterval = beats[nextIdx].musicTime - lastBeatTime;
+
+                        // Synchronise le beatCounter pour les écoutes externes (1-basé)
+                        int newBeatCount = currentIdx + 1;
+                        if (newBeatCount > beatCounter)
+                        {
+                            for (int b = beatCounter + 1; b <= newBeatCount; b++)
+                            {
+                                TriggerIntervalEvents(b);
+                            }
+                            beatCounter = newBeatCount;
+                        }
+                    }
+                }
+                else
+                {
+                    // Fallback mathématique si le fichier de données est vide
+                    beatInterval = 60f / currentBPM;
+                    if (musicTimer >= lastBeatTime + beatInterval)
+                    {
+                        lastBeatTime += beatInterval;
+                        beatCounter++;
+                        TriggerIntervalEvents(beatCounter);
+                    }
                 }
             }
         }
@@ -121,9 +172,7 @@ public class BeatManager : MonoBehaviour
         OnBeat1?.Invoke();
 
         if (count % 2 == 0) OnBeat2?.Invoke();
-
         if (count % 4 == 0) OnBeat4?.Invoke();
-
         if (count % 8 == 0) OnBeat8?.Invoke();
     }
 
@@ -158,6 +207,72 @@ public class BeatManager : MonoBehaviour
         {
             dataContainer.SaveData();
         }
+    }
+
+    // --- NOUVEAUX OUTILS DE CENTRALISATION DES INPUTS ET DÉCOR ---
+
+    /// <summary>
+    /// Calcule la phase temporelle exacte du beat actuel (0 à 1) basée sur la grille de données du manager.
+    /// </summary>
+    public float GetDataDrivenBeatPhase()
+    {
+        if (musicSource == null || musicSource.clip == null || !musicSource.isPlaying) return 0f;
+
+        float currentMusicTime = (float)musicSource.timeSamples / musicSource.clip.frequency;
+
+        if (!isRecordingMode && dataContainer != null && dataContainer.recordedBeats != null && dataContainer.recordedBeats.Count > 0)
+        {
+            List<BeatPoint> beats = dataContainer.recordedBeats;
+            int nextIdx = -1;
+            for (int i = 0; i < beats.Count; i++)
+            {
+                if (beats[i].musicTime > currentMusicTime)
+                {
+                    nextIdx = i;
+                    break;
+                }
+            }
+
+            if (nextIdx > 0)
+            {
+                float prevTime = beats[nextIdx - 1].musicTime;
+                float nextTime = beats[nextIdx].musicTime;
+                float duration = nextTime - prevTime;
+                if (duration > 0f)
+                {
+                    return Mathf.Clamp01((currentMusicTime - prevTime) / duration);
+                }
+            }
+            return 0f;
+        }
+
+        // Fallback en mode enregistrement
+        float fallbackInterval = 60f / (currentBPM > 0 ? currentBPM : 120f);
+        float phase = (currentMusicTime - lastBeatTime) / fallbackInterval;
+        return Mathf.Clamp01(phase);
+    }
+
+    /// Récupère l'index du beat vers lequel la musique progresse.
+    public int GetNextBeatIndex()
+    {
+        if (musicSource == null || musicSource.clip == null || !musicSource.isPlaying) return -1;
+
+        float currentMusicTime = (float)musicSource.timeSamples / musicSource.clip.frequency;
+
+        if (!isRecordingMode && dataContainer != null && dataContainer.recordedBeats != null && dataContainer.recordedBeats.Count > 0)
+        {
+            List<BeatPoint> beats = dataContainer.recordedBeats;
+            for (int i = 0; i < beats.Count; i++)
+            {
+                if (beats[i].musicTime > currentMusicTime)
+                {
+                    return i; // Renvoie l'index exact du prochain point dans le fichier YAML
+                }
+            }
+            return -1;
+        }
+
+        return beatCounter;
     }
 
     // --- MUSIC TIMING ---
@@ -223,119 +338,103 @@ public class BeatManager : MonoBehaviour
     private void ApplyZoneEffects()
     {
         if (currentZone == null) return;
-
-        float targetVolume = currentZone.useLowPass ? narrativeVol : normalVol;
-        float targetCutoff = currentZone.useLowPass ? narrativeCutoff : normalCutoff;
-
-        if (audioTransitionCoroutine != null) StopCoroutine(audioTransitionCoroutine);
-        audioTransitionCoroutine = StartCoroutine(FadeAudioRoutine(targetVolume, targetCutoff));
-
-        Time.timeScale = currentZone.timeScale * globalSpeedMultiplier;
+            float targetVolume = currentZone.useLowPass ? narrativeVol : normalVol;
+            float targetCutoff = currentZone.useLowPass ? narrativeCutoff : normalCutoff;
+        
+        if (audioTransitionCoroutine != null)
+            StopCoroutine(audioTransitionCoroutine);
+            audioTransitionCoroutine = StartCoroutine(FadeAudioRoutine(targetVolume, targetCutoff));
+            Time.timeScale = currentZone.timeScale * globalSpeedMultiplier;
     }
-
-    private IEnumerator FadeAudioRoutine(float targetdB, float targetFreq)
+    private IEnumerator FadeAudioRoutine (float targetdB, float targetFreq)
     {
-        float currentdB;
-        float currentFreq;
+        float currentdB; float currentFreq;
         mixer.GetFloat(musicVolParam, out currentdB);
         mixer.GetFloat(lowPassParam, out currentFreq);
-
         while (!Mathf.Approximately(currentdB, targetdB) || !Mathf.Approximately(currentFreq, targetFreq))
         {
             currentdB = Mathf.MoveTowards(currentdB, targetdB, fadeSpeed * 15f * Time.deltaTime);
             mixer.SetFloat(musicVolParam, currentdB);
-
             currentFreq = Mathf.MoveTowards(currentFreq, targetFreq, fadeSpeed * 15000f * Time.deltaTime);
-            mixer.SetFloat(lowPassParam, currentFreq);
-            yield return null;
+            mixer.SetFloat(lowPassParam, currentFreq); yield return null;
             mixer.GetFloat(musicVolParam, out currentdB);
             mixer.GetFloat(lowPassParam, out currentFreq);
         }
     }
-
     public void UpdateZoneProgress(float progress)
     {
         if (currentZone == null) return;
-        currentBPM = Mathf.Lerp(currentZone.bpmStart, currentZone.bpmEnd, progress);
-        UpdateTempoCalculations();
+            currentBPM = Mathf.Lerp(currentZone.bpmStart, currentZone.bpmEnd, progress);
+            UpdateTempoCalculations();
     }
-
     private void UpdateTempoCalculations()
     {
         beatInterval = 60f / currentBPM;
-
         if (musicSource != null)
         {
             float targetPitch = (currentBPM / originalMusicBPM) * globalSpeedMultiplier;
             musicSource.pitch = targetPitch;
-
             if (mixer != null && targetPitch > 0)
-            {
-                float compensatedPitch = 1f;
+            { float compensatedPitch = 1f;
                 if (targetPitch >= 1f)
                 {
-                    float fullCompensation = 1f / targetPitch;
-                    compensatedPitch = Mathf.Lerp(1f, fullCompensation, speedUpCompFactor);
+                    float fullCompensation = 1f / targetPitch; compensatedPitch = Mathf.Lerp(1f, fullCompensation, speedUpCompFactor);
                 }
-                else compensatedPitch = 1f;
-
-                compensatedPitch = Mathf.Clamp(compensatedPitch, 0.5f, 2.0f);
+                else compensatedPitch = 1f; compensatedPitch = Mathf.Clamp(compensatedPitch, 0.5f, 2.0f);
                 mixer.SetFloat(pitchCompParam, compensatedPitch);
             }
         }
     }
 
-    // --- BEAT DETECTION ---
     public bool IsActionOnBeat()
     {
         if (musicSource == null || !musicSource.isPlaying || musicSource.clip == null || dataContainer == null) return false;
-
         float currentMusicTime = (float)musicSource.timeSamples / musicSource.clip.frequency;
-
         float minDelta = float.MaxValue;
         float targetBeatTime = -1f;
-
         foreach (var beat in dataContainer.recordedBeats)
         {
             float delta = Mathf.Abs(currentMusicTime - beat.musicTime);
             if (delta < minDelta)
             {
-                minDelta = delta;
-                targetBeatTime = beat.musicTime;
+                minDelta = delta; targetBeatTime = beat.musicTime;
             }
         }
-
         float deltaMs = minDelta * 1000f;
-        string feedback = "";
-        float boostPercent = 0f;
-        bool isIgnoredSuccess = false;
-
-        if (deltaMs <= 30f) { feedback = "parfait"; boostPercent = 0.05f; consecutiveMisses = 0; }
-        else if (deltaMs <= 70f) { feedback = "bien"; boostPercent = 0.025f; consecutiveMisses = 0; }
-        else if (deltaMs <= 125f) { feedback = "juste"; boostPercent = 0.015f; consecutiveMisses = 0; }
+        string feedback = ""; float boostPercent = 0f;
+        bool isIgnoredSuccess = false; if (deltaMs <= 30f)
+        { feedback = "parfait"; boostPercent = 0.05f;
+            consecutiveMisses = 0;
+        }
+        else if (deltaMs <= 70f)
+        {
+            feedback = "bien"; boostPercent = 0.025f; consecutiveMisses = 0;
+        }
+        else if (deltaMs <= 125f)
+        {
+            feedback = "juste";
+            boostPercent = 0.015f;
+            consecutiveMisses = 0;
+        }
         else
         {
             feedback = "raté";
             consecutiveMisses++;
             boostPercent = (consecutiveMisses >= 2) ? -0.1f : -0.05f;
         }
-
         if (deltaMs <= 150f)
         {
             if (Mathf.Approximately(targetBeatTime, lastRewardedBeatTime)) isIgnoredSuccess = true;
             else lastRewardedBeatTime = targetBeatTime;
         }
-
         if (BoostManager.Instance != null && !isIgnoredSuccess)
         {
             float max = BoostManager.Instance.maxBoost;
             float rewardAmount = max * boostPercent;
             if (rewardAmount >= 0f) BoostManager.Instance.AddBoost(rewardAmount);
             else BoostManager.Instance.RemoveBoost(Mathf.Abs(rewardAmount));
-
             Debug.Log($"[DATA BEAT] Écart: {deltaMs:F1}ms ({feedback})");
         }
-
         return (minDelta <= beatWindow);
     }
 }

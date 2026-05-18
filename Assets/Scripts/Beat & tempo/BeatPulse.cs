@@ -10,7 +10,8 @@ public class BeatPulse : MonoBehaviour
 
     [Header("Réglages de l'Animation")]
     [SerializeField] private float pulseSize = 1.15f;
-    [SerializeField] private float _returnSpeed = 5f;
+    [SerializeField][Range(0.01f, 0.5f)] private float anticipationPercent = 0.1f;
+    [SerializeField][Range(0.01f, 0.5f)] private float shrinkPercent = 0.1f;
 
     [Header("Isolation Visuelle")]
     [SerializeField] private Transform visualTarget;
@@ -29,31 +30,54 @@ public class BeatPulse : MonoBehaviour
             else
             {
                 visualTarget = transform;
-                Debug.LogWarning($"Aucun visualTarget assigné sur '{name}'");
+                Debug.LogWarning($"[BeatPulse] Aucun visualTarget assigné sur '{name}'");
             }
         }
 
         _startSize = visualTarget.localScale;
-
-        SubscribeToBeatEvent();
-    }
-
-    private void OnDisable()
-    {
-        UnsubscribeFromBeatEvent();
-    }
-
-    private void OnDestroy()
-    {
-        UnsubscribeFromBeatEvent();
     }
 
     private void Update()
     {
-        if (visualTarget != null)
+        if (BeatManager.Instance == null || visualTarget == null) return;
+
+        float beatPhase = BeatManager.Instance.GetDataDrivenBeatPhase();
+        int nextBeatIndex = BeatManager.Instance.GetNextBeatIndex();
+
+        if (nextBeatIndex < 0)
         {
-            visualTarget.localScale = Vector3.Lerp(visualTarget.localScale, _startSize, Time.deltaTime * _returnSpeed);
+            visualTarget.localScale = _startSize;
+            return;
         }
+
+        int interval = (int)pulseInterval;
+        float anticipateThreshold = 1f - anticipationPercent;
+
+        if (beatPhase >= anticipateThreshold)
+        {
+            if (nextBeatIndex % interval == 0)
+            {
+                float progress = (beatPhase - anticipateThreshold) / anticipationPercent;
+                progress = Mathf.Clamp01(progress);
+
+                visualTarget.localScale = Vector3.Lerp(_startSize, _startSize * pulseSize, progress);
+                return;
+            }
+        }
+        else if (beatPhase <= shrinkPercent)
+        {
+            int passedBeatIndex = nextBeatIndex - 1;
+            if (passedBeatIndex % interval == 0)
+            {
+                float progress = beatPhase / shrinkPercent;
+                progress = Mathf.Clamp01(progress);
+
+                visualTarget.localScale = Vector3.Lerp(_startSize * pulseSize, _startSize, progress);
+                return;
+            }
+        }
+
+        visualTarget.localScale = _startSize;
     }
 
     public void pulse()
@@ -61,30 +85,6 @@ public class BeatPulse : MonoBehaviour
         if (visualTarget != null)
         {
             visualTarget.localScale = _startSize * pulseSize;
-        }
-    }
-
-    private void SubscribeToBeatEvent()
-    {
-        if (BeatManager.Instance == null) return;
-
-        switch (pulseInterval)
-        {
-            case BeatInterval.Every1Beat: BeatManager.OnBeat1 += pulse; break;
-            case BeatInterval.Every2Beats: BeatManager.OnBeat2 += pulse; break;
-            case BeatInterval.Every4Beats: BeatManager.OnBeat4 += pulse; break;
-            case BeatInterval.Every8Beats: BeatManager.OnBeat8 += pulse; break;
-        }
-    }
-
-    private void UnsubscribeFromBeatEvent()
-    {
-        switch (pulseInterval)
-        {
-            case BeatInterval.Every1Beat: BeatManager.OnBeat1 -= pulse; break;
-            case BeatInterval.Every2Beats: BeatManager.OnBeat2 -= pulse; break;
-            case BeatInterval.Every4Beats: BeatManager.OnBeat4 -= pulse; break;
-            case BeatInterval.Every8Beats: BeatManager.OnBeat8 -= pulse; break;
         }
     }
 }

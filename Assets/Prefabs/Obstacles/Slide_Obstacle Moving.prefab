@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpObstacle
   boostPenalty: 5
-  shakeMagnitude: 0.25
-  shakeDuration: 0.35
+  shakeMagnitude: 0.2
+  shakeDuration: 0.2
   splineContainer: {fileID: 7479559235322334998}
   movementDuration: 2
   movementCurve:
@@ -175,9 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbb3ebf5f132f94c95a10719c9f7b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatPulse
-  pulseInterval: 1
+  pulseInterval: 2
+  useTestBeat: 0
   pulseSize: 1.15
-  _returnSpeed: 8
+  anticipationPercent: 0.05
+  shrinkPercent: 0.05
   visualTarget: {fileID: 3476211067068337896}
 --- !u!1 &3786781202542028856
 GameObject:
