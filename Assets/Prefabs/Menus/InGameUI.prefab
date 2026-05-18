@@ -615,6 +615,7 @@ GameObject:
   - component: {fileID: 3828228818136683170}
   - component: {fileID: 8327112104142144226}
   - component: {fileID: 5611611268438511595}
+  - component: {fileID: 8687657352378467860}
   m_Layer: 5
   m_Name: InGameUI
   m_TagString: Untagged
@@ -749,6 +750,48 @@ MonoBehaviour:
   scorePunchScale: 1.25
   scorePunchDuration: 0.15
   scoreRollSpeed: 2500
+--- !u!114 &8687657352378467860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3195920028962980061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2bfc800886e9c447b1a619cff4772e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TempoIndicator
+  indicatorUI: {fileID: 2570967534502307039}
+  bpmText: {fileID: 7338330749896778101}
+  pulseScale: 1.3
+  leftSymbols:
+  - {fileID: 507609304271804224}
+  - {fileID: 900557634739741822}
+  - {fileID: 7849454487323807432}
+  - {fileID: 8350033320241498030}
+  rightSymbols:
+  - {fileID: 416225392654410701}
+  - {fileID: 7624273147920862746}
+  - {fileID: 5766919614241115413}
+  - {fileID: 1952095245085677476}
+  distanceBeat: 175
+  fadeInStartDistance: 500
+  fadeInEndDistance: 250
+  fadeOutThresholdX: 25
+  flashDuration: 0.25
+  perfectColor: {r: 0, g: 0.78431374, b: 0, a: 1}
+  goodColor: {r: 0, g: 0.19607843, b: 0.78431374, a: 1}
+  fairColor: {r: 0.88235295, g: 0.78431374, b: 0.015686275, a: 1}
+  missColor: {r: 0.78431374, g: 0, b: 0, a: 1}
+  player: {fileID: 0}
+  gizmoBeatColor: {r: 1, g: 0, b: 1, a: 1}
+  lineLength: 10
+  shrinkDurationPercent: 0.15
+  anticipationDurationPercent: 0.15
+  beatColor: {r: 1, g: 1, b: 1, a: 1}
+  anticipateColor: {r: 1, g: 1, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!1 &3527925249943697465
 GameObject:
   m_ObjectHideFlags: 0
