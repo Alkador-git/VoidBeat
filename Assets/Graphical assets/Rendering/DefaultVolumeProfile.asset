@@ -309,10 +309,10 @@ MonoBehaviour:
     m_Value: 0.9
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1.15
   scatter:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 1
   clamp:
     m_OverrideState: 1
     m_Value: 65472
@@ -324,7 +324,7 @@ MonoBehaviour:
     m_Value: 1
   filter:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
   downscale:
     m_OverrideState: 1
     m_Value: 0
@@ -476,7 +476,7 @@ MonoBehaviour:
     m_Value: 0
   clamp:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

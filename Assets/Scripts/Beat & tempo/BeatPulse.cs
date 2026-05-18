@@ -33,7 +33,6 @@ public class BeatPulse : MonoBehaviour
             else
             {
                 visualTarget = transform;
-                Debug.LogWarning($"[BeatPulse] Aucun visualTarget assigné sur '{name}'");
             }
         }
 
