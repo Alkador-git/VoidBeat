@@ -134,11 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbb3ebf5f132f94c95a10719c9f7b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatPulse
-  pulseInterval: 2
-  useTestBeat: 0
+  pulseInterval: 4
   pulseSize: 1.15
-  anticipationPercent: 0.05
-  shrinkPercent: 0.05
+  anticipationPercent: 0.1
+  shrinkPercent: 0.1
   visualTarget: {fileID: 8341411562122560871}
 --- !u!1 &8783564696329593595
 GameObject:

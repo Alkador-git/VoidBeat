@@ -293,8 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatPulse
   pulseInterval: 4
-  useTestBeat: 0
   pulseSize: 1.25
-  anticipationPercent: 0.05
-  shrinkPercent: 0.05
+  anticipationPercent: 0.1
+  shrinkPercent: 0.1
   visualTarget: {fileID: 2808271380613960399}

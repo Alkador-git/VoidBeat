@@ -42,9 +42,10 @@ public class BeatPulse : MonoBehaviour
         if (BeatManager.Instance == null || visualTarget == null) return;
 
         float beatPhase = BeatManager.Instance.GetDataDrivenBeatPhase();
-        int nextBeatIndex = BeatManager.Instance.GetNextBeatIndex();
 
-        if (nextBeatIndex < 0)
+        int nextBeatNumber = BeatManager.Instance.GetNextBeatIndex();
+
+        if (nextBeatNumber < 0)
         {
             visualTarget.localScale = _startSize;
             return;
@@ -55,7 +56,7 @@ public class BeatPulse : MonoBehaviour
 
         if (beatPhase >= anticipateThreshold)
         {
-            if (nextBeatIndex % interval == 0)
+            if (nextBeatNumber % interval == 0)
             {
                 float progress = (beatPhase - anticipateThreshold) / anticipationPercent;
                 progress = Mathf.Clamp01(progress);
@@ -66,8 +67,8 @@ public class BeatPulse : MonoBehaviour
         }
         else if (beatPhase <= shrinkPercent)
         {
-            int passedBeatIndex = nextBeatIndex - 1;
-            if (passedBeatIndex % interval == 0)
+            int passedBeatNumber = nextBeatNumber - 1;
+            if (passedBeatNumber % interval == 0)
             {
                 float progress = beatPhase / shrinkPercent;
                 progress = Mathf.Clamp01(progress);
