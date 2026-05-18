@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 256585406770911112}
   m_Layer: 6
   m_Name: Slide_Obstacle fix
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

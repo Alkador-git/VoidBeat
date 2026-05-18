@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3390698996123609633}
   m_Layer: 6
   m_Name: Jump_Obstacle Moving
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

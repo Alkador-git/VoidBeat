@@ -25,17 +25,18 @@ public class ScoreManager : MonoBehaviour
     private float currentIncrement = 1f;
     private Coroutine popUpCoroutine;
     private Coroutine scorePunchCoroutine;
+    private Vector2 nativePopUpPos;
 
     // --- INITIALISATION ---
 
-    /// Initialisation du singleton au chargement de la scène.
+    /// Met en mémoire l'instance unique globale du système de points.
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
-    /// Abonnement aux événements du gestionnaire au lancement.
+    /// Établit la liaison d'écoute auprès de l'horloge centrale du rythme.
     void Start()
     {
         if (BeatManager.Instance != null)
@@ -46,12 +47,13 @@ public class ScoreManager : MonoBehaviour
         if (scorePopUpText != null)
         {
             scorePopUpText.text = "";
+            nativePopUpPos = scorePopUpText.rectTransform.anchoredPosition;
         }
 
         UpdateUI();
     }
 
-    /// Désabonnement des événements à la destruction de l'objet.
+    /// Supprime la liaison d'écoute à la mise hors tension de l'instance.
     void OnDestroy()
     {
         if (BeatManager.Instance != null)
@@ -62,7 +64,7 @@ public class ScoreManager : MonoBehaviour
 
     // --- SYSTEME DE SCORE ---
 
-    /// Calcul des points et de la progression du multiplicateur.
+    /// Calcule le gain de points pondéré par la précision temporelle et le combo.
     private void ProcessScore(string feedback)
     {
         if (feedback == "raté")
@@ -103,18 +105,33 @@ public class ScoreManager : MonoBehaviour
         Debug.Log("[ScoreManager] Precision: " + feedback + " | Ecart: " + deltaMs.ToString("F1") + "ms | Points gagnes: " + scoreGained + " | Multiplicateur: " + currentMultiplier.ToString("F4") + "x | Score total: " + currentScore);
     }
 
-    /// Réinitialisation complète du multiplicateur lors d'un raté.
+    /// Soustrait une pénalité fixe de points lors de l'impact matériel avec un obstacle.
+    public void DeductObstacleCollisionScore()
+    {
+        currentScore = Mathf.Max(0, currentScore - 1000);
+        DisplayScorePopUp(-1000);
+        PunchInGameScore();
+        UpdateUI();
+    }
+
+    /// Restitue les multiplicateurs par défaut et ampute le score suite à un échec.
     private void ResetMultiplier()
     {
         currentStreak = 0;
         currentMultiplier = 1f;
         currentIncrement = 1f;
         lastFeedbackType = "";
-        DisplayScorePopUp(0);
+
+        currentScore = Mathf.Max(0, currentScore - 500);
+
+        DisplayScorePopUp(-500);
+        PunchInGameScore();
+        UpdateUI();
+
         Debug.Log("[ScoreManager] Note ratee. Multiplicateur reinitialise.");
     }
 
-    /// Conversion de la chaîne de caractères de précision en valeur numérique.
+    /// Associe une valeur de priorité structurelle selon la notation reçue.
     private int GetFeedbackRank(string feedback)
     {
         switch (feedback)
@@ -126,7 +143,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    /// Calcul de la distance temporelle du battement le plus proche.
+    /// Extrait la distance en millisecondes séparant l'input de la balise la plus proche.
     private float CalculateClosestBeatDeltaMs()
     {
         if (BeatManager.Instance == null || BeatManager.Instance.dataContainer == null) return float.MaxValue;
@@ -148,16 +165,21 @@ public class ScoreManager : MonoBehaviour
 
     // --- GESTION DE L'INTERFACE ---
 
-    /// Mise à jour des affichages textuels fixes de fin de niveau.
+    /// Actualise les conteneurs textuels fixes présents sur les interfaces.
     public void UpdateUI()
     {
         if (victoryTotalScoreText != null)
         {
             victoryTotalScoreText.text = currentScore.ToString();
         }
+
+        if (inGameTotalScoreText != null)
+        {
+            inGameTotalScoreText.text = currentScore.ToString();
+        }
     }
 
-    /// Déclenche l'affichage temporaire et l'animation du gain de points sous l'indicateur.
+    /// Gère la mise en file d'attente et l'affichage du texte contextuel de score.
     private void DisplayScorePopUp(int points)
     {
         if (scorePopUpText == null) return;
@@ -167,14 +189,15 @@ public class ScoreManager : MonoBehaviour
             StopCoroutine(popUpCoroutine);
         }
 
+        scorePopUpText.rectTransform.anchoredPosition = nativePopUpPos;
         popUpCoroutine = StartCoroutine(ClearPopUpRoutine(points));
     }
 
-    /// Coroutine appliquant une translation verticale, un fondu et un tremblement indexé sur le multiplicateur.
+    /// Anime l'élévation, les secousses de combo et la disparition du texte contextuel.
     private IEnumerator ClearPopUpRoutine(int points)
     {
-        scorePopUpText.text = "+" + points.ToString();
-        Vector2 startPos = scorePopUpText.rectTransform.anchoredPosition;
+        string prefix = points >= 0 ? "+" : "";
+        scorePopUpText.text = prefix + points.ToString();
         Color startColor = scorePopUpText.color;
 
         float animDuration = popUpDuration * 0.75f;
@@ -186,7 +209,7 @@ public class ScoreManager : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = elapsed / animDuration;
 
-            Vector2 upwardPos = startPos + new Vector2(0f, t * 40f);
+            Vector2 upwardPos = nativePopUpPos + new Vector2(0f, t * 40f);
             Vector2 shakeOffset = Random.insideUnitCircle * baseShakeMagnitude * currentMultiplier;
             scorePopUpText.rectTransform.anchoredPosition = upwardPos + shakeOffset;
 
@@ -199,11 +222,11 @@ public class ScoreManager : MonoBehaviour
         yield return new WaitForSeconds(stayDuration);
 
         scorePopUpText.text = "";
-        scorePopUpText.rectTransform.anchoredPosition = startPos;
+        scorePopUpText.rectTransform.anchoredPosition = nativePopUpPos;
         scorePopUpText.color = startColor;
     }
 
-    /// Déclenche l'animation d'impulsion de taille sur le texte du score total en jeu.
+    /// Interrompt et réinitialise l'animation élastique du score total de l'UI.
     private void PunchInGameScore()
     {
         if (inGameTotalScoreText == null) return;
@@ -216,7 +239,7 @@ public class ScoreManager : MonoBehaviour
         scorePunchCoroutine = StartCoroutine(PunchScaleTotalScoreRoutine());
     }
 
-    /// Coroutine simulant un effet élastique d'échelle sur le score total in game.
+    /// Opère une déformation sinusoïdale de l'échelle du texte de score en jeu.
     private IEnumerator PunchScaleTotalScoreRoutine()
     {
         if (inGameTotalScoreText == null) yield break;
