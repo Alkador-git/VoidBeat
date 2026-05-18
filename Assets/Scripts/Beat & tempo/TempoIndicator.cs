@@ -4,39 +4,38 @@ using System.Collections.Generic;
 
 public class TempoIndicator : MonoBehaviour
 {
-    // --- VISUALS ---
+    // --- PARAMETRES ET VISUELS ---
 
+    [Header("BPM Central")]
     public RectTransform indicatorUI;
     public Text bpmText;
     public float pulseScale = 1.3f;
 
-    // --- ANIMATION TIMING ---
+    [Header("Symboles Défilants BPM")]
+    public RectTransform[] leftSymbols = new RectTransform[4];
+    public RectTransform[] rightSymbols = new RectTransform[4];
+    public float distanceBeat = 150f;
 
-    [Range(0.05f, 0.5f)]
-    public float shrinkDurationPercent = 0.2f;
+    [Header("Paramètres d'Animation")]
+    [Range(0.05f, 0.5f)] public float shrinkDurationPercent = 0.2f;
+    [Range(0.05f, 0.5f)] public float anticipationDurationPercent = 0.35f;
 
-    [Range(0.05f, 0.5f)]
-    public float anticipationDurationPercent = 0.35f;
-
-    // --- COLORS ---
-
+    [Header("Couleurs")]
     public Color beatColor = Color.green;
     public Color anticipateColor = Color.cyan;
     public Color normalColor = new Color(1, 1, 1, 0.5f);
 
-    // --- GIZMOS ---
-
+    [Header("Outils Éditeur")]
     public Transform player;
     public Color gizmoBeatColor = Color.magenta;
     public float lineLength = 12f;
 
-    // --- INTERNAL COMPONENTS ---
-
     private Image img;
     private Vector3 originalScale;
 
-    // --- INITIALIZATION ---
+    // --- INITIALISATION ---
 
+    /// Initialisation des références et stockage de la taille d'origine du widget.
     void Start()
     {
         if (indicatorUI != null)
@@ -46,8 +45,9 @@ public class TempoIndicator : MonoBehaviour
         }
     }
 
-    // --- UPDATE LOOP ---
+    // --- BOUCLE PRINCIPALE ---
 
+    /// Gestion des calculs de défilement des demi-cercles et mise à jour des pulsations de l'UI.
     void Update()
     {
         if (BeatManager.Instance == null || indicatorUI == null || BeatManager.Instance.dataContainer == null) return;
@@ -62,8 +62,6 @@ public class TempoIndicator : MonoBehaviour
 
         if (beats.Count < 2) return;
 
-        // --- RECHERCHE DU BEAT ACTUEL ET SUIVANT ---
-
         int nextBeatIndex = -1;
 
         for (int i = 0; i < beats.Count; i++)
@@ -75,22 +73,62 @@ public class TempoIndicator : MonoBehaviour
             }
         }
 
-        if (nextBeatIndex <= 0)
+        if (nextBeatIndex < 0)
         {
             ResetVisuals();
+            HideAllSymbols();
             return;
         }
 
-        BeatPoint prevBeat = beats[nextBeatIndex - 1];
-        BeatPoint nextBeat = beats[nextBeatIndex];
+        float currentBPM = BeatManager.Instance.currentBPM;
+        float currentBeatInterval = currentBPM > 0 ? (60f / currentBPM) : 0.5f;
 
-        // --- CALCUL DE LA PHASE ---
+        // Déplacement linéaire des 4 paires de symboles d'inputs futurs
+        for (int k = 0; k < 4; k++)
+        {
+            int targetBeatDataIdx = nextBeatIndex + k;
 
-        float beatDuration = nextBeat.musicTime - prevBeat.musicTime;
-        float beatPhase = (musicTimer - prevBeat.musicTime) / beatDuration;
-        beatPhase = Mathf.Clamp01(beatPhase);
+            if (targetBeatDataIdx < beats.Count)
+            {
+                float timeRemaining = beats[targetBeatDataIdx].musicTime - musicTimer;
+                float beatOffset = timeRemaining / currentBeatInterval;
 
-        // --- LOGIQUE D'ANIMATION ---
+                if (beatOffset <= 4f)
+                {
+                    if (leftSymbols[k] != null)
+                    {
+                        leftSymbols[k].gameObject.SetActive(true);
+                        leftSymbols[k].anchoredPosition = new Vector2(-beatOffset * distanceBeat, 0f);
+                    }
+
+                    if (rightSymbols[k] != null)
+                    {
+                        rightSymbols[k].gameObject.SetActive(true);
+                        rightSymbols[k].anchoredPosition = new Vector2(beatOffset * distanceBeat, 0f);
+                    }
+                }
+                else
+                {
+                    DisableSymbolPair(k);
+                }
+            }
+            else
+            {
+                DisableSymbolPair(k);
+            }
+        }
+
+        // Calcul et exécution des pulsations d'anticipation sur le réceptacle central
+        float prevTime = (nextBeatIndex == 0) ? 0f : beats[nextBeatIndex - 1].musicTime;
+        float nextTime = beats[nextBeatIndex].musicTime;
+        float beatDuration = nextTime - prevTime;
+
+        float beatPhase = 0f;
+        if (beatDuration > 0f)
+        {
+            beatPhase = (musicTimer - prevTime) / beatDuration;
+            beatPhase = Mathf.Clamp01(beatPhase);
+        }
 
         float anticipateThreshold = 1f - anticipationDurationPercent;
 
@@ -116,14 +154,32 @@ public class TempoIndicator : MonoBehaviour
         }
     }
 
+    // --- GESTION DES VISUELS ---
+
+    /// Remet les éléments graphiques centraux à leur taille et teinte par défaut.
     private void ResetVisuals()
     {
         indicatorUI.localScale = originalScale;
         if (img != null) img.color = normalColor;
     }
 
-    // --- GIZMO VISUALIZATION ---
+    /// Désactive les objets d'une paire de symboles défilants.
+    private void DisableSymbolPair(int index)
+    {
+        if (leftSymbols[index] != null) leftSymbols[index].gameObject.SetActive(false);
+        if (rightSymbols[index] != null) rightSymbols[index].gameObject.SetActive(false);
+    }
 
+    /// Cache l'ensemble des indicateurs défilants présents sur l'interface.
+    private void HideAllSymbols()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            DisableSymbolPair(i);
+        }
+    }
+
+    /// Dessine les marques temporelles des beats enregistrés dans l'éditeur de niveau Unity.
     private void OnDrawGizmos()
     {
         if (BeatManager.Instance == null || BeatManager.Instance.dataContainer == null) return;
@@ -144,6 +200,7 @@ public class TempoIndicator : MonoBehaviour
         }
     }
 
+    /// Permet de vider le conteneur de données depuis le menu contextuel de l'inspecteur.
     [ContextMenu("Effacer les Données de Beat")]
     public void ClearData()
     {
