@@ -82,7 +82,7 @@ public class BeatManager : MonoBehaviour
 
     // --- AUDIO ET RYTHME ---
 
-    /// Analyse des entrées clavier de débogage et mise à jour du suivi de l'horloge musicale.
+    /// Analyse de l'avancement temporel de la piste audio et distribution des événements de battements.
     void Update()
     {
         if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKeyDown(KeyCode.B))
@@ -161,7 +161,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Diffuse les actions de rythme globales aux abonnés selon le compteur de temps écoulé.
+    /// Déclenchement des délégations d'actions rythmiques basées sur le compteur global.
     private void TriggerIntervalEvents(int count)
     {
         OnBeat1?.Invoke();
@@ -171,7 +171,7 @@ public class BeatManager : MonoBehaviour
         if (count % 8 == 0) OnBeat8?.Invoke();
     }
 
-    /// Alterne l'activation du mode ralenti cinétique.
+    /// Inversion de l'état du modificateur de vitesse globale pour le ralenti.
     private void ToggleSlowMotion()
     {
         isSlowMoActive = !isSlowMoActive;
@@ -181,7 +181,7 @@ public class BeatManager : MonoBehaviour
         UpdateTempoCalculations();
     }
 
-    /// Restitue la valeur temporelle de lecture de la source audio active.
+    /// Extraction du chronomètre de position absolu de la piste sonore active.
     public float GetMusicTimer()
     {
         if (musicSource != null && musicSource.clip != null && isMusicStarted)
@@ -191,10 +191,10 @@ public class BeatManager : MonoBehaviour
         return musicTimer;
     }
 
-    /// Restitue l'instant précis en secondes où le dernier battement valide est survenu.
+    /// Renvoie la coordonnée temporelle exacte du précédent battement validé.
     public float GetLastBeatTime() => lastBeatTime;
 
-    /// Restitue l'état complet du morceau lors des phases de réapparition au point de contrôle.
+    /// Restauration des paramètres de lecture et synchronisation des boucles lors d'un respawn.
     public void RestorePlayback(float timer, int sampleTarget, float lastBeat, float bpm)
     {
         if (!isMusicStarted) return;
@@ -232,7 +232,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Assure l'atténuation et la transition fluide des volumes et des fréquences de coupure du Mixer.
+    /// Routine d'atténuation progressive des volumes et fréquences de coupure.
     private IEnumerator FadeAudioRoutine(float targetdB, float targetFreq)
     {
         float currentdB; float currentFreq;
@@ -249,7 +249,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Recalcule et adapte la hauteur du morceau pour pallier les effets de ralentissement.
+    /// Recalcul de l'intervalle et ajustement du pitch de la source audio.
     private void UpdateTempoCalculations()
     {
         beatInterval = 60f / currentBPM;
@@ -273,7 +273,7 @@ public class BeatManager : MonoBehaviour
 
     // --- DATA ET EVENEMENTS ---
 
-    /// Effectue la capture et le tri ordonné d'un point rythmique saisi manuellement en outil de création.
+    /// Crée et insère un point rythmique manuel indexé sur la position du joueur.
     public void RecordManualBeat()
     {
         if (!isRecordingMode || currentRecordingType != RecordingType.Manual) return;
@@ -289,7 +289,7 @@ public class BeatManager : MonoBehaviour
         dataContainer.recordedBeats.Sort((a, b) => a.musicTime.CompareTo(b.musicTime));
     }
 
-    /// Assure l'écriture physique immédiate sur le disque dur si le mode enregistrement prend fin.
+    /// Force l'écriture sécurisée des données récoltées sur le support physique de l'asset.
     private void OnDisable()
     {
         if (isRecordingMode && dataContainer != null)
@@ -298,7 +298,7 @@ public class BeatManager : MonoBehaviour
         }
     }
 
-    /// Évaluation de l'état d'avancement décimal séparant la lecture entre deux battements mémorisés.
+    /// Calcul de l'état d'avancement linéaire séparant l'instant T des balises temporelles.
     public float GetDataDrivenBeatPhase()
     {
         if (musicSource == null || musicSource.clip == null || !musicSource.isPlaying) return 0f;
@@ -336,7 +336,7 @@ public class BeatManager : MonoBehaviour
         return Mathf.Clamp01(phase);
     }
 
-    /// Récupération du numéro d'indexation direct représentant la marque temporelle imminente du morceau.
+    /// Renvoie la valeur d'indexation humaine du battement vers lequel progresse le morceau.
     public int GetNextBeatIndex()
     {
         if (musicSource == null || musicSource.clip == null || !musicSource.isPlaying) return -1;
@@ -359,20 +359,20 @@ public class BeatManager : MonoBehaviour
         return beatCounter + 1;
     }
 
-    /// Lance l'exécution musicale si K-Z0 pénètre dans le volume d'initialisation du niveau.
+    /// Enclenche les paramètres de lecture audio initiaux lors du franchissement de la zone de départ.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isMusicStarted) StartMusic();
     }
 
-    /// Met à jour les données environnementales lors de l'accès à un nouveau segment narratif ou d'action.
+    /// Transitionne et charge l'environnement de jeu vers de nouveaux paramètres de zone.
     public void EnterNewZone(ZoneSettings newSettings)
     {
         currentZone = newSettings;
         ApplyZoneEffects();
     }
 
-    /// Modulation dynamique de l'échelle de temps et lancements des processus d'atténuation.
+    /// Applique les altérations de volume et d'échelle de temps de la zone courante.
     private void ApplyZoneEffects()
     {
         if (currentZone == null) return;
@@ -385,7 +385,7 @@ public class BeatManager : MonoBehaviour
         Time.timeScale = currentZone.timeScale * globalSpeedMultiplier;
     }
 
-    /// Modification de la valeur courante du BPM selon le pourcentage d'avancement linéaire fourni.
+    /// Met à jour la valeur dynamique du BPM selon la progression géographique du joueur.
     public void UpdateZoneProgress(float progress)
     {
         if (currentZone == null) return;
@@ -393,8 +393,8 @@ public class BeatManager : MonoBehaviour
         UpdateTempoCalculations();
     }
 
-    /// Analyse de l'écart absolu de l'input par rapport à la grille de données et émission du signal de notation.
-    public bool IsActionOnBeat()
+    /// Analyse de l'écart absolu de l'input avec la jauge et émission du signal de notation.
+    public bool IsActionOnBeat(bool applyBoost = true)
     {
         if (musicSource == null || !musicSource.isPlaying || musicSource.clip == null || dataContainer == null) return false;
         float currentMusicTime = (float)musicSource.timeSamples / musicSource.clip.frequency;
@@ -413,16 +413,16 @@ public class BeatManager : MonoBehaviour
         bool isIgnoredSuccess = false;
         if (deltaMs <= 30f)
         {
-            feedback = "parfait"; boostPercent = 0.05f;
+            feedback = "parfait"; boostPercent = 0.12f;
             consecutiveMisses = 0;
         }
         else if (deltaMs <= 70f)
         {
-            feedback = "bien"; boostPercent = 0.025f; consecutiveMisses = 0;
+            feedback = "bien"; boostPercent = 0.08f; consecutiveMisses = 0;
         }
         else if (deltaMs <= 125f)
         {
-            feedback = "juste"; boostPercent = 0.015f; consecutiveMisses = 0;
+            feedback = "juste"; boostPercent = 0.05f; consecutiveMisses = 0;
         }
         else
         {
@@ -436,7 +436,7 @@ public class BeatManager : MonoBehaviour
 
         OnInputFeedback?.Invoke(feedback);
 
-        if (BoostManager.Instance != null && !isIgnoredSuccess)
+        if (BoostManager.Instance != null && !isIgnoredSuccess && applyBoost)
         {
             float max = BoostManager.Instance.maxBoost;
             float rewardAmount = max * boostPercent;
