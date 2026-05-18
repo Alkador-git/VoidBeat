@@ -12,7 +12,7 @@ public class BeatPulse : MonoBehaviour
     [SerializeField] private float pulseSize = 1.15f;
     [SerializeField] private float _returnSpeed = 5f;
 
-    [Header("Isolation Visuelle (Anti-Collider Bug)")]
+    [Header("Isolation Visuelle")]
     [SerializeField] private Transform visualTarget;
 
     private Vector3 _startSize;

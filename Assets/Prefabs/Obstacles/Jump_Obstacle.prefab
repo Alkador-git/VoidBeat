@@ -292,8 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbb3ebf5f132f94c95a10719c9f7b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatPulse
-  pulseInterval: 4
-  useTestBeat: 0
-  pulseSize: 1.15
-  _returnSpeed: 5
-  visualTarget: {fileID: 0}
+  pulseInterval: 1
+  pulseSize: 1.25
+  _returnSpeed: 8
+  visualTarget: {fileID: 2808271380613960399}
