@@ -18,6 +18,9 @@ public class BeatPulse : MonoBehaviour
 
     private Vector3 _startSize;
 
+    // --- INITIALISATION ---
+
+    /// Recherche l'élément visuel cible et stocke ses dimensions de base.
     private void Start()
     {
         if (visualTarget == null)
@@ -37,12 +40,14 @@ public class BeatPulse : MonoBehaviour
         _startSize = visualTarget.localScale;
     }
 
+    // --- BOUCLE PRINCIPALE ---
+
+    /// Ajuste l'échelle de l'élément visuel selon les phases rythmiques du gestionnaire.
     private void Update()
     {
         if (BeatManager.Instance == null || visualTarget == null) return;
 
         float beatPhase = BeatManager.Instance.GetDataDrivenBeatPhase();
-
         int nextBeatNumber = BeatManager.Instance.GetNextBeatIndex();
 
         if (nextBeatNumber < 0)
@@ -81,6 +86,9 @@ public class BeatPulse : MonoBehaviour
         visualTarget.localScale = _startSize;
     }
 
+    // --- ACTIONS ---
+
+    /// Applique une impulsion de taille directe sur la cible visuelle.
     public void pulse()
     {
         if (visualTarget != null)

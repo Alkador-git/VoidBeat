@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class TempoIndicator : MonoBehaviour
 {
-    // --- PARAMETRES ET VISUELS ---
-
     [Header("BPM Central")]
     public RectTransform indicatorUI;
     public Text bpmText;
@@ -16,26 +14,42 @@ public class TempoIndicator : MonoBehaviour
     public RectTransform[] rightSymbols = new RectTransform[4];
     public float distanceBeat = 150f;
 
-    [Header("Paramètres d'Animation")]
-    [Range(0.05f, 0.5f)] public float shrinkDurationPercent = 0.2f;
-    [Range(0.05f, 0.5f)] public float anticipationDurationPercent = 0.35f;
+    [Header("Paramètres de Fondu (Opacités)")]
+    public float fadeInStartDistance = 600f;
+    public float fadeInEndDistance = 450f;
+    public float fadeOutThresholdX = 10f;
 
-    [Header("Couleurs")]
-    public Color beatColor = Color.green;
-    public Color anticipateColor = Color.cyan;
-    public Color normalColor = new Color(1, 1, 1, 0.5f);
+    [Header("Animation de Flash de Précision")]
+    public float flashDuration = 0.25f;
+    public Color perfectColor = Color.green;
+    public Color goodColor = Color.blue;
+    public Color fairColor = Color.yellow;
+    public Color missColor = Color.red;
 
     [Header("Outils Éditeur")]
     public Transform player;
     public Color gizmoBeatColor = Color.magenta;
     public float lineLength = 12f;
 
+    [Header("Paramètres d'Animation Rythmique")]
+    [Range(0.05f, 0.5f)] public float shrinkDurationPercent = 0.2f;
+    [Range(0.05f, 0.5f)] public float anticipationDurationPercent = 0.35f;
+
+    [Header("Couleurs Par Défaut")]
+    public Color beatColor = Color.green;
+    public Color anticipateColor = Color.cyan;
+    public Color normalColor = new Color(1, 1, 1, 0.5f);
+
     private Image img;
     private Vector3 originalScale;
+    private Image[] leftImages;
+    private Image[] rightImages;
+    private Color currentFlashColor;
+    private float flashTimer;
 
     // --- INITIALISATION ---
 
-    /// Initialisation des références et stockage de la taille d'origine du widget.
+    /// Initialise les structures d'images et s'abonne aux événements.
     void Start()
     {
         if (indicatorUI != null)
@@ -43,11 +57,37 @@ public class TempoIndicator : MonoBehaviour
             img = indicatorUI.GetComponent<Image>();
             originalScale = indicatorUI.localScale;
         }
+
+        leftImages = new Image[leftSymbols.Length];
+        for (int i = 0; i < leftSymbols.Length; i++)
+        {
+            if (leftSymbols[i] != null)
+            {
+                leftImages[i] = leftSymbols[i].GetComponent<Image>();
+            }
+        }
+
+        rightImages = new Image[rightSymbols.Length];
+        for (int i = 0; i < rightSymbols.Length; i++)
+        {
+            if (rightSymbols[i] != null)
+            {
+                rightImages[i] = rightSymbols[i].GetComponent<Image>();
+            }
+        }
+
+        BeatManager.OnInputFeedback += HandleInputFeedback;
+    }
+
+    /// Se désabonne des événements à la destruction de l'objet.
+    void OnDestroy()
+    {
+        BeatManager.OnInputFeedback -= HandleInputFeedback;
     }
 
     // --- BOUCLE PRINCIPALE ---
 
-    /// Gestion des calculs de défilement des demi-cercles et mise à jour des pulsations de l'UI.
+    /// Met à jour les positions, les opacités et les animations de couleur de l'interface.
     void Update()
     {
         if (BeatManager.Instance == null || indicatorUI == null || BeatManager.Instance.dataContainer == null) return;
@@ -57,6 +97,12 @@ public class TempoIndicator : MonoBehaviour
             bpmText.text = Mathf.RoundToInt(BeatManager.Instance.currentBPM).ToString() + " BPM";
         }
 
+        if (flashTimer > 0f)
+        {
+            flashTimer -= Time.deltaTime;
+        }
+
+        float flashRatio = flashTimer > 0f ? Mathf.Clamp01(flashTimer / flashDuration) : 0f;
         float musicTimer = BeatManager.Instance.GetMusicTimer();
         List<BeatPoint> beats = BeatManager.Instance.dataContainer.recordedBeats;
 
@@ -83,7 +129,6 @@ public class TempoIndicator : MonoBehaviour
         float currentBPM = BeatManager.Instance.currentBPM;
         float currentBeatInterval = currentBPM > 0 ? (60f / currentBPM) : 0.5f;
 
-        // Déplacement linéaire des 4 paires de symboles d'inputs futurs
         for (int k = 0; k < 4; k++)
         {
             int targetBeatDataIdx = nextBeatIndex + k;
@@ -95,16 +140,73 @@ public class TempoIndicator : MonoBehaviour
 
                 if (beatOffset <= 4f)
                 {
+                    float posXLeft = -beatOffset * distanceBeat;
+                    float posXRight = beatOffset * distanceBeat;
+
                     if (leftSymbols[k] != null)
                     {
                         leftSymbols[k].gameObject.SetActive(true);
-                        leftSymbols[k].anchoredPosition = new Vector2(-beatOffset * distanceBeat, 0f);
+                        leftSymbols[k].anchoredPosition = new Vector2(posXLeft, 0f);
+
+                        if (leftImages[k] != null)
+                        {
+                            float alpha = 1f;
+                            float absX = Mathf.Abs(posXLeft);
+
+                            if (absX > fadeInEndDistance)
+                            {
+                                alpha = Mathf.InverseLerp(fadeInStartDistance, fadeInEndDistance, absX);
+                            }
+                            else if (absX < fadeOutThresholdX)
+                            {
+                                alpha = Mathf.InverseLerp(0f, fadeOutThresholdX, absX);
+                            }
+
+                            Color c = Color.white;
+                            c.a = alpha;
+
+                            if (flashTimer > 0f && k == 0)
+                            {
+                                Color flashed = currentFlashColor;
+                                flashed.a = alpha;
+                                c = Color.Lerp(c, flashed, flashRatio);
+                            }
+
+                            leftImages[k].color = c;
+                        }
                     }
 
                     if (rightSymbols[k] != null)
                     {
                         rightSymbols[k].gameObject.SetActive(true);
-                        rightSymbols[k].anchoredPosition = new Vector2(beatOffset * distanceBeat, 0f);
+                        rightSymbols[k].anchoredPosition = new Vector2(posXRight, 0f);
+
+                        if (rightImages[k] != null)
+                        {
+                            float alpha = 1f;
+                            float absX = Mathf.Abs(posXRight);
+
+                            if (absX > fadeInEndDistance)
+                            {
+                                alpha = Mathf.InverseLerp(fadeInStartDistance, fadeInEndDistance, absX);
+                            }
+                            else if (absX < fadeOutThresholdX)
+                            {
+                                alpha = Mathf.InverseLerp(0f, fadeOutThresholdX, absX);
+                            }
+
+                            Color c = Color.white;
+                            c.a = alpha;
+
+                            if (flashTimer > 0f && k == 0)
+                            {
+                                Color flashed = currentFlashColor;
+                                flashed.a = alpha;
+                                c = Color.Lerp(c, flashed, flashRatio);
+                            }
+
+                            rightImages[k].color = c;
+                        }
                     }
                 }
                 else
@@ -118,7 +220,6 @@ public class TempoIndicator : MonoBehaviour
             }
         }
 
-        // Calcul et exécution des pulsations d'anticipation sur le réceptacle central
         float prevTime = (nextBeatIndex == 0) ? 0f : beats[nextBeatIndex - 1].musicTime;
         float nextTime = beats[nextBeatIndex].musicTime;
         float beatDuration = nextTime - prevTime;
@@ -131,46 +232,65 @@ public class TempoIndicator : MonoBehaviour
         }
 
         float anticipateThreshold = 1f - anticipationDurationPercent;
+        Color targetCenterColor = normalColor;
+        Vector3 targetScale = originalScale;
 
         if (beatPhase >= anticipateThreshold)
         {
             float progress = (beatPhase - anticipateThreshold) / anticipationDurationPercent;
             progress = Mathf.Clamp01(progress);
 
-            indicatorUI.localScale = Vector3.Lerp(originalScale, originalScale * pulseScale, progress);
-            if (img != null) img.color = Color.Lerp(normalColor, anticipateColor, progress);
+            targetScale = Vector3.Lerp(originalScale, originalScale * pulseScale, progress);
+            targetCenterColor = Color.Lerp(normalColor, anticipateColor, progress);
         }
         else if (beatPhase <= shrinkDurationPercent)
         {
             float progress = beatPhase / shrinkDurationPercent;
             progress = Mathf.Clamp01(progress);
 
-            indicatorUI.localScale = Vector3.Lerp(originalScale * pulseScale, originalScale, progress);
-            if (img != null) img.color = Color.Lerp(beatColor, normalColor, progress);
+            targetScale = Vector3.Lerp(originalScale * pulseScale, originalScale, progress);
+            targetCenterColor = Color.Lerp(beatColor, normalColor, progress);
+        }
+
+        if (flashTimer > 0f)
+        {
+            indicatorUI.localScale = originalScale * pulseScale;
+            if (img != null) img.color = Color.Lerp(targetCenterColor, currentFlashColor, flashRatio);
         }
         else
         {
-            ResetVisuals();
+            indicatorUI.localScale = targetScale;
+            if (img != null) img.color = targetCenterColor;
         }
     }
 
     // --- GESTION DES VISUELS ---
 
-    /// Remet les éléments graphiques centraux à leur taille et teinte par défaut.
+    /// Intercepte le signal de réussite pour assigner la couleur du flash.
+    private void HandleInputFeedback(string feedback)
+    {
+        flashTimer = flashDuration;
+        if (feedback == "parfait") currentFlashColor = perfectColor;
+        else if (feedback == "bien") currentFlashColor = goodColor;
+        else if (feedback == "juste") currentFlashColor = fairColor;
+        else currentFlashColor = missColor;
+    }
+
+    /// Remet les éléments graphiques centraux à leur configuration par défaut.
     private void ResetVisuals()
     {
         indicatorUI.localScale = originalScale;
         if (img != null) img.color = normalColor;
     }
 
-    /// Désactive les objets d'une paire de symboles défilants.
+    /// Désactive un doublon d'icônes défilantes gauche et droite.
     private void DisableSymbolPair(int index)
     {
         if (leftSymbols[index] != null) leftSymbols[index].gameObject.SetActive(false);
         if (rightSymbols[index] != null) rightSymbols[index].gameObject.SetActive(false);
     }
 
-    /// Cache l'ensemble des indicateurs défilants présents sur l'interface.
+    /// Masque tous les repères de défilement de l'interface.
     private void HideAllSymbols()
     {
         for (int i = 0; i < 4; i++)
@@ -179,7 +299,9 @@ public class TempoIndicator : MonoBehaviour
         }
     }
 
-    /// Dessine les marques temporelles des beats enregistrés dans l'éditeur de niveau Unity.
+    // --- OUTILS EDITEUR ---
+
+    /// Dessine les repères visuels d'emplacement des beats dans la scène.
     private void OnDrawGizmos()
     {
         if (BeatManager.Instance == null || BeatManager.Instance.dataContainer == null) return;
@@ -200,7 +322,7 @@ public class TempoIndicator : MonoBehaviour
         }
     }
 
-    /// Permet de vider le conteneur de données depuis le menu contextuel de l'inspecteur.
+    /// Supprime l'intégralité des battements stockés dans le fichier de données.
     [ContextMenu("Effacer les Données de Beat")]
     public void ClearData()
     {

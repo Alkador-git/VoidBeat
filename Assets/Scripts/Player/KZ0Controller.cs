@@ -3,17 +3,14 @@ using UnityEngine;
 
 public class KZ0Controller : MonoBehaviour
 {
-    // --- COMPOSANTS ---
     private Rigidbody2D rb;
     public Animator anim;
     private BoxCollider2D playerCollider;
     private SpriteRenderer playerSR;
 
-    // --- DÉPLACEMENT ---
     [Header("Mouvement & Auto-Run")]
     public float moveSpeed = 3.5f;
 
-    // --- CONTRÔLE DU SAUT ---
     [Header("Parkour & Saut")]
     public float jumpForce = 15f;
     public float coyoteTimeDuration = 0.1f;
@@ -22,30 +19,25 @@ public class KZ0Controller : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
-    // --- NOUVEAU : SAUT VARIABLE ---
     [Header("Saut Variable (Hold)")]
     public float jumpTime = 0.15f;
     private float jumpTimeCounter;
     private bool isJumping;
 
-    // --- MÉMORISATION D'ENTRÉE ---
     [Header("Input Buffering")]
     public float bufferTime = 0.2f;
     private float jumpBufferCounter;
     private float dashBufferCounter;
     private float slideBufferCounter;
 
-    // --- CONTRÔLE DE VITESSE ---
     [Header("Velocité Maximale")]
     public float maxHorizontalVelocity = 30f;
     public float maxVerticalVelocityUp = 20f;
     public float maxVerticalVelocityDown = 25f;
 
-    // --- GRAVITÉ ---
     [Header("Gravité en Chute")]
     public float fallGravityMultiplier = 3f;
 
-    // --- SLIDING ---
     [Header("Glissade (Smooth)")]
     public float slideSpeedMultiplier = 1.2f;
     public float slideEaseDuration = 0.2f;
@@ -55,7 +47,6 @@ public class KZ0Controller : MonoBehaviour
     private float currentSlideLerp = 0f;
     private Vector2 originalColliderSize;
 
-    // --- DASHING ---
     [Header("Dash")]
     public float dashForceX = 20f;
     public float dashForceY = 12f;
@@ -66,32 +57,41 @@ public class KZ0Controller : MonoBehaviour
     private bool isDashing = false;
     private bool hasTouchedGroundSinceDash = true;
 
-    // --- COMBAT ---
     [Header("Combat")]
     public float collisionGraceDuration = 0.1f;
     private float gracePeriodCounter;
 
-    // --- EFFETS DE RECUL ---
     [Header("Effets d'Impact")]
     public float knockbackDuration = 0.2f;
     private bool isKnockedBack = false;
 
-    // Initialisation des composants au lancement
+    // --- INITIALISATION ---
+
+    /// Initialisation des composants au lancement et enregistrement de l'événement rythmique.
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         playerSR = GetComponent<SpriteRenderer>();
         originalColliderSize = playerCollider.size;
+
+        BeatManager.OnBeat1 += EvaluateSlideBoost;
     }
 
-    // Boucle de mise à jour principale
+    /// Désabonnement des événements rythmiques à la destruction de l'objet.
+    void OnDestroy()
+    {
+        BeatManager.OnBeat1 -= EvaluateSlideBoost;
+    }
+
+    // --- PHYSIQUE ET MOUVEMENT ---
+
+    /// Gestion de la boucle de rafraîchissement des mouvements et inputs.
     void Update()
     {
         UpdateAnimations();
         if (isKnockedBack) return;
 
-        // Détection du sol et gestion du Coyote Time
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         if (isGrounded)
         {
@@ -108,7 +108,6 @@ public class KZ0Controller : MonoBehaviour
 
         UpdateBuffers();
 
-        // Logique de déclenchement du saut initial
         if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f && !isSliding)
         {
             jumpBufferCounter = 0f;
@@ -116,8 +115,6 @@ public class KZ0Controller : MonoBehaviour
             Jump();
         }
 
-        // --- LOGIQUE DE MAINTIEN DU SAUT ---
-        // Si on maintient la touche, on garde une impulsion plus forte
         if (GetJumpHoldInput() && isJumping)
         {
             if (jumpTimeCounter > 0)
@@ -131,7 +128,6 @@ public class KZ0Controller : MonoBehaviour
             }
         }
 
-        // Si on relâche la touche, on arrête le boost de saut
         if (GetJumpReleaseInput())
         {
             isJumping = false;
@@ -139,12 +135,10 @@ public class KZ0Controller : MonoBehaviour
 
         if (isDashing) return;
 
-        // Application de la gravité et mouvement de course
         rb.gravityScale = (rb.linearVelocity.y < 0) ? fallGravityMultiplier : 1.15f;
         Vector2 baseVel = GetBaseRunVelocity();
         rb.linearVelocity = ClampVelocity(baseVel);
 
-        // Gestion de la glissade et détection de plafond
         bool obstacleAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, groundLayer);
 
         if ((GetSlideInput() || slideBufferCounter > 0f || (isSliding && obstacleAbove)) && isGrounded)
@@ -162,7 +156,6 @@ public class KZ0Controller : MonoBehaviour
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 0f, Time.deltaTime / slideEaseDuration);
         }
 
-        // Logique de la ruée (Dash)
         if (dashBufferCounter > 0f && canDash && hasTouchedGroundSinceDash)
         {
             dashBufferCounter = 0f;
@@ -174,7 +167,7 @@ public class KZ0Controller : MonoBehaviour
         }
     }
 
-    // Gère les durées des buffers d'input
+    /// Gère les durées des buffers d'input.
     private void UpdateBuffers()
     {
         if (GetJumpInput()) jumpBufferCounter = bufferTime;
@@ -191,7 +184,7 @@ public class KZ0Controller : MonoBehaviour
         slideBufferCounter = Mathf.Max(0, slideBufferCounter);
     }
 
-    // Met à jour les variables de l'Animator
+    /// Met à jour les variables de l'Animator.
     private void UpdateAnimations()
     {
         if (anim == null) return;
@@ -202,7 +195,7 @@ public class KZ0Controller : MonoBehaviour
         anim.SetBool("isDashing", isDashing);
     }
 
-    // Coroutine pour l'effet de recul après dégât
+    /// Coroutine pour l'effet de recul après dégât.
     private IEnumerator KnockbackRoutine(Vector2 force)
     {
         isKnockedBack = true;
@@ -212,7 +205,7 @@ public class KZ0Controller : MonoBehaviour
         isKnockedBack = false;
     }
 
-    // Coroutine gérant le dash et son timing
+    /// Coroutine gérant le dash et son timing.
     private IEnumerator PerformDash(Vector2 dir)
     {
         rb.gravityScale = 0f;
@@ -237,7 +230,7 @@ public class KZ0Controller : MonoBehaviour
         canDash = true;
     }
 
-    // Dessine le détecteur de plafond dans la scène Unity
+    /// Dessine le détecteur de plafond dans la scène Unity.
     private void OnDrawGizmosSelected()
     {
         if (ceilingCheck != null)
@@ -247,14 +240,16 @@ public class KZ0Controller : MonoBehaviour
         }
     }
 
-    // Applique une force extérieure (recul)
+    /// Applique une force extérieure (recul).
     public void ApplyKnockback(Vector2 force) => StartCoroutine(KnockbackRoutine(force));
-    // Déclenche l'invulnérabilité temporaire
+
+    /// Déclenche l'invulnérabilité temporaire.
     public void NotifyEnemyCollision() => gracePeriodCounter = collisionGraceDuration;
-    // Vérifie si le joueur est en période de grâce
+
+    /// Vérifie si le joueur est en période de grâce.
     public bool IsInCollisionGracePeriod() => gracePeriodCounter > 0;
 
-    // --- MODIFIÉ : LOGIQUE DE SAUT INITIAL ---
+    /// Applique l'impulsion verticale du saut initial.
     private void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -263,27 +258,49 @@ public class KZ0Controller : MonoBehaviour
         jumpTimeCounter = jumpTime;
     }
 
-    // Active l'état de glissade (hitbox réduite)
+    /// Active l'état de glissade (hitbox réduite).
     private void StartSlide() { isSliding = true; playerCollider.size = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f); }
-    // Désactive l'état de glissade (hitbox normale)
+
+    /// Désactive l'état de glissade (hitbox normale).
     private void StopSlide() { isSliding = false; playerCollider.size = originalColliderSize; }
-    // Calcule la vitesse de course actuelle
+
+    /// Calcule la vitesse de course actuelle.
     private Vector2 GetBaseRunVelocity() => new Vector2(moveSpeed * Mathf.Lerp(1f, slideSpeedMultiplier, currentSlideLerp), rb.linearVelocity.y);
-    // Bride la vélocité selon les limites fixées
+
+    /// Bride la vélocité selon les limites fixées.
     private Vector2 ClampVelocity(Vector2 velocity) => new Vector2(Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity), Mathf.Clamp(velocity.y, -maxVerticalVelocityDown, maxVerticalVelocityUp));
-    // Détection des touches de saut (Appui)
+
+    // --- RYTHME ET INPUTS ---
+
+    /// Évalue et attribue ou retire du boost selon la présence d'obstacles au-dessus de la glissade lors d'un beat.
+    private void EvaluateSlideBoost()
+    {
+        if (isSliding)
+        {
+            bool obstacleAbove = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, groundLayer);
+            if (BoostManager.Instance != null)
+            {
+                float amount = BoostManager.Instance.maxBoost * 0.05f;
+                if (obstacleAbove)
+                {
+                    BoostManager.Instance.AddBoost(amount);
+                }
+                else
+                {
+                    BoostManager.Instance.RemoveBoost(amount);
+                }
+            }
+        }
+    }
+
     private bool GetJumpInput() => Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow);
-    // Détection du maintien du saut
     private bool GetJumpHoldInput() => Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow);
-    // Détection du relâchement du saut
     private bool GetJumpReleaseInput() => Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow);
-    // Détection du maintien de glissade
     private bool GetSlideInput() => Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.S);
-    // Détection de l'appui glissade
     private bool GetSlideInputDown() => Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.S);
-    // Détection des touches de dash
     private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.LeftShift);
-    // Vérifie le rythme avec le BeatManager pour donner du boost
+
+    /// Vérifie le rythme avec le BeatManager pour donner du boost standard.
     private void HandleRhythmicAction()
     {
         if (BeatManager.Instance != null && BeatManager.Instance.IsActionOnBeat()) BoostManager.Instance.AddBoost();
