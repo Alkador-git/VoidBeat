@@ -93353,6 +93353,9 @@ MonoBehaviour:
   inGameTotalScoreText: {fileID: 257951238}
   scorePopUpText: {fileID: 1089949812}
   popUpDuration: 0.5
+  baseShakeMagnitude: 1.5
+  scorePunchScale: 1.25
+  scorePunchDuration: 0.15
 --- !u!4 &1073287061
 Transform:
   m_ObjectHideFlags: 0

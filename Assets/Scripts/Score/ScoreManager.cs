@@ -15,21 +15,27 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI scorePopUpText;
     public float popUpDuration = 0.5f;
 
+    [Header("Réglages des Animations Visuelles")]
+    public float baseShakeMagnitude = 3f;
+    public float scorePunchScale = 1.25f;
+    public float scorePunchDuration = 0.15f;
+
     private string lastFeedbackType = "";
     private int currentStreak = 0;
     private float currentIncrement = 1f;
     private Coroutine popUpCoroutine;
+    private Coroutine scorePunchCoroutine;
 
     // --- INITIALISATION ---
 
-    /// Initialisation du gestionnaire de score.
+    /// Initialisation du singleton au chargement de la scène.
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
-    /// Abonnement aux événements du BeatManager.
+    /// Abonnement aux événements du gestionnaire au lancement.
     void Start()
     {
         if (BeatManager.Instance != null)
@@ -45,7 +51,7 @@ public class ScoreManager : MonoBehaviour
         UpdateUI();
     }
 
-    /// Désabonnement des événements du BeatManager.
+    /// Désabonnement des événements à la destruction de l'objet.
     void OnDestroy()
     {
         if (BeatManager.Instance != null)
@@ -56,7 +62,7 @@ public class ScoreManager : MonoBehaviour
 
     // --- SYSTEME DE SCORE ---
 
-    /// Calcul des points et mise à jour du multiplicateur.
+    /// Calcul des points et de la progression du multiplicateur.
     private void ProcessScore(string feedback)
     {
         if (feedback == "raté")
@@ -91,12 +97,13 @@ public class ScoreManager : MonoBehaviour
         currentScore += scoreGained;
 
         DisplayScorePopUp(scoreGained);
+        PunchInGameScore();
         UpdateUI();
 
         Debug.Log("[ScoreManager] Precision: " + feedback + " | Ecart: " + deltaMs.ToString("F1") + "ms | Points gagnes: " + scoreGained + " | Multiplicateur: " + currentMultiplier.ToString("F4") + "x | Score total: " + currentScore);
     }
 
-    /// Réinitialisation du multiplicateur lors d'un raté.
+    /// Réinitialisation complète du multiplicateur lors d'un raté.
     private void ResetMultiplier()
     {
         currentStreak = 0;
@@ -107,7 +114,7 @@ public class ScoreManager : MonoBehaviour
         Debug.Log("[ScoreManager] Note ratee. Multiplicateur reinitialise.");
     }
 
-    /// Conversion de la précision textuelle en rang numérique.
+    /// Conversion de la chaîne de caractères de précision en valeur numérique.
     private int GetFeedbackRank(string feedback)
     {
         switch (feedback)
@@ -119,7 +126,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    /// Calcul de la distance temporelle avec le beat le plus proche.
+    /// Calcul de la distance temporelle du battement le plus proche.
     private float CalculateClosestBeatDeltaMs()
     {
         if (BeatManager.Instance == null || BeatManager.Instance.dataContainer == null) return float.MaxValue;
@@ -141,21 +148,16 @@ public class ScoreManager : MonoBehaviour
 
     // --- GESTION DE L'INTERFACE ---
 
-    /// Rafraîchissement des textes de score en jeu et de fin de niveau.
+    /// Mise à jour des affichages textuels fixes de fin de niveau.
     public void UpdateUI()
     {
         if (victoryTotalScoreText != null)
         {
             victoryTotalScoreText.text = currentScore.ToString();
         }
-
-        if (inGameTotalScoreText != null)
-        {
-            inGameTotalScoreText.text = currentScore.ToString();
-        }
     }
 
-    /// Déclenchement de l'affichage du gain de points sous l'indicateur.
+    /// Déclenche l'affichage temporaire et l'animation du gain de points sous l'indicateur.
     private void DisplayScorePopUp(int points)
     {
         if (scorePopUpText == null) return;
@@ -168,7 +170,7 @@ public class ScoreManager : MonoBehaviour
         popUpCoroutine = StartCoroutine(ClearPopUpRoutine(points));
     }
 
-    /// Animation de translation verticale et fondu transparent de l'UI.
+    /// Coroutine appliquant une translation verticale, un fondu et un tremblement indexé sur le multiplicateur.
     private IEnumerator ClearPopUpRoutine(int points)
     {
         scorePopUpText.text = "+" + points.ToString();
@@ -183,7 +185,11 @@ public class ScoreManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / animDuration;
-            scorePopUpText.rectTransform.anchoredPosition = startPos + new Vector2(0f, t * 40f);
+
+            Vector2 upwardPos = startPos + new Vector2(0f, t * 40f);
+            Vector2 shakeOffset = Random.insideUnitCircle * baseShakeMagnitude * currentMultiplier;
+            scorePopUpText.rectTransform.anchoredPosition = upwardPos + shakeOffset;
+
             Color c = startColor;
             c.a = Mathf.Lerp(1f, 0f, t);
             scorePopUpText.color = c;
@@ -195,5 +201,39 @@ public class ScoreManager : MonoBehaviour
         scorePopUpText.text = "";
         scorePopUpText.rectTransform.anchoredPosition = startPos;
         scorePopUpText.color = startColor;
+    }
+
+    /// Déclenche l'animation d'impulsion de taille sur le texte du score total en jeu.
+    private void PunchInGameScore()
+    {
+        if (inGameTotalScoreText == null) return;
+
+        if (scorePunchCoroutine != null)
+        {
+            StopCoroutine(scorePunchCoroutine);
+        }
+
+        scorePunchCoroutine = StartCoroutine(PunchScaleTotalScoreRoutine());
+    }
+
+    /// Coroutine simulant un effet élastique d'échelle sur le score total in game.
+    private IEnumerator PunchScaleTotalScoreRoutine()
+    {
+        if (inGameTotalScoreText == null) yield break;
+
+        inGameTotalScoreText.text = currentScore.ToString();
+        Vector3 originalScale = Vector3.one;
+        float elapsed = 0f;
+
+        while (elapsed < scorePunchDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / scorePunchDuration;
+            float currentScaleFactor = Mathf.Sin(t * Mathf.PI);
+            inGameTotalScoreText.rectTransform.localScale = Vector3.Lerp(originalScale, originalScale * scorePunchScale, currentScaleFactor);
+            yield return null;
+        }
+
+        inGameTotalScoreText.rectTransform.localScale = originalScale;
     }
 }
