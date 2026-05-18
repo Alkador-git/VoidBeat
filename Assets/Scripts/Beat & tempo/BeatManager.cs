@@ -9,6 +9,13 @@ public class BeatManager : MonoBehaviour
     public enum ZoneType { Checkpoint, Narratif, Action, DemoObstacle, Transition }
     public enum RecordingType { Automatic, Manual }
 
+    // --- ENFANTS / EVENTS DU RYTHME ---
+    public static System.Action OnBeat1;
+    public static System.Action OnBeat2;
+    public static System.Action OnBeat4;
+    public static System.Action OnBeat8;
+    private int beatCounter = 0;
+
     // --- CURRENT ZONE STATE ---
     public ZoneSettings currentZone;
     public float currentBPM;
@@ -93,6 +100,9 @@ public class BeatManager : MonoBehaviour
             {
                 lastBeatTime += beatInterval;
 
+                beatCounter++;
+                TriggerIntervalEvents(beatCounter);
+
                 if (isRecordingMode && currentRecordingType == RecordingType.Automatic && dataContainer != null && playerTransform != null)
                 {
                     BeatPoint newBeat = new BeatPoint
@@ -104,6 +114,17 @@ public class BeatManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void TriggerIntervalEvents(int count)
+    {
+        OnBeat1?.Invoke();
+
+        if (count % 2 == 0) OnBeat2?.Invoke();
+
+        if (count % 4 == 0) OnBeat4?.Invoke();
+
+        if (count % 8 == 0) OnBeat8?.Invoke();
     }
 
     private void ToggleSlowMotion()
@@ -164,6 +185,8 @@ public class BeatManager : MonoBehaviour
             consecutiveMisses = 0;
             lastRewardedBeatTime = -1f;
 
+            beatCounter = Mathf.FloorToInt(lastBeat / (60f / bpm));
+
             if (!musicSource.isPlaying) musicSource.Play();
         }
     }
@@ -186,6 +209,7 @@ public class BeatManager : MonoBehaviour
             lastBeatTime = 0f;
             consecutiveMisses = 0;
             lastRewardedBeatTime = -1f;
+            beatCounter = 0;
             UpdateTempoCalculations();
         }
     }
