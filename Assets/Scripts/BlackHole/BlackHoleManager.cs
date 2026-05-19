@@ -85,7 +85,6 @@ public class BlackHoleManager : MonoBehaviour
 
         targetX = instantX;
 
-        Debug.Log("Néant-X repositionné derrière le joueur au checkpoint.");
     }
 
     // --- COLLISION DETECTION ---
@@ -109,6 +108,5 @@ public class BlackHoleManager : MonoBehaviour
 
     void TriggerSpaghettification()
     {
-        Debug.Log("K-Z0 a été absorbé par le Néant !");
     }
 }

@@ -37,19 +37,19 @@ public class BoostManager : MonoBehaviour
                 switch (BeatManager.Instance.currentZone.zoneType)
                 {
                     case BeatManager.ZoneType.DemoObstacle:
-                        zoneMultiplier = 0.50f;
+                        zoneMultiplier = 0.4f;
                         break;
                     case BeatManager.ZoneType.Narratif:
-                        zoneMultiplier = 0.66f;
+                        zoneMultiplier = 0.5f;
                         break;
                     case BeatManager.ZoneType.Checkpoint:
-                        zoneMultiplier = 0.66f;
+                        zoneMultiplier = 0.35f;
                         break;
                     case BeatManager.ZoneType.Action:
                         zoneMultiplier = 1.00f;
                         break;
                     case BeatManager.ZoneType.Transition:
-                        zoneMultiplier = 0.35f;
+                        zoneMultiplier = 0.25f;
                         break;
                 }
             }
