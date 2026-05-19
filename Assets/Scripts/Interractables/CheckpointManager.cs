@@ -8,7 +8,7 @@ public class CheckpointManager : MonoBehaviour
 
     public Vector3 lastCheckpointPosition;
 
-    public float boostOnRespawn = 60f;
+    public float boostOnRespawn = 75f;
 
     // --- MUSIC STATE SAVING ---
 

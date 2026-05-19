@@ -426,16 +426,16 @@ public class BeatManager : MonoBehaviour
         string feedback = ""; float boostPercent = 0f;
         if (deltaMs <= 30f)
         {
-            feedback = "parfait"; boostPercent = 0.12f;
+            feedback = "parfait"; boostPercent = 0.14f;
             consecutiveMisses = 0;
         }
         else if (deltaMs <= 70f)
         {
-            feedback = "bien"; boostPercent = 0.08f; consecutiveMisses = 0;
+            feedback = "bien"; boostPercent = 0.1f; consecutiveMisses = 0;
         }
         else if (deltaMs <= 125f)
         {
-            feedback = "juste"; boostPercent = 0.05f; consecutiveMisses = 0;
+            feedback = "juste"; boostPercent = 0.075f; consecutiveMisses = 0;
         }
         else
         {
