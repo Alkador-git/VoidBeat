@@ -21,16 +21,29 @@ public class ParkourObstacle : MonoBehaviour
 
     // --- MOUVEMENT ET PHYSIQUE ---
 
-    /// Évalue la position de l'obstacle le long de sa spline de déplacement.
+    /// Évalue la position de l'obstacle le long de sa spline avec barrière de sécurité NaN.
     private void Update()
     {
-        if (isMoving && splineContainer != null)
+        if (isMoving && splineContainer != null && splineContainer.Splines.Count > 0)
         {
             timeElapsed += Time.deltaTime;
-            float normalizedTime = Mathf.Clamp01(timeElapsed / movementDuration);
-            float curveValue = movementCurve.Evaluate(normalizedTime);
-            Vector3 localSplinePos = splineContainer.EvaluatePosition(curveValue);
-            transform.position = splineContainer.transform.TransformPoint(localSplinePos);
+
+            float duration = movementDuration <= 0f ? 0.001f : movementDuration;
+            float normalizedTime = Mathf.Clamp01(timeElapsed / duration);
+
+            float curveValue = movementCurve.length > 0 ? movementCurve.Evaluate(normalizedTime) : normalizedTime;
+
+            Vector3 localSplinePos = (Vector3)splineContainer.Splines[0].EvaluatePosition(curveValue);
+
+            if (!float.IsNaN(localSplinePos.x) && !float.IsNaN(localSplinePos.y) && !float.IsNaN(localSplinePos.z))
+            {
+                Vector3 worldPos = splineContainer.transform.TransformPoint(localSplinePos);
+
+                if (!float.IsNaN(worldPos.x) && !float.IsNaN(worldPos.y) && !float.IsNaN(worldPos.z))
+                {
+                    transform.position = worldPos;
+                }
+            }
 
             if (normalizedTime >= 1f)
             {
