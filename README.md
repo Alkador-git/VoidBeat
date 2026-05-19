@@ -99,13 +99,9 @@ Objectif 4 : Admin debug
 🔴 Phase Release : Finition & Narration
 Objectif : Peaufiner afin de passer d'un prototype à un jeu complet.
 
-Objectif 1 : Antagoniste & Boss Final (Le Cœur)
+Objectif 1 : Boss
 
-[ ] - Développer l'IA de Néant-X (Phase 1) : Saut/Glissade esquivant les ondes de choc et piliers de code.
-
-[ ] - Développer l'IA de Néant-X (Phase 2) : Parkour aérien (Dash) entre les débris et vides gravitationnels.
-
-[ ] - Développer l'IA de Néant-X (Phase 3) : Attaques synchronisées sur le boss à 150+ BPM.
+[ ] - Développer l'IA de Néant-X (Phase 3) : Attaques sur le boss.
 
 [ ] - Programmer la phase de transition narrative (dialogue de l'IA) précédant le combat final.
 
@@ -113,15 +109,13 @@ Objectif 2 : Intégration Narrative & UI UX
 
 [ ] - Mettre en place le système de déclenchement des cinématiques in-game (Début, Fin de jeu).
 
-[ ] - Créer l'interface utilisateur (HUD) diégétique (Score dynamique glitché affiché in-world).
-
 [ ] - Implémenter le système de progression (déblocage de zones, gestion des fragments collectés, sauvegarde).
 
 Objectif 3 : Optimisation & Équilibrage
 
-[ ] - Optimisation technique : Shaders de distorsion gravitationnelle, effet de spaghettification pour garantir un framerate constant.
+[~] - Optimisation technique : Shaders de distorsion gravitationnelle, effet de spaghettification pour garantir un framerate constant.
 
-[ ] - Équilibrage final : Ajustement précis des fenêtres de tolérance rythmique (ms) et lissage de la courbe de difficulté.
+[~] - Équilibrage final : Ajustement précis des fenêtres de tolérance rythmique (ms) et lissage de la courbe de difficulté.
 
 🖌 Assets Graphique :
 Main character / K-Z0 :
@@ -168,8 +162,6 @@ Environnements (Tilemaps) :
 
 Particules et VFX :
 
-[ ] - Onde gravitationnelle
-
 [ ] - Particules void
 
 [ ] - Effets glitch et aberration chromatique
@@ -180,6 +172,6 @@ Particules et VFX :
 
 Shaders :
 
-[ ] - Effet spaghetti (étirement des pixels bord gauche)
+[x] - Effet spaghetti (étirement des pixels bord gauche)
 
-[ ] - Distorsion gravitationnelle (effet lentille)
+[x] - Distorsion gravitationnelle (effet lentille)
