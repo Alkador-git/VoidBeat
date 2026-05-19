@@ -58,7 +58,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FlareColor: {r: 0.62274784, g: 0.4305358, b: 0.7075472, a: 0.2509804}
+    - _FlareColor: {r: 0.62274784, g: 0.4305358, b: 0.7075472, a: 0.3764706}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

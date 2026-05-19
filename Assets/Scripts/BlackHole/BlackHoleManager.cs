@@ -18,6 +18,9 @@ public class BlackHoleManager : MonoBehaviour
     [Header("Visuels (Néant-X)")]
     public MeshRenderer blackHoleRenderer;
 
+    [Header("Vitesse d'interpolation du Shader")]
+    public float shaderIntensitySmoothSpeed = 2f;
+
     [Header("Colliders de défaite")]
     public Collider2D playerCollider;
     public Collider2D blackHoleCollider;
@@ -25,6 +28,7 @@ public class BlackHoleManager : MonoBehaviour
     private float currentMoveSpeed;
     private float targetX;
     private Camera mainCamera;
+    private float currentShaderIntensity = 0f;
 
     // --- INITIALISATION ---
 
@@ -67,7 +71,7 @@ public class BlackHoleManager : MonoBehaviour
         UpdateShaderGlobalParameters();
     }
 
-    /// Calcule et injecte la position et l'intensité réelles basées sur la distance du joueur.
+    /// Calcule et injecte la position et l'intensité lissée du trou noir dans la mémoire globale d'URP.
     private void UpdateShaderGlobalParameters()
     {
         if (mainCamera == null || player == null) return;
@@ -78,8 +82,10 @@ public class BlackHoleManager : MonoBehaviour
         float currentDistance = Mathf.Abs(player.position.x - transform.position.x);
         float distanceRatio = 1f - Mathf.InverseLerp(deathDistance, maxFollowDistance, currentDistance);
 
-        float sizeFactor = transform.localScale.x * distanceRatio;
-        Shader.SetGlobalFloat("_CustomBlackHoleIntensity", sizeFactor);
+        float targetShaderIntensity = transform.localScale.x * distanceRatio;
+
+        currentShaderIntensity = Mathf.MoveTowards(currentShaderIntensity, targetShaderIntensity, shaderIntensitySmoothSpeed * Time.deltaTime);
+        Shader.SetGlobalFloat("_CustomBlackHoleIntensity", currentShaderIntensity);
     }
 
     // --- COMPORTEMENT ---

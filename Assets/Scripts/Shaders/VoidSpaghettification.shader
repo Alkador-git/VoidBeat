@@ -9,7 +9,7 @@ Shader "URP/VoidSpaghettificationPro"
         _FlareIntensity("Flare Intensity", Range(0, 2)) = 0
         _FlareColor("Flare Color", Color) = (1, 0, 1, 1)
     }
-
+ 
     SubShader
     {
         Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline"}
@@ -20,37 +20,37 @@ Shader "URP/VoidSpaghettificationPro"
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
-
+ 
             float _StretchCurvature, _AberrationIntensity;
             float _DesatIntensity, _BlackHoleRadius, _FlareIntensity;
             float4 _FlareColor;
-
+ 
             float4 _CustomBlackHoleScreenPos;
             float _CustomBlackHoleIntensity;
-
+ 
             float4 Frag(Varyings input) : SV_Target
             {
                 float2 uvOrig = input.texcoord;
                 float2 center = _CustomBlackHoleScreenPos.xy;
                 float2 dir = uvOrig - center;
                 float dist = length(dir);
-
+ 
                 float2 distortedUV = uvOrig;
                 float curve = pow(saturate(1.0 - dist), _StretchCurvature);
                 distortedUV -= dir * curve * _CustomBlackHoleIntensity * 0.5;
-
+ 
                 float shift = _AberrationIntensity * 0.05;
                 float r = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, distortedUV + float2(shift, 0)).r;
                 float g = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, distortedUV).g;
                 float b = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, distortedUV - float2(shift, 0)).b;
                 float3 col = float3(r, g, b);
-
+ 
                 float3 grayscale = Luminance(col).xxx;
                 float3 finalColor = lerp(col, grayscale, _DesatIntensity);
-
+ 
                 float flare = smoothstep(0.8, 0.0, dist) * _FlareIntensity;
                 finalColor += _FlareColor.rgb * flare;
-
+ 
                 if (dist < _BlackHoleRadius * _CustomBlackHoleIntensity)
                 {
                     finalColor = float3(0, 0, 0);

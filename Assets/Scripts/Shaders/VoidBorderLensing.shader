@@ -6,7 +6,7 @@ Shader "URP/VoidBorderLensing"
         _LensingThickness("Lensing Border Thickness", Range(0, 0.2)) = 0.05
         _LensingStrength("Lensing Strength", Range(0, 0.5)) = 0.1
     }
-
+ 
     SubShader
     {
         Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline"}
@@ -17,32 +17,32 @@ Shader "URP/VoidBorderLensing"
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
-
+ 
             float _BlackHoleRadius, _LensingThickness, _LensingStrength;
-
+ 
             float4 _CustomBlackHoleScreenPos;
             float _CustomBlackHoleIntensity;
-
+ 
             float4 Frag(Varyings input) : SV_Target
             {
                 float2 center = _CustomBlackHoleScreenPos.xy;
                 float2 uv = input.texcoord;
                 float2 dir = uv - center;
                 float dist = length(dir);
-
+ 
                 float currentRadius = _BlackHoleRadius * _CustomBlackHoleIntensity; 
                 float lensingOuterLimit = currentRadius + _LensingThickness;
-
+ 
                 if (dist > currentRadius && dist < lensingOuterLimit) 
                 {
                     float borderWeight = 1.0 - ((dist - currentRadius) / _LensingThickness);
                     float offset = borderWeight * _LensingStrength * _CustomBlackHoleIntensity;
                     uv -= normalize(dir) * offset;
                 }
-
+ 
                 float3 screenCol = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, uv).rgb;
                 if (dist < currentRadius) screenCol = float3(0, 0, 0); 
-
+ 
                 return float4(screenCol, 1.0);
             }
             ENDHLSL
