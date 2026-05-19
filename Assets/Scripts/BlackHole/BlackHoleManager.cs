@@ -37,7 +37,7 @@ public class BlackHoleManager : MonoBehaviour
 
     // --- PHYSIQUE ET RENDU SHADER ---
 
-    /// Traitement du déplacement cinétique et projection des coordonnées mondiales sur l'écran.
+    /// Traitement du déplacement cinétique et de la projection écran.
     void Update()
     {
         if (player == null || BoostManager.Instance == null) return;
@@ -67,16 +67,18 @@ public class BlackHoleManager : MonoBehaviour
         UpdateShaderGlobalParameters();
     }
 
-    /// Calcule et injecte la position et l'intensité réelles du trou noir dans la mémoire globale d'URP.
+    /// Calcule et injecte la position et l'intensité réelles basées sur la distance du joueur.
     private void UpdateShaderGlobalParameters()
     {
-        if (mainCamera == null) return;
+        if (mainCamera == null || player == null) return;
 
         Vector3 screenPos = mainCamera.WorldToViewportPoint(transform.position);
-
         Shader.SetGlobalVector("_CustomBlackHoleScreenPos", new Vector4(screenPos.x, screenPos.y, 0f, 0f));
 
-        float sizeFactor = transform.localScale.x;
+        float currentDistance = Mathf.Abs(player.position.x - transform.position.x);
+        float distanceRatio = 1f - Mathf.InverseLerp(deathDistance, maxFollowDistance, currentDistance);
+
+        float sizeFactor = transform.localScale.x * distanceRatio;
         Shader.SetGlobalFloat("_CustomBlackHoleIntensity", sizeFactor);
     }
 

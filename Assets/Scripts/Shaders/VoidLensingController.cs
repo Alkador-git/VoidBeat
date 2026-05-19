@@ -2,54 +2,27 @@ using UnityEngine;
 
 public class VoidLensingController : MonoBehaviour
 {
-    // --- REFERENCES ---
-
+    [Header("Références")]
     public Material lensingMaterial;
-
     public Material spaghettiMaterial;
-
     public URPFeatureManager featureManager;
-
-    // --- RENDERER FEATURE NAMES ---
 
     [Header("Noms des Renderer Features")]
     public string lensingFeatureName = "VoidLensingPass";
-
     public string spaghettiFeatureName = "VoidSpaghettificationPass";
 
-    // --- POSITION & SIZE ---
+    [Header("Seuils de Danger par Distance")]
+    public float activationDistance = 15f;
 
-    [Header("Position & Taille")]
-    [Range(0f, 1f)]
-    public float blackHoleHeight = 0.5f;
+    // --- BOUCLE PRINCIPALE ---
 
-    [Range(0f, 2f)]
-    public float maxRadius = 0.65f;
-
-    // --- DANGER THRESHOLD ---
-
-    [Header("Seuils de Danger")]
-    [Range(0f, 1f)]
-    public float activationThreshold = 0.6f;
-
-    // --- UPDATE LOOP ---
-
-    /// Updates lensing effects based on danger level.
+    /// Met à jour l'activation des passes URP selon la proximité du trou noir.
     void Update()
     {
-        if (BoostManager.Instance == null) return;
+        if (BlackHoleManager.Instance == null || BlackHoleManager.Instance.player == null) return;
 
-        float boostFactor = BoostManager.Instance.currentBoost / BoostManager.Instance.maxBoost;
-        float dangerLevel = 1.0f - boostFactor;
-        float dangerThreshold = 1.0f - activationThreshold;
-
-        float intensity = 0f;
-        bool isDangerous = dangerLevel > dangerThreshold;
-
-        if (isDangerous)
-        {
-            intensity = (dangerLevel - dangerThreshold) / (1.0f - dangerThreshold);
-        }
+        float currentDistance = Mathf.Abs(BlackHoleManager.Instance.player.position.x - BlackHoleManager.Instance.transform.position.x);
+        bool isDangerous = currentDistance <= activationDistance;
 
         if (featureManager != null)
         {
@@ -57,22 +30,18 @@ public class VoidLensingController : MonoBehaviour
             featureManager.SetFeatureActive(spaghettiFeatureName, isDangerous);
         }
 
-        // Update shaders only if needed
         if (isDangerous)
         {
-            UpdateShader(lensingMaterial, intensity);
-            UpdateShader(spaghettiMaterial, intensity);
+            UpdateShader(lensingMaterial);
+            UpdateShader(spaghettiMaterial);
         }
     }
 
-    // --- SHADER UPDATES ---
+    // --- AJUSTEMENT DES SHADERS ---
 
-    /// Updates shader parameters with current intensity.
-    void UpdateShader(Material mat, float intensity)
+    /// Actualise les paramètres locaux des matériaux de distorsion si nécessaire.
+    void UpdateShader(Material mat)
     {
         if (mat == null) return;
-        mat.SetFloat("_CenterY", blackHoleHeight);
-        mat.SetFloat("_Intensity", intensity);
-        mat.SetFloat("_BlackHoleRadius", maxRadius * intensity);
     }
 }

@@ -2,57 +2,42 @@ using UnityEngine;
 
 public class VoidDistortionController : MonoBehaviour
 {
-    // --- MATERIAL ---
-
+    [Header("Matériau")]
     public Material distortionMaterial;
 
-    // --- ACTIVATION THRESHOLD ---
-
-    [Header("Seuil d'activation")]
-    [Range(0f, 1f)]
-    public float activationThreshold = 0.6f;
-
-    // --- SPAGHETTIFICATION SETTINGS ---
+    [Header("Seuils d'activation par Distance")]
+    public float activationDistance = 15f;
 
     [Header("Réglages Spaghettification")]
-    [Range(0f, 1f)]
-    public float maxStretch = 1.0f;
-
     [Range(1f, 5f)]
     public float stretchCurvature = 2.5f;
 
-    // --- VISUAL SETTINGS ---
-
-    [Header("Réglages Visuels")]
+    [Header("Réglages Visuels Maximaux")]
     [Range(0f, 1f)]
     public float maxAberration = 0.4f;
-
     [Range(0f, 1f)]
     public float maxDesaturation = 1.0f;
-
     [Range(0f, 2f)]
     public float maxFlare = 1.5f;
-
     public Color flareColor = new Color(0.7f, 0f, 1f);
 
-    // --- UPDATE LOOP ---
+    // --- BOUCLE PRINCIPALE ---
 
-    /// Updates distortion effects based on boost danger level.
+    /// Met à jour les modificateurs esthétiques du shader selon la proximité réelle du danger.
     void Update()
     {
-        if (distortionMaterial == null || BoostManager.Instance == null) return;
+        if (distortionMaterial == null || BlackHoleManager.Instance == null || BlackHoleManager.Instance.player == null) return;
 
-        float boostFactor = BoostManager.Instance.currentBoost / BoostManager.Instance.maxBoost;
-        float dangerLevel = 1.0f - boostFactor;
-        float dangerThreshold = 1.0f - activationThreshold;
+        float currentDistance = Mathf.Abs(BlackHoleManager.Instance.player.position.x - BlackHoleManager.Instance.transform.position.x);
 
         float effectIntensity = 0f;
-        if (dangerLevel > dangerThreshold)
+        if (currentDistance <= activationDistance)
         {
-            effectIntensity = (dangerLevel - dangerThreshold) / (1.0f - dangerThreshold);
+            float range = activationDistance - BlackHoleManager.Instance.deathDistance;
+            float clampedDist = Mathf.Clamp(currentDistance, BlackHoleManager.Instance.deathDistance, activationDistance);
+            effectIntensity = 1f - ((clampedDist - BlackHoleManager.Instance.deathDistance) / range);
         }
 
-        distortionMaterial.SetFloat("_StretchIntensity", effectIntensity * maxStretch);
         distortionMaterial.SetFloat("_StretchCurvature", stretchCurvature);
         distortionMaterial.SetFloat("_AberrationIntensity", effectIntensity * maxAberration);
         distortionMaterial.SetFloat("_DesatIntensity", effectIntensity * maxDesaturation);

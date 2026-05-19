@@ -91476,7 +91476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackHoleManager
   player: {fileID: 190706020}
-  maxFollowDistance: 50
+  maxFollowDistance: 35
   deathDistance: 30
   speedAtZeroBoost: 6
   speedAtHalfBoost: 3.25
@@ -99325,9 +99325,7 @@ MonoBehaviour:
   featureManager: {fileID: 1388125230}
   lensingFeatureName: NeantXLensingPass
   spaghettiFeatureName: VoidDistortionPass
-  blackHoleHeight: 0.35
-  maxRadius: 0.61
-  activationThreshold: 0.45
+  activationDistance: 25
 --- !u!114 &1388125232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99341,8 +99339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoidDistortionEffect
   distortionMaterial: {fileID: 2100000, guid: 9f6a8ac9c116d3646bd587a453982f44, type: 2}
-  activationThreshold: 0.45
-  maxStretch: 0
+  activationDistance: 25
   stretchCurvature: 5
   maxAberration: 0.3
   maxDesaturation: 1
