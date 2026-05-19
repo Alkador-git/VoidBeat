@@ -99406,10 +99406,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VoidDistortionEffect
   distortionMaterial: {fileID: 2100000, guid: 9f6a8ac9c116d3646bd587a453982f44, type: 2}
   activationDistance: 30
-  stretchCurvature: 5
+  stretchCurvature: 4
   maxAberration: 0.175
   maxDesaturation: 1
-  maxFlare: 2
+  maxFlare: 1
   flareColor: {r: 0.62274784, g: 0.4305358, b: 0.7075472, a: 0.2509804}
 --- !u!4 &1388125233
 Transform:

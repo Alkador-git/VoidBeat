@@ -23,21 +23,26 @@ public class VoidDistortionController : MonoBehaviour
 
     // --- BOUCLE PRINCIPALE ---
 
-    /// Met à jour les modificateurs esthétiques du shader selon la distance directe avec le bord droit.
+    /// Calcule l'intensité de 0% à l'activationDistance jusqu'à 100% au bord droit de l'obstacle.
     void Update()
     {
         if (distortionMaterial == null || BlackHoleManager.Instance == null || BlackHoleManager.Instance.player == null) return;
 
         float blackHoleRadius = BlackHoleManager.Instance.transform.localScale.x * 0.5f;
         float blackHoleRightEdgeX = BlackHoleManager.Instance.transform.position.x + blackHoleRadius;
-        float currentDistance = Mathf.Abs(BlackHoleManager.Instance.player.position.x - blackHoleRightEdgeX);
+        float currentDistance = BlackHoleManager.Instance.player.position.x - blackHoleRightEdgeX;
 
         float currentIntensity = 0f;
-        if (currentDistance <= activationDistance)
+        if (currentDistance < activationDistance)
         {
-            float range = activationDistance - BlackHoleManager.Instance.deathDistance;
-            float clampedDist = Mathf.Clamp(currentDistance, BlackHoleManager.Instance.deathDistance, activationDistance);
-            currentIntensity = 1f - ((clampedDist - BlackHoleManager.Instance.deathDistance) / range);
+            if (currentDistance <= 0f)
+            {
+                currentIntensity = 1f;
+            }
+            else
+            {
+                currentIntensity = 1f - (currentDistance / activationDistance);
+            }
         }
 
         distortionMaterial.SetFloat("_StretchCurvature", stretchCurvature);

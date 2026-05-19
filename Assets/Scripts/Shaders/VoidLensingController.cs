@@ -16,21 +16,26 @@ public class VoidLensingController : MonoBehaviour
 
     // --- BOUCLE PRINCIPALE ---
 
-    /// Met à jour l'activation et les valeurs des passes URP selon la proximité directe avec le bord droit.
+    /// Active et ajuste l'échelle des Renderer Features du déclenchement jusqu'au contact du bord droit.
     void Update()
     {
         if (BlackHoleManager.Instance == null || BlackHoleManager.Instance.player == null) return;
 
         float blackHoleRadius = BlackHoleManager.Instance.transform.localScale.x * 0.5f;
         float blackHoleRightEdgeX = BlackHoleManager.Instance.transform.position.x + blackHoleRadius;
-        float currentDistance = Mathf.Abs(BlackHoleManager.Instance.player.position.x - blackHoleRightEdgeX);
+        float currentDistance = BlackHoleManager.Instance.player.position.x - blackHoleRightEdgeX;
 
         float currentIntensity = 0f;
-        if (currentDistance <= activationDistance)
+        if (currentDistance < activationDistance)
         {
-            float range = activationDistance - BlackHoleManager.Instance.deathDistance;
-            float clampedDist = Mathf.Clamp(currentDistance, BlackHoleManager.Instance.deathDistance, activationDistance);
-            currentIntensity = 1f - ((clampedDist - BlackHoleManager.Instance.deathDistance) / range);
+            if (currentDistance <= 0f)
+            {
+                currentIntensity = 1f;
+            }
+            else
+            {
+                currentIntensity = 1f - (currentDistance / activationDistance);
+            }
         }
 
         bool shouldBeActive = currentIntensity > 0f;
