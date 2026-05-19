@@ -66,6 +66,7 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         allOptionsTabs = new List<CanvasGroup> { videoTab, audioTab, calibrationTab, controlsTab };
 
         SetupPanel(titleGroup, false);
