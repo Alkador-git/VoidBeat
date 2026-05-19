@@ -90,7 +90,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 10}
+  m_Size: {x: 1, y: 20}
   m_EdgeRadius: 0
 --- !u!1 &4011429460261654981
 GameObject:
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 8587351839257747659}
   - component: {fileID: 7541462679090277488}
   m_Layer: 0
-  m_Name: Jump Obstacle Moving
+  m_Name: Jump Obstacle Moving DOWN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4011429460261654981}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 32, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -370,15 +370,15 @@ MonoBehaviour:
   shakeMagnitude: 0.15
   shakeDuration: 0.15
   splineContainer: {fileID: 7541462679090277488}
-  movementDuration: 1
+  movementDuration: 0.75
   movementCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0

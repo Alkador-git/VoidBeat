@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Levelcity_beats
   m_EditorClassIdentifier: Assembly-CSharp::BeatData
   recordedBeats:
+  - xPos: 1.8243055
+    musicTime: 0.56446713
   - xPos: 11.296939
     musicTime: 2.925873
   - xPos: 21.059288
@@ -123,6 +125,12 @@ MonoBehaviour:
     musicTime: 38.346302
   - xPos: 145.16933
     musicTime: 38.937504
+  - xPos: 153.5858
+    musicTime: 41.383698
+  - xPos: 162.00305
+    musicTime: 43.72517
+  - xPos: 171.09964
+    musicTime: 46.18027
   - xPos: 180.30322
     musicTime: 48.60449
   - xPos: 184.8566
