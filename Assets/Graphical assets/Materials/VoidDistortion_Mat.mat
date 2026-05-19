@@ -46,12 +46,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _AberrationIntensity: 0
-    - _BlackHoleRadius: 0.26474217
+    - _BlackHoleRadius: 0.61
     - _CenterY: 0.35
     - _DesatIntensity: 0
     - _EnableExternalAlpha: 0
     - _FlareIntensity: 0
-    - _Intensity: 0.43400356
+    - _Intensity: 1
     - _Shininess: 0.078125
     - _StretchCurvature: 5
     - _StretchIntensity: 0

@@ -187,8 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpObstacle
   boostPenalty: 5
-  shakeMagnitude: 0.2
-  shakeDuration: 0.2
+  shakeMagnitude: 0.15
+  shakeDuration: 0.15
   splineContainer: {fileID: 0}
   movementDuration: 2
   movementCurve:

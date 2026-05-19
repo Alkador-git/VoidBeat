@@ -50,6 +50,9 @@ public class KZ0Controller : MonoBehaviour
     private bool hasPassedUnderObstacle = false;
     private int slideStartBeatCount = -1;
 
+    [Header("Effets Visuels")]
+    public ParticleSystem slideParticles;
+
     [Header("Dash")]
     public float dashForceX = 20f;
     public float dashForceY = 12f;
@@ -70,7 +73,7 @@ public class KZ0Controller : MonoBehaviour
 
     // --- INITIALISATION ---
 
-    /// Initialisation des liaisons de composants physiques et abonnement aux pulsations temporelles.
+    /// Initialisation des composants physiques et abonnements rythmiques.
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -81,7 +84,7 @@ public class KZ0Controller : MonoBehaviour
         BeatManager.OnBeat1 += EvaluateSlideBoost;
     }
 
-    /// Résiliation des liaisons d'événements à la désactivation du personnage.
+    /// Désabonnement des événements rythmiques à la destruction.
     void OnDestroy()
     {
         BeatManager.OnBeat1 -= EvaluateSlideBoost;
@@ -89,7 +92,7 @@ public class KZ0Controller : MonoBehaviour
 
     // --- PHYSIQUE ET MOUVEMENT ---
 
-    /// Traitement analytique des rafraîchissements physiques, détections d'obstacles et mémoires d'inputs.
+    /// Gestion de la boucle de rafraîchissement principale des actions et effets.
     void Update()
     {
         UpdateAnimations();
@@ -175,6 +178,18 @@ public class KZ0Controller : MonoBehaviour
             currentSlideLerp = Mathf.MoveTowards(currentSlideLerp, 0f, Time.deltaTime / slideEaseDuration);
         }
 
+        if (slideParticles != null)
+        {
+            if (isSliding && isGrounded)
+            {
+                if (!slideParticles.isPlaying) slideParticles.Play();
+            }
+            else
+            {
+                if (slideParticles.isPlaying) slideParticles.Stop();
+            }
+        }
+
         if (dashBufferCounter > 0f && canDash && hasTouchedGroundSinceDash)
         {
             dashBufferCounter = 0f;
@@ -186,7 +201,7 @@ public class KZ0Controller : MonoBehaviour
         }
     }
 
-    /// Mise à jour temporelle et diminution linéaire des fenêtres d'amorti des inputs.
+    /// Mise à jour et diminution linéaire des fenêtres de mémorisation.
     private void UpdateBuffers()
     {
         if (GetJumpInput()) jumpBufferCounter = bufferTime;
@@ -203,7 +218,7 @@ public class KZ0Controller : MonoBehaviour
         slideBufferCounter = Mathf.Max(0, slideBufferCounter);
     }
 
-    /// Actualisation des bascules de variables logiques de l'arbre d'animation.
+    /// Actualisation des bascules logiques de l'arbre d'animation.
     private void UpdateAnimations()
     {
         if (anim == null) return;
@@ -214,7 +229,7 @@ public class KZ0Controller : MonoBehaviour
         anim.SetBool("isDashing", isDashing);
     }
 
-    /// Routine d'application et de libération de l'état de recul cinétique après impact.
+    /// Coroutine gérant la trajectoire et l'application du recul après dégât.
     private IEnumerator KnockbackRoutine(Vector2 force)
     {
         isKnockedBack = true;
@@ -224,7 +239,7 @@ public class KZ0Controller : MonoBehaviour
         isKnockedBack = false;
     }
 
-    /// Processus de déplacement et d'annulation de la gravité inhérent à la ruée.
+    /// Coroutine gérant la trajectoire rectiligne de la ruée.
     private IEnumerator PerformDash(Vector2 dir)
     {
         rb.gravityScale = 0f;
@@ -249,7 +264,7 @@ public class KZ0Controller : MonoBehaviour
         canDash = true;
     }
 
-    /// Dessine la sphère filaire matérialisant la portée de détection du plafond.
+    /// Dessine le volume d'analyse de détection du plafond dans la scène.
     private void OnDrawGizmosSelected()
     {
         if (ceilingCheck != null)
@@ -259,16 +274,16 @@ public class KZ0Controller : MonoBehaviour
         }
     }
 
-    /// Déclencheur externe appliquant un vecteur d'impact de recul sur le Rigidbody.
+    /// Soumet l'exécution externe d'une force de recul sur le Rigidbody.
     public void ApplyKnockback(Vector2 force) => StartCoroutine(KnockbackRoutine(force));
 
-    /// Assigne la temporisation de la période d'invulnérabilité après un choc.
+    /// Configure le déclenchement de l'immunité après un impact ennemi.
     public void NotifyEnemyCollision() => gracePeriodCounter = collisionGraceDuration;
 
-    /// Indique si la fenêtre de protection temporelle contre les ennemis est active.
+    /// Détermine si la fenêtre de protection après impact est active.
     public bool IsInCollisionGracePeriod() => gracePeriodCounter > 0;
 
-    /// Applique l'impulsion verticale du saut initial.
+    /// Applique l'impulsion physique initiale du saut vertical.
     private void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -277,10 +292,10 @@ public class KZ0Controller : MonoBehaviour
         jumpTimeCounter = jumpTime;
     }
 
-    /// Réduit de moitié la dimension verticale de la boîte de collision pour glisser.
+    /// Réduit la boîte de collision pour initier le glissement au sol.
     private void StartSlide() { isSliding = true; playerCollider.size = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f); }
 
-    /// Désactive l'état de glissade et applique la pénalité de boost si aucun obstacle n'a été croisé.
+    /// Restaure la boîte de collision par défaut et applique les retraits de ressources.
     private void StopSlide()
     {
         isSliding = false;
@@ -294,15 +309,15 @@ public class KZ0Controller : MonoBehaviour
         }
     }
 
-    /// Interpolation de la vitesse linéaire de déplacement selon le taux de glissade.
+    /// Interpolation de la vélocité linéaire selon le taux de glissade.
     private Vector2 GetBaseRunVelocity() => new Vector2(moveSpeed * Mathf.Lerp(1f, slideSpeedMultiplier, currentSlideLerp), rb.linearVelocity.y);
 
-    /// Tronque le vecteur de vélocité pour ne pas outrepasser les limites structurelles.
+    /// Tronque le vecteur de vélocité selon les amplitudes de sécurité fixées.
     private Vector2 ClampVelocity(Vector2 velocity) => new Vector2(Mathf.Clamp(velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity), Mathf.Clamp(velocity.y, -maxVerticalVelocityDown, maxVerticalVelocityUp));
 
     // --- RYTHME ET INPUTS ---
 
-    /// Évalue l'environnement à chaque battement et attribue un boost hérité de la précision initiale ou une pénalité.
+    /// Analyse l'environnement pour distribuer ou retirer les ressources de boost accumulées.
     private void EvaluateSlideBoost()
     {
         if (isSliding)
@@ -356,7 +371,7 @@ public class KZ0Controller : MonoBehaviour
     private bool GetSlideInputDown() => Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.S);
     private bool GetDashInput() => Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.LeftShift);
 
-    /// Soumet l'évaluation temporelle de l'action pour appliquer la récompense de rythme standard.
+    /// Transmet l'évaluation temporelle de l'action synchrone au gestionnaire.
     private void HandleRhythmicAction()
     {
         if (BeatManager.Instance != null)
