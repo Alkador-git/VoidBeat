@@ -1,47 +1,43 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BlackHoleManager : MonoBehaviour
 {
     public static BlackHoleManager Instance;
-
-    // --- PROXIMITY SETTINGS ---
 
     [Header("Paramètres de Proximité")]
     public Transform player;
     public float maxFollowDistance = 20f;
     public float deathDistance = 2f;
 
-    // --- SPEED SETTINGS ---
     [Header("Réglages de Vitesse (Néant-X)")]
     public float speedAtZeroBoost = 5f;
     public float speedAtHalfBoost = 3.5f;
     public float speedAtFullBoost = 2.5f;
 
-    // --- VISUALS ---
-
     [Header("Visuels (Néant-X)")]
-    public SpriteRenderer blackHoleOverlay;
-    public Color voidColor = new Color(0.12f, 0f, 0.12f, 0.8f);
-
-    // --- COLLIDERS ---
+    public MeshRenderer blackHoleRenderer;
 
     [Header("Colliders de défaite")]
     public Collider2D playerCollider;
     public Collider2D blackHoleCollider;
 
-    // --- INTERNAL STATE ---
     private float currentMoveSpeed;
     private float targetX;
+    private Camera mainCamera;
 
-    // --- INITIALIZATION ---
+    // --- INITIALISATION ---
 
+    /// Établissement du singleton et mise en mémoire de la caméra principale.
     void Awake()
     {
         if (Instance == null) Instance = this;
+        mainCamera = Camera.main;
     }
 
-    // --- UPDATE LOOP ---
+    // --- PHYSIQUE ET RENDU SHADER ---
 
+    /// Traitement du déplacement cinétique et projection des coordonnées mondiales sur l'écran.
     void Update()
     {
         if (player == null || BoostManager.Instance == null) return;
@@ -67,28 +63,41 @@ public class BlackHoleManager : MonoBehaviour
 
         targetX = nextX;
         transform.position = new Vector2(targetX, 1.5f);
+
+        UpdateShaderGlobalParameters();
     }
 
-    // --- INSTANT POSITIONING ---
+    /// Calcule et injecte la position et l'intensité réelles du trou noir dans la mémoire globale d'URP.
+    private void UpdateShaderGlobalParameters()
+    {
+        if (mainCamera == null) return;
 
-    /// Positionne instantanément le trou noir derrière le joueur
+        Vector3 screenPos = mainCamera.WorldToViewportPoint(transform.position);
+
+        Shader.SetGlobalVector("_CustomBlackHoleScreenPos", new Vector4(screenPos.x, screenPos.y, 0f, 0f));
+
+        float sizeFactor = transform.localScale.x;
+        Shader.SetGlobalFloat("_CustomBlackHoleIntensity", sizeFactor);
+    }
+
+    // --- COMPORTEMENT ---
+
+    /// Positionne instantanément le trou noir derrière le joueur.
     public void SnapToPosition()
     {
         if (player == null || BoostManager.Instance == null) return;
 
         float boostFactor = BoostManager.Instance.currentBoost / BoostManager.Instance.maxBoost;
-
         float currentDistance = Mathf.Lerp(maxFollowDistance, deathDistance + 5f, boostFactor);
 
         float instantX = player.position.x - currentDistance;
         transform.position = new Vector2(instantX, 1.5f);
 
         targetX = instantX;
-
+        UpdateShaderGlobalParameters();
     }
 
-    // --- COLLISION DETECTION ---
-
+    /// Analyse les volumes d'entrée pour intercepter le contact physique destructeur.
     void OnTriggerEnter2D(Collider2D collision)
     {
         if ((collision == playerCollider && blackHoleCollider != null && collision.IsTouching(blackHoleCollider)) ||
@@ -104,8 +113,7 @@ public class BlackHoleManager : MonoBehaviour
         }
     }
 
-    // --- EFFECTS ---
-
+    /// Déclenche les effets de distorsion critiques de spaghettification.
     void TriggerSpaghettification()
     {
     }
