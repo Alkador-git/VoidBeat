@@ -45,12 +45,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AberrationIntensity: 0
+    - _AberrationIntensity: 0.175
     - _BlackHoleRadius: 0.00024771693
     - _CenterY: 0.2
-    - _DesatIntensity: 0
+    - _DesatIntensity: 1
     - _EnableExternalAlpha: 0
-    - _FlareIntensity: 0
+    - _FlareIntensity: 2
     - _Intensity: 0.0012385846
     - _Shininess: 0.078125
     - _StretchCurvature: 5
@@ -58,7 +58,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FlareColor: {r: 0.62274784, g: 0.4305358, b: 0.7075472, a: 0.3764706}
+    - _FlareColor: {r: 0.62274784, g: 0.4305358, b: 0.7075472, a: 0.2509804}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

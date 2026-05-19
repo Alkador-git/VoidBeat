@@ -14,29 +14,24 @@ public class VoidLensingController : MonoBehaviour
     [Header("Seuils de Danger par Distance")]
     public float activationDistance = 15f;
 
-    [Header("Vitesse de lissage de l'effet")]
-    public float smoothSpeed = 2f;
-
-    private float currentIntensity = 0f;
-
     // --- BOUCLE PRINCIPALE ---
 
-    /// Met à jour l'activation et les valeurs progressives des passes URP selon la proximité.
+    /// Met à jour l'activation et les valeurs des passes URP selon la proximité directe avec le bord droit.
     void Update()
     {
         if (BlackHoleManager.Instance == null || BlackHoleManager.Instance.player == null) return;
 
-        float currentDistance = Mathf.Abs(BlackHoleManager.Instance.player.position.x - BlackHoleManager.Instance.transform.position.x);
+        float blackHoleRadius = BlackHoleManager.Instance.transform.localScale.x * 0.5f;
+        float blackHoleRightEdgeX = BlackHoleManager.Instance.transform.position.x + blackHoleRadius;
+        float currentDistance = Mathf.Abs(BlackHoleManager.Instance.player.position.x - blackHoleRightEdgeX);
 
-        float targetIntensity = 0f;
+        float currentIntensity = 0f;
         if (currentDistance <= activationDistance)
         {
             float range = activationDistance - BlackHoleManager.Instance.deathDistance;
             float clampedDist = Mathf.Clamp(currentDistance, BlackHoleManager.Instance.deathDistance, activationDistance);
-            targetIntensity = 1f - ((clampedDist - BlackHoleManager.Instance.deathDistance) / range);
+            currentIntensity = 1f - ((clampedDist - BlackHoleManager.Instance.deathDistance) / range);
         }
-
-        currentIntensity = Mathf.MoveTowards(currentIntensity, targetIntensity, smoothSpeed * Time.deltaTime);
 
         bool shouldBeActive = currentIntensity > 0f;
 

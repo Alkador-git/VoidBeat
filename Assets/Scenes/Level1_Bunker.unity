@@ -91533,13 +91533,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackHoleManager
   player: {fileID: 190706020}
-  maxFollowDistance: 50
-  deathDistance: 50
+  maxFollowDistance: 45
+  deathDistance: 45
   speedAtZeroBoost: 5.5
   speedAtHalfBoost: 3.5
   speedAtFullBoost: 1.5
   blackHoleRenderer: {fileID: 362334437}
-  shaderIntensitySmoothSpeed: 1
+  shaderIntensitySmoothSpeed: 2
   playerCollider: {fileID: 190706021}
   blackHoleCollider: {fileID: 362334433}
 --- !u!58 &362334433
@@ -99391,8 +99391,7 @@ MonoBehaviour:
   featureManager: {fileID: 1388125230}
   lensingFeatureName: NeantXLensingPass
   spaghettiFeatureName: VoidDistortionPass
-  activationDistance: 45
-  smoothSpeed: 0.2
+  activationDistance: 30
 --- !u!114 &1388125232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99406,13 +99405,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoidDistortionEffect
   distortionMaterial: {fileID: 2100000, guid: 9f6a8ac9c116d3646bd587a453982f44, type: 2}
-  activationDistance: 45
-  smoothSpeed: 0.2
+  activationDistance: 30
   stretchCurvature: 5
   maxAberration: 0.175
   maxDesaturation: 1
-  maxFlare: 0.9
-  flareColor: {r: 0.62274784, g: 0.4305358, b: 0.7075472, a: 0.3764706}
+  maxFlare: 2
+  flareColor: {r: 0.62274784, g: 0.4305358, b: 0.7075472, a: 0.2509804}
 --- !u!4 &1388125233
 Transform:
   m_ObjectHideFlags: 0
