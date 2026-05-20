@@ -53,7 +53,7 @@ Material:
     - _FlareIntensity: 0
     - _Intensity: 0.0012385846
     - _Shininess: 0.078125
-    - _StretchCurvature: 5
+    - _StretchCurvature: 4
     - _StretchIntensity: 0
     - _ZWrite: 0
     m_Colors:
